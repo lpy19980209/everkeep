@@ -1,12 +1,12 @@
 # 数据库说明
 + 用户
-  + 用户名 ： `ikeep`
-  + 密&emsp;码 ： `ikeep88330`
+  + 用户名 ： `everkeep`
+  + 密&emsp;码 ： `everkeep88330`
   + 权&emsp;限 ：  `all`
 
 + 数据库结构
   +  **所有的 `tablenameid` 均设置了外键，下表中没有指明**
-  + `ikeep.user`
+  + `everkeep.user`
 
     | Field      | Type      | Null | Key | Default           | Extra          |
     |------------|:---------:|:----:|:---:|:-----------------:|----------------|
@@ -16,7 +16,7 @@
     | email      | text      | NO   |     | NULL              |                |
     | createTime | timestamp | NO   |     | CURRENT_TIMESTAMP |                |
 
-  + `ikeep.note`
+  + `everkeep.note`
 
     | Field        | Type       | Null | Key | Default             | Extra                      |
     |--------------|:----------:|:----:|:---:|:-------------------:|----------------------------|
@@ -32,7 +32,7 @@
     | isShare      | tinyint(4) | YES  |     | 0                   |                            |
     | isDelete     | tinyint(4) | YES  |     | 0                   |                            |
     | sharedPeople | text       | YES  |     | NULL                |                            |  
-  + `ikeep.mark`
+  + `everkeep.mark`
 
     | Field      | Type       | Null | Key | Default           | Extra                       |
     |------------|:----------:|:----:|:---:|:-----------------:|:---------------------------:|
@@ -44,7 +44,7 @@
     | isStart    | tinyint(4) | NO   |     | NULL              |                             |
     | isDelete   | tinyint(4) | YES  |     | 0                 |                             |
 
-  + `ikeep.notebook`
+  + `everkeep.notebook`
 
     | Field        | Type       | Null | Key | Default           | Extra                       |
     |:------------:|:----------:|:----:|:---:|:-----------------:|:---------------------------:|
@@ -59,7 +59,7 @@
     | isDelete     | tinyint(4) | YES  |     | 0                 |                             |
     | sharedPeople | text       | YES  |     | NULL              |                             |
 
-  + `ikeep.comment`
+  + `everkeep.comment`
   
     | Field     | Type    | Null | Key | Default | Extra |
     |-----------|:-------:|:----:|:---:|:-------:|:-----:|

@@ -1,5 +1,5 @@
-create database ikeep;
-use ikeep;
+create database everkeep;
+use everkeep;
 
 create table `user` (
 userid int auto_increment primary key,
