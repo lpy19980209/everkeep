@@ -1,7 +1,7 @@
 # 数据库说明
 + 用户
   + 用户名 ： `everkeep`
-  + 密&emsp;码 ： `everkeep88330`
+  + 密&emsp;码 ： `everkeep`
   + 权&emsp;限 ：  `all`
 
 + 数据库结构
