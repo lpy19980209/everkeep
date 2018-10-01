@@ -7,6 +7,7 @@
 + 数据库结构
   +  **所有的 `tablenameid` 均设置了外键，下表中没有指明**
   + `ikeep.user`
+
     | Field      | Type      | Null | Key | Default           | Extra          |
     |------------|:---------:|:----:|:---:|:-----------------:|----------------|
     | userid     | int(11)   | NO   | PRI | NULL              | auto_increment |
@@ -16,6 +17,7 @@
     | createTime | timestamp | NO   |     | CURRENT_TIMESTAMP |                |
 
   + `ikeep.note`
+
     | Field        | Type       | Null | Key | Default             | Extra                      |
     |--------------|:----------:|:----:|:---:|:-------------------:|----------------------------|
     | noteid       | int(11)    | NO   | PRI | NULL                |                            |
@@ -31,6 +33,7 @@
     | isDelete     | tinyint(4) | YES  |     | 0                   |                            |
     | sharedPeople | text       | YES  |     | NULL                |                            |  
   + `ikeep.mark`
+
     | Field      | Type       | Null | Key | Default           | Extra                       |
     |------------|:----------:|:----:|:---:|:-----------------:|:---------------------------:|
     | markid     | int(11)    | NO   | PRI | NULL              | auto_increment              |
@@ -42,6 +45,7 @@
     | isDelete   | tinyint(4) | YES  |     | 0                 |                             |
 
   + `ikeep.notebook`
+
     | Field        | Type       | Null | Key | Default           | Extra                       |
     |:------------:|:----------:|:----:|:---:|:-----------------:|:---------------------------:|
     | notebookid   | int(11)    | NO   | PRI | NULL              |                             |
@@ -56,6 +60,7 @@
     | sharedPeople | text       | YES  |     | NULL              |                             |
 
   + `ikeep.comment`
+  
     | Field     | Type    | Null | Key | Default | Extra |
     |-----------|:-------:|:----:|:---:|:-------:|:-----:|
     | commentid | int(11) | NO   | PRI | NULL    |       |
