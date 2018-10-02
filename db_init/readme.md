@@ -2,7 +2,7 @@
 + 用户
   + 用户名 ： `everkeep`
   + 密&emsp;码 ： `everkeep_team10`
-  + 权&emsp;限 ：  `all`
+  + 权&emsp;限 ：  `all on everkeep.*`
 
 + 数据库结构
   +  **所有的 `tablenameid` 均设置了外键，下表中没有指明**
