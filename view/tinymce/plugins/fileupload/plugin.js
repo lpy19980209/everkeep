@@ -1,8 +1,7 @@
 tinymce.PluginManager.add('fileupload', function(editor, url) {
     // Add a button that opens a window
     editor.addButton('fileupload', {
-        text: '上传附件',
-        icon: false,
+        image: "/webeditor/image/fileupload_plugin/attachment.png",
         onclick: function() {
             // Open window
             editor.windowManager.open({
