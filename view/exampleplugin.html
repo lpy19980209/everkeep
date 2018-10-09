@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit File</title>
+    <script src="../lib/jquery-3.3.1.min.js">
+    </script>
+    <script>
+        $(document).ready(function(){
+            $("#fsubmitbtn").click(function(){
+                let formdata = new FormData();
+                var mfile = document.getElementById("fileipt").files[0];
+                if(mfile == null)
+                {
+                    alert("请选择文件");
+                    return;
+                }
+                formdata.append("myfile", document.getElementById("fileipt").files[0]);
+                $.ajax({
+                    url : "/webeditor/server/receivefile.php",
+                    type: "POST",
+                    data: formdata,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        alert(result);
+                        var response = JSON.parse(result);
+                        if (response["code"] == 0 || response["code"] == 3)
+                        {
+                            let resid = response["data"]["fmd5"];
+                            insertt(resid);
+                        }
+                        else
+                        {
+                            alert("上传失败：" + response["msg"]);
+                        }
+                    },
+                    error: function () {
+                        alert("连接失败，请稍后再试！");
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+
+    </style>
+</head>
+<body>
+    <input id="fileipt" type="file" value="FILE">
+    <button id="fsubmitbtn">提交</button>
+
+    <script>
+        function insertt(resid) {
+            var f = document.getElementById("fileipt").files[0];
+            var link = "/webeditor/server/loadres.php?resid=" + resid;
+
+            let innerr;
+            if(f.name.match(/png/i))
+            {
+                innerr = "<img src ='" + link + "' >";
+            }
+            else
+            {
+                innerr = '<br><a href="' + link + '"style="background-color:#a6a6a6;height: 50; border: #000000;display: inline-block;width: auto">'
+                    + '<img src="https://app.yinxiang.com/images/file-generic.png" style="display: inline-block" >'
+                    + '<span style="display: inline-block">' + f.name + '<br><span>' + (f.size/1024).toFixed(2) + "kb" + '</span></span></a><br>';
+            }
+
+
+            parent.window.tinyMCE.execCommand("mceInsertContent", false, innerr);
+            parent.window.tinyMCE.activeEditor.windowManager.close();
+        }
+    </script>
+</body>
+</html>
