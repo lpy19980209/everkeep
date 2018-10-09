@@ -7,7 +7,7 @@ tinymce.PluginManager.add('fileupload', function(editor, url) {
             // Open window
             editor.windowManager.open({
                 title: 'File Upload',
-                url: '/webeditor/view/exampleplugin.html',
+                url: '/webeditor/view/fileupload_plugin_view.html',
                 width:  window.outerWidth/2,
                 height: window.outerHeight/2,
             });
@@ -22,7 +22,7 @@ tinymce.PluginManager.add('fileupload', function(editor, url) {
             // Open window with a specific url
             editor.windowManager.open({
                 title: 'File Upload',
-                url: '/webeditor/view/exampleplugin.html',
+                url: '/webeditor/view/fileupload_plugin_view.html',
                 width:  window.outerWidth/2,
                 height: window.outerHeight/2,
             });
