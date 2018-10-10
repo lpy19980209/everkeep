@@ -5,6 +5,68 @@
     <title>Submit File</title>
     <script src="../lib/jquery-3.3.1.min.js">
     </script>
+    <style>
+
+        .container {
+            margin-top: 100px;
+        }
+
+        #fileipt {
+            display: block;
+        }
+        button {
+            padding: 0px 20px;
+            width: 100px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px;
+            font-size: 16px;
+        }
+        #fsubmitbtn{
+            background: #32CD32;
+            color: #e3f4e8;
+        }
+        #fsubmitbtn:hover {
+            background: #28a955;
+        }
+        #cancelbtn {
+            background: #ececec;
+            color: #606060;
+        }
+        #cancelbtn:hover {
+            background: #d9d9d9;
+        }
+        #filelabel {
+            display: inline-block;
+            padding: 0px 20px;
+            width: 100px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px;
+            font-size: 16px;
+            background: #ececec;
+            color: #606060;
+        }
+        #filelabel:hover {
+            background: #d9d9d9;
+        }
+        #filenamespan {
+            text-align: center;
+            display: inline-block;
+            min-width: 300px;
+            height: 30px;
+            background-color: whitesmoke;
+            border: 1px #8b8b8b;
+            border-radius: 4px;
+            font-size: 16px;
+            color: gray;
+        }
+        .fileselectdiv {
+            text-align: center;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
     <script>
         $(document).ready(function(){
             $("#fsubmitbtn").click(function(){
@@ -24,7 +86,7 @@
                     processData: false,
                     contentType: false,
                     success: function (result) {
-                        alert(result);
+                        console.log(result);
                         var response = JSON.parse(result);
                         if (response["code"] == 0 || response["code"] == 3)
                         {
@@ -41,6 +103,10 @@
                     }
                 });
             });
+
+            $("#fileipt").change(function () {
+                $("#filenamespan").text($("#fileipt").val());
+            });
         });
     </script>
 
@@ -49,10 +115,22 @@
     </style>
 </head>
 <body>
-    <input id="fileipt" type="file" value="FILE" style="display: block">
-    <!--<label for="fileipt" style="background-color: #8b8b8b">选择文件</label>-->
+
+    <div class="container">
+    <input id="fileipt" type="file" value="FILE" style="display: none" >
+    <div class="fileselectdiv">
+    <span id="filenamespan">&emsp;</span>
+    <label id="filelabel" for="fileipt">选择文件</label>
+
+    </div>
     <!--<br>-->
-    <button id="fsubmitbtn">提交</button>
+
+    <div class="fileselectdiv">
+        <button id="cancelbtn">取消</button>
+        <button id="fsubmitbtn">添加</button>
+    </div>
+
+    </div>
 
     <script>
         function insertt(resid) {
@@ -62,13 +140,13 @@
             let innerr;
             if(f.name.match(/png/i))
             {
-                innerr = "<img src ='" + link + "' >";
+                innerr = "<img width=\"500px\" src ='" + link + "' >";
             }
             else
             {
-                innerr = '<br><a href="' + link + '"style="background-color:#a6a6a6;height: 50; border: #000000;display: inline-block;width: auto">'
-                    + '<img src="https://app.yinxiang.com/images/file-generic.png" style="display: inline-block" >'
-                    + '<span style="display: inline-block">' + f.name + '<br><span>' + (f.size/1024).toFixed(2) + "kb" + '</span></span></a><br>';
+                innerr = '<a contentEditable="false" href="' + link + '"style="color:#005c78;background-color:#ecf0f3;height: 50; border: #000000;display: inline-block; padding-right: 30px; width: auto">'
+                    + '<img  src="https://app.yinxiang.com/images/file-generic.png" style="display: inline-block;" >'
+                    + '<span style="display: inline-block">' + f.name + '<br><span>' + (f.size/1024).toFixed(2) + "kb" + '</span></span></a>';
             }
 
 
