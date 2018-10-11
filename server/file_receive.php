@@ -6,6 +6,38 @@
  * Time: 0:14
  */
 
+
+function identity_check()
+{
+    if(isset($_SESSION["uid"]))
+    {
+        return true;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+if(!identity_check())
+{
+    $check_fail_msg = <<<EOF
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>小小笔记</title>
+		<link rel="shortcut icon" href=" /favicon.ico" /> 
+	</head>
+	<body>
+	    <p>您无权访问此页面！</p>
+	</body>
+</html>
+EOF;
+    die($check_fail_msg);
+}
+
+
 if(!isset($_FILES["myfile"]))
 {
     $msg = json_encode([
@@ -34,18 +66,13 @@ else
     $filedata = addslashes(fread(fopen($tmpfname, "rb"), $filesize));
     $fmd5 = md5($fname . $filedata);
 
-//    echo "上传文件名: " . $fname . "<br>";
-//    echo "文件类型: " . $mimetype . "<br>";
-//    echo "文件大小: " . $filesize / 1024 . " kB<br>";
-//    echo "文件临时存储的位置: " . $tmpfname;
-//    echo "文件data: " . $filedata;
-
-    insertfiletodb($fmd5, $fname, $filesize, $filedata);
+    insertfiletodb($fmd5, $fname, $filesize, $filedata, $filemimetype);
 }
 
 
-function insertfiletodb($fmd5, $fname, $fsize, $fdata)
+function insertfiletodb($filemd5, $filename, $filesize, $filedata, $filemimetype)
 {
+    $userid = $_SESSION["uid"];
     $servername = "localhost";
     $username = "filedbtest";
     $password = "filedbtest";
@@ -63,17 +90,17 @@ function insertfiletodb($fmd5, $fname, $fsize, $fdata)
     }
 
     $sql = <<<EOF
-INSERT INTO files (filemd5, filename, filesize, filecontent)
-VALUES ('$fmd5', '$fname', '$fsize', '$fdata')
+INSERT INTO files (filemd5, userid, filename, filesize, filedata, filemimetype)
+VALUES ('$filemd5', '$userid' ,'$filename', '$filesize', '$filedata', '$filemimetype')
 EOF;
     if ($conn->query($sql) === TRUE) {
         $msg = json_encode([
             "code" => 0,
             "msg" => "success",
             "data" => [
-                "fmd5" => $fmd5,
-                "fname" => $fname,
-                "fsize" => $fsize/1024 . " kb",
+                "fmd5" => $filemd5,
+                "fname" => $filename,
+                "fsize" => $filesize/1024 . " kb",
             ],
         ]);
         die($msg);
@@ -82,9 +109,9 @@ EOF;
             "code" => 3,
             "msg" => "数据插入失败: " . $conn->error,
             "data" => [
-                "fmd5" => $fmd5,
-                "fname" => htmlspecialchars($fname),
-                "fsize" => $fsize/1024 . " kb",
+                "fmd5" => $filemd5,
+                "fname" => htmlspecialchars($filename),
+                "fsize" => $filesize/1024 . " kb",
             ],
         ]);
         die($msg);

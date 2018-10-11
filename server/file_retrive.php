@@ -6,6 +6,41 @@
  * Time: 1:16
  */
 
+function identity_check()
+{
+    if(isset($_SESSION["uid"]))
+    {
+        $GLOBALS['userid'] = $_SESSION["uid"];
+        return true;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+function die_for_no_permission() {
+    $check_fail_msg = <<<EOF
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>小小笔记</title>
+		<link rel="shortcut icon" href=" /favicon.ico" /> 
+	</head>
+	<body>
+	    <p>您无权访问此页面！</p>
+	</body>
+</html>
+EOF;
+    die($check_fail_msg);
+}
+
+if(!identity_check())
+{
+    die_for_no_permission();
+}
+
 $resid = $_GET["resid"];
 readfilefromdb($resid);
 
@@ -27,23 +62,32 @@ function readfilefromdb($resid)
         die($msg);
     }
 
+
+
     $sql = <<<EOF
-select filemd5, filename, filesize, filecontent from files where filemd5='$resid'
+select userid, filename, filesize, filedata, filemimetype from files where filemd5='$resid'
 EOF;
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
+
         // 输出数据
         while($row = $result->fetch_assoc()) {
 //            echo "fmd5: " . $row["filemd5"]. " - fname: " . $row["filename"]. " - fsize: " . $row["filesize"]. "<br>";
-            if(preg_match("/png/i", $row["filename"]))
+
+            if($row["uesrid"] != $GLOBALS['userid'])
             {
-                returnimage($row["filename"], $row["filesize"], $row["filecontent"]);
+                die_for_no_permission();
+            }
+
+            if(preg_match("/image/i", $row["filemimetype"]))
+            {
+                returnimage($row["filename"], $row["filesize"], $row["filedata"]);
             }
             else
             {
-                returnfiledownload($row["filename"], $row["filesize"], $row["filecontent"]);
+                returnfiledownload($row["filename"], $row["filesize"], $row["filedata"]);
             }
         }
     } else {
