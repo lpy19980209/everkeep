@@ -79,7 +79,7 @@
                 }
                 formdata.append("myfile", document.getElementById("fileipt").files[0]);
                 $.ajax({
-                    url : "/webeditor/server/receivefile.php",
+                    url : "../server/fileupload_plugin/receivefile.php",
                     type: "POST",
                     data: formdata,
                     cache: false,
