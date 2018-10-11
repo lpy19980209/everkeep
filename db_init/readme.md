@@ -75,12 +75,12 @@
 
   + `everkeep.file`
 
-    | Field        | Type    | Null | Key | Default | Extra |
-    |--------------|:-------:|:----:|:---:|:-------:|:-----:|
-    | fileid       | int(11) | NO   | PRI | NULL    |       |
-    | userid       | int(11) | NO   | MUL | NULL    |       |
-    | filename     | text    | NO   |     | NULL    |       |
-    | filesize     | int(11) | NO   |     | NULL    |       |
-    | filedata     | blob    | NO   |     | NULL    |       |
-    | filemimetype | text    | NO   |     | NULL    |       |
-    | link         | int(11) | YES  |     | 1       |       |
+    | Field        | Type        | Null | Key | Default | Extra |
+    |--------------|:-----------:|:----:|:---:|:-------:|:-----:|
+    | fileid       | varchar(32) | NO   | PRI | NULL    |       |
+    | userid       | int(11)     | NO   | MUL | NULL    |       |
+    | filename     | text        | NO   |     | NULL    |       |
+    | filesize     | int(11)     | NO   |     | NULL    |       |
+    | filedata     | blob        | NO   |     | NULL    |       |
+    | filemimetype | text        | NO   |     | NULL    |       |
+    | link         | int(11)     | YES  |     | 1       |       |

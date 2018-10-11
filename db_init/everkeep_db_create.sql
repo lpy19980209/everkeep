@@ -74,7 +74,7 @@ constraint fk_commentid_noteid foreign key (noteid) references  note(noteid)
 );
 
 create table `file` (
-fileid int primary key,
+fileid varchar(32) primary key,
 userid int not null,
 filename text not null,
 filesize int not null,
