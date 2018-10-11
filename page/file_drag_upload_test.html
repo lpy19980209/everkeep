@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>File Access</title>
+        <meta charset="utf-8">
+
+        <style>
+            .visually-hidden {
+                position: absolute !important;
+                height: 1px;
+                width: 1px;
+                overflow: hidden;
+                clip: rect(1px, 1px, 1px, 1px);
+            }
+
+            input.visually-hidden:focus + label {
+                outline: thin dotted;
+            }
+
+            .obj {
+                background-color: aquamarine;
+            }
+        </style>
+
+        
+    </head>
+
+    <body>
+        <!-- <h1>File Access</h1> -->
+        <input type="file" id="input" accept="image/*" class="visually-hidden">
+        <!-- <br> -->
+        <label for="input">Select some files</label>
+
+        <div id="dropbox" style="height:500px;background:greenyellow">
+
+        </div>
+    </body>
+
+    <script>
+        var inputElement = document.getElementById("input");
+        inputElement.addEventListener("change", handle, false);
+        function handle() {
+            for(var i = 0, numFiles = this.files.length; i < numFiles; i++ )
+            {
+                var file = this.files[i];
+                alert(file_drag_upload_test.name + "\n" + file_drag_upload_test.size + "\n" + file_drag_upload_test.type);
+            }  
+         }
+
+         function callfile() 
+         {
+             inputElement.click();
+         }
+
+         var dropbox;
+         dropbox = document.getElementById("dropbox");
+         dropbox.addEventListener("dragenter", dragenter, false);
+         dropbox.addEventListener("dragover", dragover, false);
+         dropbox.addEventListener("drop", drop, false);
+
+         function dragenter(e) {
+            e.stopPropagation();
+            e.preventDefault(); 
+         }
+         function dragover(e) {
+            e.stopPropagation();
+            e.preventDefault(); 
+         }
+
+         function drop(e) {
+            e.stopPropagation();
+            e.preventDefault(); 
+
+            var dt = e.dataTransfer;
+            var files = dt.files;
+
+            handlefiles(files);
+         }
+
+         function handlefiles(files) {
+            var preview = document.getElementById("dropbox");
+            for(var i = 0, numFiles = files.length; i < numFiles; i++ )
+            {
+                var file = files[i];
+                alert(file_drag_upload_test.name + "\n" + file_drag_upload_test.size + "\n" + file_drag_upload_test.type);
+
+                var a = document.createElement("a");
+                a.href = window.URL.createObjectURL(file_drag_upload_test);
+                a.id = "a123456";
+                preview.appendChild(a);
+
+                var label = document.createElement("label");
+                label.classList.add("obj");
+                label.innerHTML = file_drag_upload_test.name;
+                label.file = file_drag_upload_test; //for later upload
+                label.setAttribute("for", "a123456");
+                preview.appendChild(label);
+
+                label.onclick = function() {
+                    a.click();
+                }
+            }  
+         }
+    </script>
+</html>
