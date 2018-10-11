@@ -54,6 +54,8 @@ body {
     top:0px;
     display: none;
     left:-450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #img0{
@@ -409,7 +411,37 @@ body {
     /*background-color: #8a6d3b;*/
 }
 
-#mytextarea {
-    width: 100%;
-    height: 100%;
+
+#note_edit_title {
+    display: block;
+    height: 40px;
+    top: 40px;
+    box-sizing: border-box;
+    margin: 0px;
+    color: #28a955;
+    font-size: 26px;
+    border-width: 0;
+    outline: none;
+    font-family: 宋体;
+}
+
+#note_edit_title::-webkit-input-placeholder {
+    color: #28a955;
+}
+
+#mce_toolbar {
+    height: 40px;
+    top: 0px;
+    margin: 0px;
+}
+
+#my_text_area {
+    display: block;
+    position: absolute;
+    top: 85px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    border-width: 0px;
+    outline: none;
 }
