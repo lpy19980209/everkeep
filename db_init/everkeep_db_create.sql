@@ -79,7 +79,6 @@ userid int not null,
 filename text not null,
 filesize int not null,
 filedata longblob not null,
-filemimetype text not null,
 link int default 1,
 constraint fk_fileid_userid foreign key(userid) references `user`(userid)
 );
