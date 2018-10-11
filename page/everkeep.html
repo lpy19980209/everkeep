@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>小小笔记</title>
     <script type="text/javascript" src="../lib/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../script/main_frame.js"></script>
     <script src="../lib/js/tinymce/tinymce.js"></script>
     <script src="../script/note_area.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/main_frame.css"/>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/note_area.css"/>
 </head>
 <body>
 <div style="width: 100%;height: 100%;">
@@ -122,15 +123,12 @@
                 工具栏2
             </div>
 
-            </div>
-            <div id="note_edit">
-                <div id="mce_toolbar"></div>
-                    <input type="text" placeholder="无标题" contentEditable="true" id="note_edit_title"></input>
-                <!--<form method="post" action="/webeditor/view/tinymcehandle.php">-->
-                    <div name="mce_text" id="my_text_area">Hello, World!</div>
-                    <!--<input type="submit" value="SUBMIT"/>-->
-            </div>
         </div>
+        <div id="note_edit">
+            <div id="mce_toolbar"></div>
+            <input type="text" placeholder="无标题" contentEditable="true" id="note_edit_title"></input>
+        </div>
+        <div name="mce_text" id="my_text_area"></div>
     </div>
 </div>
 </body>

@@ -1,0 +1,66 @@
+
+#note_area {
+    position: absolute;
+    /*background: #2d8ac7;*/
+    right: 0px;
+    left: 420px;
+    top: 0px;
+    bottom: 0px;
+}
+
+#note_area #top_toolbar {
+    height: 100px;
+    width: 100%;
+    /*background-color: #b94a48;*/
+}
+
+#top_toolbar_up, #top_toolbar_down {
+    height: 50px;
+}
+
+#note_edit {
+    position: absolute;
+    /*bottom: 0px;*/
+    top: 100px;
+    right: 10%;
+    left: 10%;
+    /*background-color: #8a6d3b;*/
+}
+
+
+#note_edit_title {
+    display: block;
+    height: 40px;
+    top: 40px;
+    box-sizing: border-box;
+    margin: 0px;
+    color: #28a955;
+    font-size: 26px;
+    border-width: 0;
+    outline: none;
+    font-family: 宋体;
+}
+
+#note_edit_title::-webkit-input-placeholder {
+    color: #28a955;
+}
+
+#mce_toolbar {
+    height: 40px;
+    top: 0px;
+    margin: 0px;
+}
+
+#my_text_area {
+    display: block;
+    position: absolute;
+    top: 175px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding-left: 10%;
+    padding-right: 10%;
+    border-width: 0px;
+    outline: none;
+    overflow-y: scroll;
+}
