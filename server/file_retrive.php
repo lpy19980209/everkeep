@@ -6,16 +6,18 @@
  * Time: 1:16
  */
 
+session_start();
+
 function identity_check()
 {
     if(isset($_SESSION["uid"]))
     {
-        $GLOBALS['userid'] = $_SESSION["uid"];
+        $GLOBALS['userid'] = $_SESSION['uid'];
         return true;
     }
     else
     {
-        return true;
+        return false;
     }
 }
 
@@ -26,7 +28,7 @@ function die_for_no_permission() {
 	<head>
 		<meta charset="utf-8" />
 		<title>小小笔记</title>
-		<link rel="shortcut icon" href=" /favicon.ico" /> 
+		<link rel="shortcut icon" href=" /favicon.ico" />
 	</head>
 	<body>
 	    <p>您无权访问此页面！</p>
@@ -47,9 +49,10 @@ readfilefromdb($resid);
 function readfilefromdb($resid)
 {
     $servername = "localhost";
-    $username = "filedbtest";
-    $password = "filedbtest";
-    $dbname = "filedbtest";
+    $username = "everkeep";
+    $password = "everkeep_team10";
+    $dbname = "everkeep";
+    $tname = 'file';
 
 // 创建连接
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -65,7 +68,7 @@ function readfilefromdb($resid)
 
 
     $sql = <<<EOF
-select userid, filename, filesize, filedata, filemimetype from files where fileid='$resid'
+select userid, filename, filesize, filedata from $tname where fileid='$resid'
 EOF;
 
     $result = $conn->query($sql);
@@ -76,19 +79,12 @@ EOF;
         while($row = $result->fetch_assoc()) {
 //            echo "fmd5: " . $row["fileid"]. " - fname: " . $row["filename"]. " - fsize: " . $row["filesize"]. "<br>";
 
-            if($row["uesrid"] != $GLOBALS['userid'])
+            if($row["userid"] != $GLOBALS['userid'])
             {
                 die_for_no_permission();
             }
 
-            if(preg_match("/image/i", $row["filemimetype"]))
-            {
-                returnimage($row["filename"], $row["filesize"], $row["filedata"]);
-            }
-            else
-            {
-                returnfiledownload($row["filename"], $row["filesize"], $row["filedata"]);
-            }
+            returnfile($row["filename"], $row["filesize"], $row["filedata"]);
         }
     } else {
         $msg = json_encode([
@@ -101,18 +97,42 @@ EOF;
     $conn->close();
 }
 
-function returnfiledownload($fname, $fsize, $fdata) {
-    header("Content-Type: application/octet-stream");
-    header("Content-Disposition: attachment; filename='$fname'");
-    header("Content-Length: $fsize");
+//function returnfiledownload($fname, $fsize, $fdata) {
+//    header("Content-Type: application/octet-stream");
+//    header("Content-Disposition: attachment; filename='$fname'");
+//    header("Content-Length: $fsize");
+//
+//    echo $fdata;
+//    exit;
+//}
+//
+//function returnimage($fname, $fsize, $fdata)
+//{
+//    header("Content-Type:image/jpeg;text/html;charset=utf-8");
+//    echo $fdata;
+//    exit;
+//}
 
-    echo $fdata;
-    exit;
-}
-
-function returnimage($fname, $fsize, $fdata)
-{
-    header("Content-Type:image/jpeg;text/html;charset=utf-8");
+function returnfile($fname, $fsize, $fdata) {
+    $ftype = mime_content_type($fname);
+//    header("Content-Type: $ftype");
+//
+//    if(preg_match("\image\i", $ftype) ||
+//        preg_match("\audio\i", $ftype) ||
+//        preg_match("\\video\i", $ftype) ||
+//        preg_match("\xml\i", $ftype) ||
+//        preg_match("\xhtml\i", $ftype) ||
+//        preg_match("\\rtf\i", $ftype) ||
+//        preg_match("\pdf\i", $ftype) ||
+//        preg_match("\\text\i", $ftype))
+//    {
+//        header("Content-Type:$ftype;text/html;charset:utf-8;");
+//    }
+//    else {
+        header("Content-Type: $ftype");
+//        header("Content-Disposition: attachment; filename='$fname'");
+        header("Content-Length: $fsize");
+//    }
     echo $fdata;
     exit;
 }

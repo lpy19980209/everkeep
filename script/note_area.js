@@ -1,5 +1,5 @@
 
-let note_upload_url = "/webeditor_for_everkeep/view/tinymcehandle.php";
+let note_upload_url = "";
 
 tinymce.init({
     selector: '#my_text_area',

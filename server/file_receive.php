@@ -6,28 +6,29 @@
  * Time: 0:14
  */
 
+session_start();
 
 function identity_check()
 {
     if(isset($_SESSION["uid"]))
     {
+        $GLOBALS['userid'] = $_SESSION['uid'];
         return true;
     }
     else
     {
-        return true;
+        return false;
     }
 }
 
-if(!identity_check())
-{
+function die_for_no_permission() {
     $check_fail_msg = <<<EOF
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
 		<title>小小笔记</title>
-		<link rel="shortcut icon" href=" /favicon.ico" /> 
+		<link rel="shortcut icon" href=" /favicon.ico" />
 	</head>
 	<body>
 	    <p>您无权访问此页面！</p>
@@ -37,12 +38,17 @@ EOF;
     die($check_fail_msg);
 }
 
+if(!identity_check())
+{
+    die_for_no_permission();
+}
+
 
 if(!isset($_FILES["myfile"]))
 {
     $msg = json_encode([
         "code" => 8,
-        "msg" => "未找到文件",
+        "msg" => "未找到文件(应该是文件太大了)",
     ]);
 
     die($msg);
@@ -62,22 +68,21 @@ else
     $fname = $_FILES["myfile"]["name"];
     $tmpfname = $_FILES["myfile"]["tmp_name"];
     $filesize = filesize($tmpfname);
-    $mimetype = $_FILES["myfile"]["type"];
     $filedata = addslashes(fread(fopen($tmpfname, "rb"), $filesize));
     $fmd5 = md5($fname . $filedata);
 
-    insertfiletodb($fmd5, $fname, $filesize, $filedata, $filemimetype);
+    insertfiletodb($fmd5, $fname, $filesize, $filedata);
 }
 
 
-function insertfiletodb($fileid, $filename, $filesize, $filedata, $filemimetype)
+function insertfiletodb($fileid, $filename, $filesize, $filedata)
 {
     $userid = $_SESSION["uid"];
     $servername = "localhost";
     $username = "everkeep";
     $password = "everkeep_team10";
     $dbname = "everkeep";
-    $tablename = "";
+    $tablename = "file";
 
 // 创建连接
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -91,8 +96,8 @@ function insertfiletodb($fileid, $filename, $filesize, $filedata, $filemimetype)
     }
 
     $sql = <<<EOF
-INSERT INTO files (fileid, userid, filename, filesize, filedata, filemimetype)
-VALUES ('$fileid', '$userid' ,'$filename', '$filesize', '$filedata', '$filemimetype')
+INSERT INTO $tablename (fileid, userid, filename, filesize, filedata)
+VALUES ('$fileid', '$userid' ,'$filename', '$filesize', '$filedata')
 EOF;
     if ($conn->query($sql) === TRUE) {
         $msg = json_encode([

@@ -14,6 +14,13 @@ $(document).ready(function(){
             alert("请选择文件");
             return;
         }
+
+        if(document.getElementById("fileipt").files[0].size > 20971520)
+        {
+            alert("单个文件不能大于20MB");
+            return;
+        }
+
         formdata.append("myfile", document.getElementById("fileipt").files[0]);
         $.ajax({
             url : file_upload_url,
@@ -56,7 +63,7 @@ function insertt(resid) {
     var link = "/webeditor_for_everkeep/server/file_retrive.php?resid=" + resid;
 
     let innerr;
-    if(f.mimeType.match(/image/i))
+    if(f.type.match(/image/i))
     {
         innerr = "<img width=\"100%\" src ='" + link + "' >";
     }
