@@ -56,7 +56,7 @@ function insertt(resid) {
     var link = "/webeditor_for_everkeep/server/file_retrive.php?resid=" + resid;
 
     let innerr;
-    if(f.name.match(/png/i))
+    if(f.mimeType.match(/image/i))
     {
         innerr = "<img width=\"100%\" src ='" + link + "' >";
     }
