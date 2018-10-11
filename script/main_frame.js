@@ -114,3 +114,11 @@ $(document).ready(function () {
         $(this).append('<img src="../image/main_frame/duihao.png"> ').siblings().children("img").remove().$("#list1").hide();
     })
 })
+
+$(document).ready(function () {
+    if($('#slide2').css('left') == '-450px')
+    {
+        $("#slide2").show();
+        $("#slide2").css('left', '0px');
+    }
+});

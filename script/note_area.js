@@ -2,6 +2,7 @@
 tinymce.init({
     selector: '#mytextarea',
     theme: 'modern',
+    // inline: true,
     menubar: false,
     language: 'zh_CN',
     plugins: 'fileupload, link, preview, table, hr, textcolor, lists, autolink',
