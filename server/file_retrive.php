@@ -65,7 +65,7 @@ function readfilefromdb($resid)
 
 
     $sql = <<<EOF
-select userid, filename, filesize, filedata, filemimetype from files where filemd5='$resid'
+select userid, filename, filesize, filedata, filemimetype from files where fileid='$resid'
 EOF;
 
     $result = $conn->query($sql);
@@ -74,7 +74,7 @@ EOF;
 
         // 输出数据
         while($row = $result->fetch_assoc()) {
-//            echo "fmd5: " . $row["filemd5"]. " - fname: " . $row["filename"]. " - fsize: " . $row["filesize"]. "<br>";
+//            echo "fmd5: " . $row["fileid"]. " - fname: " . $row["filename"]. " - fsize: " . $row["filesize"]. "<br>";
 
             if($row["uesrid"] != $GLOBALS['userid'])
             {

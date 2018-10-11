@@ -70,13 +70,14 @@ else
 }
 
 
-function insertfiletodb($filemd5, $filename, $filesize, $filedata, $filemimetype)
+function insertfiletodb($fileid, $filename, $filesize, $filedata, $filemimetype)
 {
     $userid = $_SESSION["uid"];
     $servername = "localhost";
-    $username = "filedbtest";
-    $password = "filedbtest";
-    $dbname = "filedbtest";
+    $username = "everkeep";
+    $password = "everkeep_team10";
+    $dbname = "everkeep";
+    $tablename = "";
 
 // 创建连接
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -90,15 +91,15 @@ function insertfiletodb($filemd5, $filename, $filesize, $filedata, $filemimetype
     }
 
     $sql = <<<EOF
-INSERT INTO files (filemd5, userid, filename, filesize, filedata, filemimetype)
-VALUES ('$filemd5', '$userid' ,'$filename', '$filesize', '$filedata', '$filemimetype')
+INSERT INTO files (fileid, userid, filename, filesize, filedata, filemimetype)
+VALUES ('$fileid', '$userid' ,'$filename', '$filesize', '$filedata', '$filemimetype')
 EOF;
     if ($conn->query($sql) === TRUE) {
         $msg = json_encode([
             "code" => 0,
             "msg" => "success",
             "data" => [
-                "fmd5" => $filemd5,
+                "fmd5" => $fileid,
                 "fname" => $filename,
                 "fsize" => $filesize/1024 . " kb",
             ],
@@ -109,7 +110,7 @@ EOF;
             "code" => 3,
             "msg" => "数据插入失败: " . $conn->error,
             "data" => [
-                "fmd5" => $filemd5,
+                "fmd5" => $fileid,
                 "fname" => htmlspecialchars($filename),
                 "fsize" => $filesize/1024 . " kb",
             ],
