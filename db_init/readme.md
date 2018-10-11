@@ -81,6 +81,6 @@
     | userid       | int(11)     | NO   | MUL | NULL    |       |
     | filename     | text        | NO   |     | NULL    |       |
     | filesize     | int(11)     | NO   |     | NULL    |       |
-    | filedata     | blob        | NO   |     | NULL    |       |
+    | filedata     | longblob    | NO   |     | NULL    |       |
     | filemimetype | text        | NO   |     | NULL    |       |
     | link         | int(11)     | YES  |     | 1       |       |
