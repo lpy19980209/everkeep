@@ -22,6 +22,7 @@
     |--------------|:----------:|:----:|:---:|:-------------------:|----------------------------|
     | noteid       | int(11)    | NO   | PRI | NULL                |                            |
     | userid       | int(11)    | NO   | MUL | NULL                |                            |
+    | title        | text       | YES  |     | NULL                |                            |
     | content      | text       | NO   |     | NULL                |                            |
     | createTime   | timestamp  | NO   |     | CURRENT_TIMESTAMP   |                            |
     | updateTime   | timestamp  | NO   |     | CURRENT_TIMESTAMP   | on update CURRENT_TIMESTAMP|
@@ -71,3 +72,15 @@
     | ext       | text    | YES  |     | NULL    |       |
     | type      | text    | YES  |     | NULL    |       |
     | filepath  | text    | YES  |     | NULL    |       |
+
+  + `everkeep.file`
+
+    | Field        | Type    | Null | Key | Default | Extra |
+    |--------------|:-------:|:----:|:---:|:-------:|:-----:|
+    | fileid       | int(11) | NO   | PRI | NULL    |       |
+    | userid       | int(11) | NO   | MUL | NULL    |       |
+    | filename     | text    | NO   |     | NULL    |       |
+    | filesize     | int(11) | NO   |     | NULL    |       |
+    | filedata     | blob    | NO   |     | NULL    |       |
+    | filemimetype | text    | NO   |     | NULL    |       |
+    | link         | int(11) | YES  |     | 1       |       |

@@ -41,6 +41,7 @@ constraint fk_notebookid_userid foreign key (userid) references  `user`(userid)
 create table note (
 noteid int primary key,
 userid int not null,
+title text default null,
 content text not null,
 createTime timestamp not null default current_timestamp,
 updateTime timestamp not null default current_timestamp on update current_timestamp,
@@ -70,6 +71,17 @@ filepath text default null,
 
 constraint fk_commentid_userid foreign key (userid) references  `user`(userid),
 constraint fk_commentid_noteid foreign key (noteid) references  note(noteid)
+);
+
+create table `file` (
+fileid int primary key,
+userid int not null,
+filename text not null,
+filesize int not null,
+filedata blob not null,
+filemimetype text not null,
+link int default 1,
+constraint fk_fileid_userid foreign key(userid) references `user`(userid)
 );
 
 
