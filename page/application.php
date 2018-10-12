@@ -7,35 +7,12 @@
  */
 
 session_start();
+require_once '../server/permission_manager.php';
+require_once '../server/response_code.php';
 
-function identity_check()
+if(!isLogin())
 {
-    if(isset($_SESSION["uid"]))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-if(!identity_check())
-{
-    $check_fail_msg = <<<EOF
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>小小笔记</title>
-		<link rel="shortcut icon" href=" /favicon.ico" /> 
-	</head>
-	<body>
-	    <p>您无权访问此页面！</p>
-	</body>
-</html>
-EOF;
-    die($check_fail_msg);
+    die_for_no_login();
 }
 
 header('content-type:text/html;charset=uft-8');

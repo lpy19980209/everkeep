@@ -20,12 +20,6 @@ else
     die_for_no_login();
 }
 
-if(!identity_check())
-{
-    die_for_no_permission();
-}
-
-
 if(!isset($_FILES["myfile"]))
 {
     $msg = json_encode([
