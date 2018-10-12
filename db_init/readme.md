@@ -20,7 +20,7 @@
 
     | Field        | Type       | Null | Key | Default             | Extra                      |
     |--------------|:----------:|:----:|:---:|:-------------------:|----------------------------|
-    | noteid       | int(11)    | NO   | PRI | NULL                |                            |
+    | noteid       | int(11)    | NO   | PRI | NULL                | auto_increment |
     | userid       | int(11)    | NO   | MUL | NULL                |                            |
     | title        | text       | YES  |     | NULL                |                            |
     | content      | text       | NO   |     | NULL                |                            |
@@ -49,7 +49,7 @@
 
     | Field        | Type       | Null | Key | Default           | Extra                       |
     |:------------:|:----------:|:----:|:---:|:-----------------:|:---------------------------:|
-    | notebookid   | int(11)    | NO   | PRI | NULL              |                             |
+    | notebookid   | int(11)    | NO   | PRI | NULL              | auto_increment |
     | userid       | int(11)    | NO   | MUL | NULL              |                             |
     | bookName     | text       | NO   |     | NULL              |                             |
     | createTime   | timestamp  | NO   |     | CURRENT_TIMESTAMP |                             |
@@ -64,7 +64,7 @@
   
     | Field     | Type    | Null | Key | Default | Extra |
     |-----------|:-------:|:----:|:---:|:-------:|:-----:|
-    | commentid | int(11) | NO   | PRI | NULL    |       |
+    | commentid | int(11) | NO   | PRI | NULL    | auto_increment |
     | userid    | int(11) | NO   | MUL | NULL    |       |
     | noteid    | int(11) | NO   | MUL | NULL    |       |
     | content   | text    | NO   |     | NULL    |       |
