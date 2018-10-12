@@ -23,7 +23,7 @@ tinymce.init({
 
 
 function note_submit() {
-    let noteid = null;
+    let noteid = -1;
     let notetitle = $("#note_edit_title").val();
     let notecontent = tinyMCE.activeEditor.getContent();
     // console.log("local: " + noteid + notetitle + notecontent);
@@ -33,13 +33,42 @@ function note_submit() {
        type: 'post',
        data: {noteid: noteid, notetitle: notetitle, notecontent: notecontent},
        success: function (response_data) {
-           alert("保存成功");
+           // alert("保存成功");
            console.log(response_data);
+           var response = JSON.parse(response_data);
+           if(response['code'] == 0)
+           {
+               note_save_success();
+           }
+           else
+           {
+               note_save_error();
+           }
        },
        error: function (e) {
-           alert("无法保存");
+           alert("连接失败，无法保存");
        },
     });
 
     return false;
 }
+
+function note_save_success()
+{
+    console.log("保存成功");
+}
+
+function note_save_error()
+{
+    alert("保存失败");
+}
+
+$(document).ready(function () {
+    $("#note_edit_title").change(function () {
+        note_submit();
+    });
+
+    window.onunload = function () {
+        note_submit();
+    };
+});
