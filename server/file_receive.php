@@ -6,11 +6,25 @@
  * Time: 0:14
  */
 
+session_start();
+
+require_once './permission_manager.php';
+require_once  './response_code.php';
+
+if(isLogin())
+{
+    $GLOBALS['userid'] = $_SESSION['uid'];
+}
+else
+{
+    die_for_no_login();
+}
+
 if(!isset($_FILES["myfile"]))
 {
     $msg = json_encode([
-        "code" => 8,
-        "msg" => "未找到文件",
+        "code" => POST_NO_FILE,
+        "msg" => "未找到文件(应该是文件太大了)",
     ]);
 
     die($msg);
@@ -19,8 +33,8 @@ if(!isset($_FILES["myfile"]))
 if($_FILES["myfile"]["error"] > 0)
 {
     $msg = json_encode([
-        "code" => 1,
-        "msg" => "文件出错" . $_FILES["myfile"]["error"],
+        "code" => FILE_POSTED_ERROR,
+        "msg" => "文件出错,错误码为 " . $_FILES["myfile"]["error"],
     ]);
 
     die($msg);
@@ -30,61 +44,56 @@ else
     $fname = $_FILES["myfile"]["name"];
     $tmpfname = $_FILES["myfile"]["tmp_name"];
     $filesize = filesize($tmpfname);
-    $mimetype = $_FILES["myfile"]["type"];
     $filedata = addslashes(fread(fopen($tmpfname, "rb"), $filesize));
     $fmd5 = md5($fname . $filedata);
-
-//    echo "上传文件名: " . $fname . "<br>";
-//    echo "文件类型: " . $mimetype . "<br>";
-//    echo "文件大小: " . $filesize / 1024 . " kB<br>";
-//    echo "文件临时存储的位置: " . $tmpfname;
-//    echo "文件data: " . $filedata;
 
     insertfiletodb($fmd5, $fname, $filesize, $filedata);
 }
 
 
-function insertfiletodb($fmd5, $fname, $fsize, $fdata)
+function insertfiletodb($fileid, $filename, $filesize, $filedata)
 {
+    $userid = $_SESSION["uid"];
     $servername = "localhost";
-    $username = "filedbtest";
-    $password = "filedbtest";
-    $dbname = "filedbtest";
+    $username = "everkeep";
+    $password = "everkeep_team10";
+    $dbname = "everkeep";
+    $tablename = "file";
 
 // 创建连接
     $conn = new mysqli($servername, $username, $password, $dbname);
 // 检测连接
     if ($conn->connect_error) {
         $msg = json_encode([
-           "code" => 2,
+           "code" => DB_CONNECTION_ERROR,
            "msg" => "数据库连接失败",
         ]);
         die($msg);
     }
 
     $sql = <<<EOF
-INSERT INTO files (filemd5, filename, filesize, filecontent)
-VALUES ('$fmd5', '$fname', '$fsize', '$fdata')
+INSERT INTO $tablename (fileid, userid, filename, filesize, filedata)
+VALUES ('$fileid', '$userid' ,'$filename', '$filesize', '$filedata')
 EOF;
     if ($conn->query($sql) === TRUE) {
         $msg = json_encode([
-            "code" => 0,
+            "code" => SUCCESS,
             "msg" => "success",
             "data" => [
-                "fmd5" => $fmd5,
-                "fname" => $fname,
-                "fsize" => $fsize/1024 . " kb",
+                "fmd5" => $fileid,
+                "fname" => $filename,
+                "fsize" => $filesize/1024 . " kb",
             ],
         ]);
         die($msg);
     } else {
         $msg = json_encode([
-            "code" => 3,
+            "code" => DB_INSERTION_ERROR,
             "msg" => "数据插入失败: " . $conn->error,
             "data" => [
-                "fmd5" => $fmd5,
-                "fname" => htmlspecialchars($fname),
-                "fsize" => $fsize/1024 . " kb",
+                "fmd5" => $fileid,
+                "fname" => htmlspecialchars($filename),
+                "fsize" => $filesize/1024 . " kb",
             ],
         ]);
         die($msg);

@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>小小笔记</title>
     <script type="text/javascript" src="../lib/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../script/main_frame.js"></script>
+    <script src="../lib/js/tinymce/tinymce.js"></script>
+    <script src="../script/note_area.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/main_frame.css"/>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/note_area.css"/>
 </head>
 <body>
 <div style="width: 100%;height: 100%;">
-    <div id="slide1">
+    <div id="slide1" class="sidebar">
         <div class="div3">
             <span id="span1">快捷方式</span>
             <hr id="hr2">
@@ -24,7 +27,7 @@
         </div>
     </div>
 
-    <div id="slide2">
+    <div id="slide2" class="sidebar">
         <div class="div5">
             <span id="span5">笔记</span>
             <button id="button">网页剪藏</button><br>
@@ -41,9 +44,6 @@
             <span id="span7">点击<img src="../image/main_frame/photo5.png" alt="">添加笔记</span><br>
             <span id="span8">创建灵感笔记本，随时收集灵感创意，并</span><br>
             <span id="span9">与他人共享。</span>
-            <span id="span10">
-                <img src="../image/main_frame/sjt.png" alt="" style="margin-left: 5px;">
-            <img src="../image/main_frame/xjt.png" alt="" style="left:410px;bottom: 10px;position:absolute"></span>
         </div>
 
     </div>
@@ -66,7 +66,7 @@
         </ul>
     </div>
 
-    <div id="slide3">
+    <div id="slide3" class="sidebar">
         <div style="margin-top: 20px;">
             <span id="span13">笔记本</span>
             <img src="../image/main_frame/photo6.png" alt="" title="创建笔记本" id="photo6"><br>
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-     <div id="slide4">
+     <div id="slide4" class="sidebar">
          <div style="margin-top: 20px;">
              <span id="span14">标签</span>
              <img src="../image/main_frame/photo9.png" alt="" style="float: right;margin-right: 20px;"><br>
@@ -97,9 +97,6 @@
              <img src="../image/main_frame/photo10.png" alt="" id="photo10"><br><br>
              <span id="span15">点击<span style="color: black">新建标签</span>添加新标签</span><br>
              <span id="span16">添加标签，查找更容易。</span><br>
-             <span id="span17">
-                <img src="../image/main_frame/sjt.png" alt="" style="margin-left: 5px;">
-            <img src="../image/main_frame/xjt.png" alt="" style="left:510px;bottom: 10px;position: fixed"></span>
          </div>
          </div>
      </div>
@@ -115,6 +112,23 @@
             <hr id="hr1">
             <img src="../image/main_frame/photo.png" alt="" title="账户" id="photo">
         </div>
+    </div>
+
+    <div id="note_area">
+        <div id="top_toolbar">
+            <div id="top_toolbar_up">
+                工具栏1
+            </div>
+            <div id="top_toolbar_down">
+                工具栏2
+            </div>
+
+        </div>
+        <div id="note_edit">
+            <div id="mce_toolbar"></div>
+            <input type="text" placeholder="无标题" contentEditable="true" id="note_edit_title">
+        </div>
+        <div name="mce_text" id="my_text_area"></div>
     </div>
 </div>
 </body>

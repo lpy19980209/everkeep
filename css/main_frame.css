@@ -1,11 +1,63 @@
+body {
+    overflow: hidden;
+}
+
 .div1{
     width: 70px;
-    height:100%;
     background-color:#F8F8F8;
     left:0px;
-    top:0px;
     position: absolute;
+    bottom: 0px;
+    top:0px;
+    z-index: 2;
 }
+
+.sidebar {
+    z-index: 1;
+    background-color: white;
+}
+
+#slide1, #slide3{
+    width: 450px;
+    margin-left: 64px;
+    position: absolute;
+    bottom: 0px;
+    top:0px;
+    border-right: 1px solid #000000;
+    display: none;
+    left:-450px;
+}
+
+
+#slide2{
+    width: 350px;
+    height: 100%;
+    margin-left: 64px;
+    position: absolute;
+    bottom: 0px;
+    top:0px;
+    z-index: 0;
+    border-right: 1px solid #000000;
+    display: none;
+    left:-450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#slide4{
+    width: 450px;
+    height: 100%;
+    border-right: 1px solid #000000;
+    margin-left: 64px;
+    position: absolute;
+    bottom: 0px;
+    top:0px;
+    display: none;
+    left:-450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 #img0{
     margin-left: 10px;
     margin-top: 10px;
@@ -64,16 +116,7 @@
     margin-left:15px;
     cursor: pointer;
 }
-#slide1{
-    width: 450px;
-    height: 100%;
-    margin-left: 64px;
-    top:0px;
-    position: absolute;
-    border-right: 1px solid #000000;
-    display: none;
-    left:-450px;
-}
+
 #span1{
     margin-left:20px;
     font-size: 20px;
@@ -111,16 +154,7 @@
     margin-left: 200px;
     font-size: 13px;
 }
-#slide2{
-    width: 350px;
-    height: 100%;
-    margin-left: 64px;
-    top:0px;
-    position: absolute;
-    border-right: 1px solid #000000;
-    display: none;
-    left:-450px;
-}
+
 .div5{
     width: 350px;
     height: 100px;
@@ -255,16 +289,7 @@
 #ul2 li:hover{
     background: #2DBE60;
 }
-#slide3{
-    width: 450px;
-    height: 100%;
-    border-right: 1px solid #000000;
-    position: absolute;
-    margin-left: 64px;
-    top:0px;
-    display: none;
-    left:-450px;
-}
+
 #span13{
     margin-left: 20px;
     font-size: 25px;
@@ -318,16 +343,7 @@
     margin-left: -30px;
     color: #a9a9a9;
 }
-#slide4{
-    width: 450px;
-    height: 100%;
-    border-right: 1px solid #000000;
-    position: absolute;
-    margin-left: 64px;
-    top:0px;
-    display: none;
-    left:-450px;
-}
+
 #span14{
     margin-left: 20px;
     font-size: 25px;

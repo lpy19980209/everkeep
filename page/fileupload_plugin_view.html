@@ -5,6 +5,7 @@
     <title>Submit File</title>
     <script src="../lib/js/jquery-3.3.1.min.js">
     </script>
+    <script src="../script/fileupload_view.js"></script>
     <style>
 
         .container {
@@ -67,52 +68,6 @@
             text-align: center;
         }
     </style>
-    <script>
-        $(document).ready(function(){
-            $("#fsubmitbtn").click(function(){
-                let formdata = new FormData();
-                var mfile = document.getElementById("fileipt").files[0];
-                if(mfile == null)
-                {
-                    alert("请选择文件");
-                    return;
-                }
-                formdata.append("myfile", document.getElementById("fileipt").files[0]);
-                $.ajax({
-                    url : "/webeditor/server/receivefile.php",
-                    type: "POST",
-                    data: formdata,
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    success: function (result) {
-                        console.log(result);
-                        var response = JSON.parse(result);
-                        if (response["code"] == 0 || response["code"] == 3)
-                        {
-                            let resid = response["data"]["fmd5"];
-                            insertt(resid);
-                        }
-                        else
-                        {
-                            alert("上传失败：" + response["msg"]);
-                        }
-                    },
-                    error: function () {
-                        alert("连接失败，请稍后再试！");
-                    }
-                });
-            });
-
-            $("#fileipt").change(function () {
-                $("#filenamespan").text($("#fileipt").val());
-            });
-        });
-    </script>
-
-    <style>
-
-    </style>
 </head>
 <body>
 
@@ -132,27 +87,5 @@
 
     </div>
 
-    <script>
-        function insertt(resid) {
-            var f = document.getElementById("fileipt").files[0];
-            var link = "/webeditor/server/loadres.php?resid=" + resid;
-
-            let innerr;
-            if(f.name.match(/png/i))
-            {
-                innerr = "<img width=\"500px\" src ='" + link + "' >";
-            }
-            else
-            {
-                innerr = '<a contentEditable="false" href="' + link + '"style="color:#005c78;background-color:#ecf0f3;height: 50; border: #000000;display: inline-block; padding-right: 30px; width: auto">'
-                    + '<img  src="../image/fileupload_plugin/attach_icon.png" style="display: inline-block;" >'
-                    + '<span style="display: inline-block">' + f.name + '<br><span>' + (f.size/1024).toFixed(2) + "kb" + '</span></span></a>';
-            }
-
-
-            parent.window.tinyMCE.execCommand("mceInsertContent", false, innerr);
-            parent.window.tinyMCE.activeEditor.windowManager.close();
-        }
-    </script>
 </body>
 </html>
