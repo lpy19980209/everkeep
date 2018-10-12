@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61f07b0e-49aa-4c64-8b03-02e861af3d21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/page/application.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tep_test_dir/grant_session.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/permission_manager.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/response_code.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/fileupload_view.js" beforeDir="false" afterPath="$PROJECT_DIR$/script/fileupload_view.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/note_area.js" beforeDir="false" afterPath="$PROJECT_DIR$/script/note_area.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/file_receive.php" beforeDir="false" afterPath="$PROJECT_DIR$/server/file_receive.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/file_retrive.php" beforeDir="false" afterPath="$PROJECT_DIR$/server/file_retrive.php" afterDir="false" />
     </list>
@@ -145,10 +143,11 @@
     <session id="-992876733">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.12" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -162,7 +161,7 @@
           <entry key="html" value="22" />
           <entry key="js" value="23" />
           <entry key="md" value="7" />
-          <entry key="php" value="21" />
+          <entry key="php" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -171,7 +170,7 @@
           <entry key="HTML" value="22" />
           <entry key="JavaScript" value="23" />
           <entry key="Markdown" value="7" />
-          <entry key="PHP" value="21" />
+          <entry key="PHP" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -180,8 +179,8 @@
           <entry key="html" value="750" />
           <entry key="js" value="1254" />
           <entry key="md" value="212" />
-          <entry key="php" value="1078" />
-          <entry key="txt" value="219" />
+          <entry key="php" value="1631" />
+          <entry key="txt" value="249" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -190,37 +189,19 @@
           <entry key="HTML" value="752" />
           <entry key="JavaScript" value="1254" />
           <entry key="Markdown" value="212" />
-          <entry key="PHP" value="1076" />
-          <entry key="PLAIN_TEXT" value="219" />
+          <entry key="PHP" value="1629" />
+          <entry key="PLAIN_TEXT" value="249" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/page/everkeep.html">
+        <entry file="file://$PROJECT_DIR$/server/file_retrive.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1974">
-              <caret line="94" column="54" selection-start-line="94" selection-start-column="54" selection-end-line="94" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/page/application.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tep_test_dir/grant_session.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+            <state relative-caret-position="861">
+              <caret line="46" column="28" lean-forward="true" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -228,54 +209,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/file_receive.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
-              <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/page/fileupload_plugin_view.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+            <state relative-caret-position="680">
+              <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/script/fileupload_view.js">
+        <entry file="file://$PROJECT_DIR$/server/response_code.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#a#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="294">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/script/note_area.js">
+        <entry file="file://$PROJECT_DIR$/server/permission_manager.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="23" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/note_retrive.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/file_retrive.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="147">
+              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -337,9 +290,11 @@
         <option value="$PROJECT_DIR$/tep_test_dir/grant_session.php" />
         <option value="$PROJECT_DIR$/page/application.php" />
         <option value="$PROJECT_DIR$/script/note_area.js" />
+        <option value="$PROJECT_DIR$/script/fileupload_view.js" />
+        <option value="$PROJECT_DIR$/server/permission_manager.php" />
         <option value="$PROJECT_DIR$/server/file_retrive.php" />
         <option value="$PROJECT_DIR$/server/file_receive.php" />
-        <option value="$PROJECT_DIR$/script/fileupload_view.js" />
+        <option value="$PROJECT_DIR$/server/response_code.php" />
       </list>
     </option>
   </component>
@@ -382,27 +337,7 @@
             <path>
               <item name="webeditor_for_everkeep" type="b2602c69:ProjectViewProjectNode" />
               <item name="webeditor_for_everkeep" type="462c0819:PsiDirectoryNode" />
-              <item name="doc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="webeditor_for_everkeep" type="b2602c69:ProjectViewProjectNode" />
-              <item name="webeditor_for_everkeep" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="webeditor_for_everkeep" type="b2602c69:ProjectViewProjectNode" />
-              <item name="webeditor_for_everkeep" type="462c0819:PsiDirectoryNode" />
-              <item name="script" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="webeditor_for_everkeep" type="b2602c69:ProjectViewProjectNode" />
-              <item name="webeditor_for_everkeep" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="webeditor_for_everkeep" type="b2602c69:ProjectViewProjectNode" />
-              <item name="webeditor_for_everkeep" type="462c0819:PsiDirectoryNode" />
-              <item name="tep_test_dir" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -467,7 +402,8 @@
       <workItem from="1539108654447" duration="432000" />
       <workItem from="1539224666689" duration="9295000" />
       <workItem from="1539236795440" duration="275000" />
-      <workItem from="1539237105832" duration="31965000" />
+      <workItem from="1539237105832" duration="32321000" />
+      <workItem from="1539309629909" duration="3494000" />
     </task>
     <task id="LOCAL-00001" summary="删除一些编辑器测试文件">
       <created>1539225235803</created>
@@ -539,17 +475,24 @@
       <option name="project" value="LOCAL" />
       <updated>1539270944210</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="基本实现附件添加功能，即文件的存储和获取">
+      <created>1539281690276</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1539281690276</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94389000" />
+    <option name="totallyTimeSpent" value="98239000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.4584245" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17910448" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -584,7 +527,8 @@
     <MESSAGE value="0、添加附件功能基本完成，文件上传和文件读取需要根据需要修改，目前只是一个简单的实例，与项目的数据表并不一致&#10;1、日记编辑界面基本完善，工具栏暂未添加" />
     <MESSAGE value="0、文件上传和读取脚本按照预想的数据库结构进行修改，不知是否可行" />
     <MESSAGE value="列名更改 filemd5 -&gt; fileid" />
-    <option name="LAST_COMMIT_MESSAGE" value="列名更改 filemd5 -&gt; fileid" />
+    <MESSAGE value="基本实现附件添加功能，即文件的存储和获取" />
+    <option name="LAST_COMMIT_MESSAGE" value="基本实现附件添加功能，即文件的存储和获取" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Everkeep.js" />
@@ -632,13 +576,7 @@
     <entry file="file://$PROJECT_DIR$/lib/js/tinymce/plugins/fileupload/plugin.min.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/page/tinymce_test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/page/tinymce_test.html" />
     <entry file="file://$PROJECT_DIR$/lib/js/tinymce/plugins/fileupload/plugin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -666,6 +604,16 @@
     <entry file="file://$PROJECT_DIR$/server/note_reveive.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/doc/日记保存.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="21">
+            <caret line="1" column="14" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/page/everkeep.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1974">
@@ -687,8 +635,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/note_retrive.php">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/page/fileupload_plugin_view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/fileupload_view.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/script/note_area.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -697,46 +656,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/日记保存.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="21">
-            <caret line="1" column="14" lean-forward="true" selection-start-line="1" selection-start-column="14" selection-end-line="1" selection-end-column="14" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/server/note_retrive.php">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/page/fileupload_plugin_view.html">
+    <entry file="file://$PROJECT_DIR$/server/permission_manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/file_retrive.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="147">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/file_receive.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
+        <state relative-caret-position="680">
+          <caret line="105" column="5" lean-forward="true" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script/fileupload_view.js">
+    <entry file="file://$PROJECT_DIR$/server/file_retrive.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#a#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="861">
+          <caret line="46" column="28" lean-forward="true" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/response_code.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>

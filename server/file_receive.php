@@ -8,34 +8,16 @@
 
 session_start();
 
-function identity_check()
-{
-    if(isset($_SESSION["uid"]))
-    {
-        $GLOBALS['userid'] = $_SESSION['uid'];
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
+require_once './permission_manager.php';
+require_once  './response_code.php';
 
-function die_for_no_permission() {
-    $check_fail_msg = <<<EOF
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>小小笔记</title>
-		<link rel="shortcut icon" href=" /favicon.ico" />
-	</head>
-	<body>
-	    <p>您无权访问此页面！</p>
-	</body>
-</html>
-EOF;
-    die($check_fail_msg);
+if(isLogin())
+{
+    $GLOBALS['userid'] = $_SESSION['uid'];
+}
+else
+{
+    die_for_no_login();
 }
 
 if(!identity_check())
@@ -47,7 +29,7 @@ if(!identity_check())
 if(!isset($_FILES["myfile"]))
 {
     $msg = json_encode([
-        "code" => 8,
+        "code" => POST_NO_FILE,
         "msg" => "未找到文件(应该是文件太大了)",
     ]);
 
@@ -57,8 +39,8 @@ if(!isset($_FILES["myfile"]))
 if($_FILES["myfile"]["error"] > 0)
 {
     $msg = json_encode([
-        "code" => 1,
-        "msg" => "文件出错" . $_FILES["myfile"]["error"],
+        "code" => FILE_POSTED_ERROR,
+        "msg" => "文件出错,错误码为 " . $_FILES["myfile"]["error"],
     ]);
 
     die($msg);
@@ -89,7 +71,7 @@ function insertfiletodb($fileid, $filename, $filesize, $filedata)
 // 检测连接
     if ($conn->connect_error) {
         $msg = json_encode([
-           "code" => 2,
+           "code" => DB_CONNECTION_ERROR,
            "msg" => "数据库连接失败",
         ]);
         die($msg);
@@ -101,7 +83,7 @@ VALUES ('$fileid', '$userid' ,'$filename', '$filesize', '$filedata')
 EOF;
     if ($conn->query($sql) === TRUE) {
         $msg = json_encode([
-            "code" => 0,
+            "code" => SUCCESS,
             "msg" => "success",
             "data" => [
                 "fmd5" => $fileid,
@@ -112,7 +94,7 @@ EOF;
         die($msg);
     } else {
         $msg = json_encode([
-            "code" => 3,
+            "code" => DB_INSERTION_ERROR,
             "msg" => "数据插入失败: " . $conn->error,
             "data" => [
                 "fmd5" => $fileid,

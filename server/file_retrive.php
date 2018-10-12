@@ -8,39 +8,25 @@
 
 session_start();
 
-function identity_check()
+require_once './permission_manager.php';
+require_once './response_code.php';
+
+if(isLogin())
 {
-    if(isset($_SESSION["uid"]))
-    {
-        $GLOBALS['userid'] = $_SESSION['uid'];
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    $GLOBALS['userid'] = $_SESSION['uid'];
+}
+else
+{
+    die_for_no_login();
 }
 
-function die_for_no_permission() {
-    $check_fail_msg = <<<EOF
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title>小小笔记</title>
-		<link rel="shortcut icon" href=" /favicon.ico" />
-	</head>
-	<body>
-	    <p>您无权访问此页面！</p>
-	</body>
-</html>
-EOF;
-    die($check_fail_msg);
-}
-
-if(!identity_check())
+if(!isset($_GET["resid"]))
 {
-    die_for_no_permission();
+    $msg = json_encode([
+        "code" => NO_RESID,
+        "msg" => "资源ID无效",
+    ]);
+    die($msg);
 }
 
 $resid = $_GET["resid"];
@@ -59,7 +45,7 @@ function readfilefromdb($resid)
 // 检测连接
     if ($conn->connect_error) {
         $msg = json_encode([
-            "code" => 2,
+            "code" => DB_CONNECTION_ERROR,
             "msg" => "数据库连接失败",
         ]);
         die($msg);
@@ -88,7 +74,7 @@ EOF;
         }
     } else {
         $msg = json_encode([
-           "code" => 5,
+           "code" => QUERY_NO_DATA,
            "msg" => "未找到数据",
         ]);
         die($msg);
