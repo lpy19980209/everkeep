@@ -24,9 +24,9 @@ tinymce.init({
 
 function note_submit() {
     let noteid = null;
-    let notetitle = $("#note_edit_title").text();
+    let notetitle = $("#note_edit_title").val();
     let notecontent = tinyMCE.activeEditor.getContent();
-    // console.log(notecontent);
+    // console.log("local: " + noteid + notetitle + notecontent);
 
     $.ajax({
        url: note_upload_url,
