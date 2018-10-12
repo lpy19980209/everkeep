@@ -7,6 +7,11 @@
  */
 require_once( dirname(__FILE__) . "/response_code.php");
 
+function setSession($uid)
+{
+    $_SESSION[$uid];
+}
+
 function login($uid)
 {
     $_SESSION["uid"] = $uid;

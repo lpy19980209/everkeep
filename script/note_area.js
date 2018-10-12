@@ -1,5 +1,5 @@
 
-let note_upload_url = "";
+let note_upload_url = "../server/note_receive.php";
 
 tinymce.init({
     selector: '#my_text_area',
@@ -23,16 +23,18 @@ tinymce.init({
 
 
 function note_submit() {
-    let note_title = $("#note_edit_title").text();
-    let note_content = tinyMCE.activeEditor.getContent();
-    console.log(note_content);
+    let noteid = null;
+    let notetitle = $("#note_edit_title").text();
+    let notecontent = tinyMCE.activeEditor.getContent();
+    // console.log(notecontent);
 
     $.ajax({
        url: note_upload_url,
        type: 'post',
-       data: {note_title: note_title, note_content: note_content},
+       data: {noteid: noteid, notetitle: notetitle, notecontent: notecontent},
        success: function (response_data) {
            alert("保存成功");
+           console.log(response_data);
        },
        error: function (e) {
            alert("无法保存");
