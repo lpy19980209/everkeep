@@ -48,7 +48,7 @@ EOF;
 
         while($row = $result->fetch_assoc()) {
 
-            $data[] = json_encode([
+            $data[] = [
                 "noteid" => $row['noteid'],
                 "title" => $row["title"],
                 "createTime" => $row["createTime"],
@@ -58,7 +58,7 @@ EOF;
                 "notebookid" => $row["notebookid"],
                 "isStar" => $row["isStar"],
                 "isShare" => $row["isShare"],
-            ]);
+            ];
         }
 
         $msg = json_encode([

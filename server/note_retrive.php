@@ -65,11 +65,11 @@ EOF;
             }
             else
             {
-                $data = json_encode([
+                $data = [
                     "noteid" => $noteid,
-                    "notetitle" => $row["title"],
-                    "notecontent" => $row["content"],
-                ]);
+                    "title" => $row["title"],
+                    "content" => $row["content"],
+                ];
 
                 $msg = json_encode([
                     "code" => SUCCESS,
