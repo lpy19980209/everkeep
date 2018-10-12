@@ -2,8 +2,7 @@ $(document).ready(function(){
 
     let file_upload_url = "../server/file_receive.php";
 
-    let file_download_url = "";
-    //未使用，目前实际使用 insertt(resid) 中的 link
+    let file_download_url = "../server/file_retrive.php";
 
     $("#fsubmitbtn").click(function(){
         let formdata = new FormData();
@@ -56,23 +55,25 @@ $(document).ready(function(){
     $("#fileipt").change(function () {
         $("#filenamespan").text($("#fileipt").val());
     });
+
+    function insertt(resid) {
+        var f = document.getElementById("fileipt").files[0];
+        var link = file_download_url + "?resid=" + resid;
+
+        let innerr;
+        if(f.type.match(/image/i))
+        {
+            innerr = "<img width=\"100%\" src ='" + link + "' >";
+        }
+        else
+        {
+            innerr = '<a contentEditable="false" href="' + link + '"style="color:#005c78;background-color:#ecf0f3;height: 50; border: #000000;display: inline-block; padding-right: 30px; width: auto">'
+                + '<img  src="../image/fileupload_plugin/attach_icon.png" style="display: inline-block;" >'
+                + '<span style="display: inline-block">' + f.name + '<br><span>' + (f.size/1024).toFixed(2) + "kb" + '</span></span></a>';
+        }
+
+        parent.window.tinyMCE.execCommand("mceInsertContent", false, innerr);
+    }
+
 });
 
-function insertt(resid) {
-    var f = document.getElementById("fileipt").files[0];
-    var link = "/webeditor_for_everkeep/server/file_retrive.php?resid=" + resid;
-
-    let innerr;
-    if(f.type.match(/image/i))
-    {
-        innerr = "<img width=\"100%\" src ='" + link + "' >";
-    }
-    else
-    {
-        innerr = '<a contentEditable="false" href="' + link + '"style="color:#005c78;background-color:#ecf0f3;height: 50; border: #000000;display: inline-block; padding-right: 30px; width: auto">'
-            + '<img  src="../image/fileupload_plugin/attach_icon.png" style="display: inline-block;" >'
-            + '<span style="display: inline-block">' + f.name + '<br><span>' + (f.size/1024).toFixed(2) + "kb" + '</span></span></a>';
-    }
-
-    parent.window.tinyMCE.execCommand("mceInsertContent", false, innerr);
-}
