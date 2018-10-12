@@ -38,7 +38,7 @@ function note_submit() {
            var response = JSON.parse(response_data);
            if(response['code'] == 0)
            {
-               alert("noteid: "+ response["data"]["noteid"]);
+               console.log("noteid: "+ response["data"]["noteid"]);
                $("#note_area").data("noteid", response["data"]["noteid"]);
                note_save_success();
            }
@@ -62,7 +62,7 @@ function note_save_success()
 
 function note_save_error()
 {
-    alert("保存失败");
+    console.error("保存失败");
 }
 
 $(document).ready(function () {
@@ -105,17 +105,17 @@ $(document).ready(function () {
             url: "../server/note_retrive.php?noteid=" + noteInfo['noteid'],
             success: function (responsedata) {
                 let response = JSON.parse(responsedata);
-                alert(responsedata);
+                console.log(responsedata);
                 if (response['code'] == 0) {
                     // alert(response["data"]);
                     setEditArea(response["data"]);
                 }
                 else {
-                    alert("NOTE获取失败");
+                    console.error("NOTE获取失败");
                 }
             },
             error: function () {
-                alert("NOTE获取失败 in err");
+                console.error("NOTE获取失败 in err");
             }
         });
 
@@ -162,17 +162,17 @@ function getNoteList()
 
             else
             {
-                alert("NOTE列表获取失败");
+                console.error("NOTE列表获取失败");
             }
         },
         error : function () {
-            alert("NOTE列表获取失败");
+            console.error("NOTE列表获取失败");
         }
     });
 }
 
 function setEditArea(data) {
-    alert('settextarea' + data['noteid'] + data['title'] + data['content']);
+    console.log('settextarea' + data['noteid'] + data['title'] + data['content']);
     $("#note_area").data('noteid', data['noteid']);
     $("#note_edit_title").val(data['title']);
     $("#my_text_area").html(data['content']);
