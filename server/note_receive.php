@@ -30,8 +30,8 @@ if(!isset($_POST['noteid']) || !isset($_POST['notetitle']) || !isset($_POST['not
 
 
 $noteid = $_POST['noteid'];
-$notetitle = $_POST['notetitle'];
-$notecontent = $_POST['notecontent'];
+$notetitle = $_POST['title'];
+$notecontent = $_POST['content'];
 
 savenotetodb($noteid, $_GLOBALS["userid"], $notetitle, $notecontent);
 
@@ -64,8 +64,8 @@ EOF;
     $result = $conn->query($sql);
     if($result->num_rows == 0) {
         $sql = <<<EOF
-INSERT INTO $tablename (noteid, userid, title, content)
-VALUES ('$noteid', '$userid' ,'$notetitle', '$notecontent')
+INSERT INTO $tablename (userid, title, content)
+VALUES ('$userid' ,'$notetitle', '$notecontent')
 EOF;
         if ($conn->query($sql) === TRUE) {
             $msg = json_encode([

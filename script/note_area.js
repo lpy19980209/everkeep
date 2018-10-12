@@ -31,7 +31,7 @@ function note_submit() {
     $.ajax({
        url: note_upload_url,
        type: 'post',
-       data: {noteid: noteid, notetitle: notetitle, notecontent: notecontent},
+       data: {noteid: noteid, title: notetitle, content: notecontent},
        success: function (response_data) {
            // alert("保存成功");
            console.log(response_data);

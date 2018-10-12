@@ -14,22 +14,10 @@ else
     die_for_no_login();
 }
 
-if(!isset($_GET["noteid"]))
-{
-    $msg = json_encode([
-        "code" => GET_NO_NOTEID,
-        "msg" => "NOTE ID无效",
-    ]);
-    die($msg);
-}
-
-$GLOBALS["noteid"] = $_GET['noteid'];
-
-readNoteFromDB($GLOBALS['noteid'], $GLOBALS['userid']);
+readNoteListFromDB($GLOBALS['userid']);
 
 
-
-function readNoteFromDB($noteid, $userid)
+function readNoteListFromDB($userid)
 {
     $servername = "localhost";
     $username = "everkeep";
@@ -49,36 +37,37 @@ function readNoteFromDB($noteid, $userid)
     }
 
     $sql = <<<EOF
-select title, content, userid from $tablename where noteid = '$noteid';
+select noteid, title, createTime, updateTime, remindTime, markid, notebookid, isStar, isShare from $tablename where userid = $userid and isDelete = 0;
 EOF;
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
 
-        // 输出数据
+        $data = [];
+
         while($row = $result->fetch_assoc()) {
 
-            if($row["userid"] != $userid)
-            {
-                die_for_no_permission();
-            }
-            else
-            {
-                $data = json_encode([
-                    "noteid" => $noteid,
-                    "notetitle" => $row["title"],
-                    "notecontent" => $row["content"],
-                ]);
-
-                $msg = json_encode([
-                    "code" => SUCCESS,
-                    "msg" => "成功",
-                    "data" => $data
-                ]);
-                die($msg);
-            }
+            $data[] = json_encode([
+                "noteid" => $row['noteid'],
+                "title" => $row["title"],
+                "createTime" => $row["createTime"],
+                "updateTime" => $row["updateTime"],
+                "remindTime" => $row["remindTime"],
+                "markid" => $row["markid"],
+                "notebookid" => $row["notebookid"],
+                "isStar" => $row["isStar"],
+                "isShare" => $row["isShare"],
+            ]);
         }
+
+        $msg = json_encode([
+            "code" => SUCCESS,
+            "msg" => "成功",
+            "data" => $data
+        ]);
+
+        die($msg);
     } else {
         $msg = json_encode([
             "code" => QUERY_NO_DATA,

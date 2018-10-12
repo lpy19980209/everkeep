@@ -22,7 +22,7 @@ constraint fk_markid_userid foreign key (userid) references  `user`(userid)
 );
 
 create table notebook (
-notebookid int primary key,
+notebookid int auto_increment primary key,
 userid int not null,
 bookName text not null,
 createTime timestamp not null default current_timestamp,
@@ -39,7 +39,7 @@ constraint fk_notebookid_userid foreign key (userid) references  `user`(userid)
 );
 
 create table note (
-noteid int primary key,
+noteid int auto_increment primary key,
 userid int not null,
 title text default null,
 content text not null,
@@ -60,7 +60,7 @@ constraint fk_noteid_userid foreign key (userid) references  `user`(userid)
 );
 
 create table `comment` (
-commentid int primary key,
+commentid int auto_increment primary key,
 userid int not null,
 noteid int not null,
 content text not null,
