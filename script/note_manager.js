@@ -23,7 +23,7 @@ tinymce.init({
 
 
 function note_submit() {
-    let noteid = $("#note_edit").data('noteid') == null ? -1 : $("#note_edit").data('noteid');
+    let noteid = $("#note_area").data('noteid') == null ? -1 : $("#note_area").data('noteid');
     let notetitle = $("#note_edit_title").val();
     let notecontent = tinyMCE.activeEditor.getContent();
     // console.log("local: " + noteid + notetitle + notecontent);
@@ -38,6 +38,8 @@ function note_submit() {
            var response = JSON.parse(response_data);
            if(response['code'] == 0)
            {
+               alert("noteid: "+ response["data"]["noteid"]);
+               $("#note_area").data("noteid", response["data"]["noteid"]);
                note_save_success();
            }
            else

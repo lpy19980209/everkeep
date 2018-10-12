@@ -63,14 +63,26 @@ EOF;
 
     $result = $conn->query($sql);
     if($result->num_rows == 0) {
+
+        $rand_noteid = mt_rand(1000000, 9999999);
+
+        $notetitle_slashed = addslashes($notetitle);
+        $notecontent_slashed = addslashes($notecontent);
+
         $sql = <<<EOF
-INSERT INTO $tablename (userid, title, content)
-VALUES ('$userid' ,'$notetitle', '$notecontent')
+INSERT INTO $tablename (noteid, userid, title, content)
+VALUES ( '$rand_noteid', '$userid' ,'$notetitle_slashed', '$notecontent_slashed')
 EOF;
         if ($conn->query($sql) === TRUE) {
+
+            $data = [
+                "noteid" => $rand_noteid,
+            ];
+
             $msg = json_encode([
                 "code" => SUCCESS,
                 "msg" => "success",
+                "data" => $data
             ]);
             die($msg);
         } else {
@@ -84,14 +96,23 @@ EOF;
 
     else
     {
+        $notetitle_slashed = addslashes($notetitle);
+        $notecontent_slashed = addslashes($notecontent);
+
         $sql = <<<EOF
-update $tablename set title = '$notetitle', content = '$notecontent' 
+update $tablename set title = '$notetitle_slashed', content = '$notecontent_slashed' 
  where noteid = '$noteid' and userid = '$userid'
 EOF;
         if ($conn->query($sql) === TRUE) {
+
+            $data = [
+                "noteid" => $noteid,
+            ];
+
             $msg = json_encode([
                 "code" => SUCCESS,
                 "msg" => "success",
+                "data" => $data
             ]);
             die($msg);
         } else {
