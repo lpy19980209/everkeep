@@ -5,7 +5,7 @@
  * Date: 2018/10/12
  * Time: 10:11
  */
-require_once("./response_code.php");
+require_once( dirname(__FILE__) . "/response_code.php");
 
 function login($uid)
 {

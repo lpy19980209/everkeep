@@ -7,8 +7,8 @@
  */
 
 session_start();
-require_once '../server/permission_manager.php';
-require_once '../server/response_code.php';
+require_once  dirname(__FILE__) . '/../server/permission_manager.php';
+require_once dirname(__FILE__) . '/../server/response_code.php';
 
 if(!isLogin())
 {
