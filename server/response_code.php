@@ -28,3 +28,5 @@ define("QUERY_NO_DATA", 5);
 
 //
 define("NOTE_SUBMIT_DATA_NOT_COMPLETE", 50);
+
+define("GET_NO_NOTEID", 23);

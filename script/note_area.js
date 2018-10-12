@@ -46,7 +46,7 @@ function note_submit() {
            }
        },
        error: function (e) {
-           alert("连接失败，无法保存");
+           note_save_error();
        },
     });
 
