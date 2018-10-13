@@ -14,10 +14,14 @@ else
     die_for_no_login();
 }
 
-readNoteListFromDB($GLOBALS['userid']);
+readNoteListFromDB($GLOBALS['userid'], "updateTime", "desc");
 
-
-function readNoteListFromDB($userid)
+/**
+ * @param $userid 用户id
+ * @param $orderby 排序字段，为 updateTime, createTime, remindTime,
+ * @param $direction
+ */
+function readNoteListFromDB($userid, $orderby, $direction)
 {
     $servername = "localhost";
     $username = "everkeep";
@@ -37,7 +41,10 @@ function readNoteListFromDB($userid)
     }
 
     $sql = <<<EOF
-select noteid, title, createTime, updateTime, remindTime, markid, notebookid, isStar, isShare from $tablename where userid = $userid and isDelete = 0;
+select noteid, title, createTime, updateTime, remindTime, 
+markid, notebookid, isStar, isShare from $tablename 
+where userid = $userid and isDelete = 0
+order by $orderby $direction;
 EOF;
 
     $result = $conn->query($sql);

@@ -143,16 +143,25 @@ function getNoteList()
 
                 for(var i in noteInfoList)
                 {
+
+                    var noteInfo = noteInfoList[i];
+
                     var noteInfoContainer = $("<div></div>");
-                    var noteTitle = $("<h3></h3>");
+                    var noteTitle = $("<span></span>");
+                    var noteTime = $("<p></p>")
 
-                    console.log(noteInfoList[i]);
+                    console.log(noteInfo);
 
-                    $(noteTitle).text(noteInfoList[i]["title"]==""?"无标题":noteInfoList[i]["title"]);
+                    $(noteTitle).text(noteInfo["title"]==""?"无标题":noteInfo["title"]);
                     $(noteTitle).addClass("note_info_title");
 
+                    $(noteTime).text(noteInfo["updateTime"]);
+                    $(noteTime).addClass("note_info_time");
+
                     $(noteInfoContainer).append(noteTitle);
-                    $(noteInfoContainer).data('noteinfo', noteInfoList[i]);
+                    $(noteInfoContainer).append(noteTime);
+
+                    $(noteInfoContainer).data('noteinfo', noteInfo);
                     $(noteInfoContainer).addClass("note_info_container");
 
 
