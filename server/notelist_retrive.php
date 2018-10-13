@@ -34,7 +34,7 @@ if(!isset($_GET["orderby"])
 
 
 //查询条件和登录状态无误，开始查询
-readNoteListFromDB($GLOBALS['userid'], "updateTime", "desc");
+readNoteListFromDB($GLOBALS['userid'], $_GET["orderby"], $_GET["direction"]);
 
 
 
@@ -78,7 +78,6 @@ EOF;
     if ($result->num_rows > 0) {
 
         $data = [];
-
         while($row = $result->fetch_assoc()) {
 
             $data[] = [

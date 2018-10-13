@@ -35,21 +35,16 @@ tinymce.init({
  *
  * @type {{updateTime: string, createTime: string, remindTime: string, title: string}}
  */
-let orderbyList = {
-    updateTime : "updateTime",
-    createTime : "createTime",
-    remindTime : "remindTime",
-    title : "title"
-};
 
-/**
- *
- * @type {{desc: string, asc: string}}
- */
-let directionList = {
-    desc : "desc",
-    asc : "asc"
-};
+
+let noteOrderMethod = {
+    c_a : {order:"createTime", direction:"asc"},
+    c_d : {order:"createTime", direction:"desc"},
+    u_a : {order:"updateTime", direction:"asc"},
+    u_d : {order:"updateTime", direction:"desc"},
+    t_a : {order:"title", direction:"asc"},
+    t_d : {order:"title", direction:"desc"},
+}
 
 /***************************************************************************************/
 
@@ -99,6 +94,7 @@ function note_submit() {
  */
 function fillNoteList(orderby, direction)
 {
+    console.error("../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction);
     $.get({
         url : "../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction,
         success : function (responsedata) {
@@ -125,7 +121,10 @@ function fillNoteList(orderby, direction)
                         $(noteTitle).text(noteInfo["title"] == "" ? "无标题" : noteInfo["title"]);
                         $(noteTitle).addClass("note_info_title");
 
-                        $(noteTime).text(noteInfo["updateTime"]);
+                        if(orderby == "createTime")
+                            $(noteTime).text(noteInfo["createTime"]);
+                        else
+                            $(noteTime).text(noteInfo["updateTime"]);
                         $(noteTime).addClass("note_info_time");
 
                         $(noteInfoContainer).append(noteTitle);
@@ -217,10 +216,15 @@ $(document).ready(function () {
         });
 
     });
-    
+
+    $(".note_order_method").click(function () {
+        let methodKey = $(this).data("ordermethod");
+        updateNoteList(noteOrderMethod[methodKey].order, noteOrderMethod[methodKey].direction);
+
+    });
 
 
-    fillNoteList(orderbyList.updateTime, directionList.desc);
+    updateNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction);
 
     if($(".note_info_container").size > 0)
     {

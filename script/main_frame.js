@@ -111,7 +111,8 @@ $(document).ready(function () {
 })
 $(document).ready(function () {
     $("#ul1 li").click(function () {
-        $(this).append('<img src="../image/main_frame/duihao.png"> ').siblings().children("img").remove().$("#list1").hide();
+        $(this).append('<img src="../image/main_frame/duihao.png"> ').siblings().children("img").remove();
+        $("#list1").hide();
     })
 })
 
