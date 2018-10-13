@@ -12,8 +12,12 @@ require_once dirname(__FILE__) . '/../server/response_code.php';
 
 if(!isLogin())
 {
-    die_for_no_login();
+    $out = file_get_contents( dirname(__FILE__) . "/../page/indexpage.html" );
+    echo $out;
 }
 
-header('content-type:text/html;charset=uft-8');
-header('location:./everkeep.html');
+else
+{
+    $out = file_get_contents( dirname(__FILE__) . "/../page/everkeep.html" );
+    echo $out;
+}
