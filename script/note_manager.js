@@ -1,6 +1,12 @@
 
+
 let note_upload_url = "../server/note_receive.php";
 
+/*****************************************************************************************/
+
+/**
+ * 编辑器配置
+ */
 tinymce.init({
     selector: '#my_text_area',
     theme: 'modern',
@@ -20,8 +26,37 @@ tinymce.init({
     }
 });
 
+/***************************************************************************************/
+/**
+ * 数据定义
+ */
 
+/**
+ *
+ * @type {{updateTime: string, createTime: string, remindTime: string, title: string}}
+ */
+let orderbyList = {
+    updateTime : "updateTime",
+    createTime : "createTime",
+    remindTime : "remindTime",
+    title : "title"
+};
 
+/**
+ *
+ * @type {{desc: string, asc: string}}
+ */
+let directionList = {
+    desc : "desc",
+    asc : "asc"
+};
+
+/***************************************************************************************/
+
+/**
+ * 提交笔记
+ * @returns {boolean} 成功为 true，失败为 false
+ */
 function note_submit() {
     let noteid = $("#note_area").data('noteid') == null ? -1 : $("#note_area").data('noteid');
     let notetitle = $("#note_edit_title").val();
@@ -40,31 +75,111 @@ function note_submit() {
            {
                console.log("noteid: "+ response["data"]["noteid"]);
                $("#note_area").data("noteid", response["data"]["noteid"]);
-               note_save_success();
+               console.log("保存成功");
            }
            else
            {
-               note_save_error();
+               console.error("保存失败: " + response_data);
            }
        },
        error: function (e) {
-           note_save_error();
+           console.error("保存失败： " + e);
        },
     });
 
     return false;
 }
 
-function note_save_success()
+/**********************************************************************************************/
+
+/**
+ * 从服务器获取数据列表
+ * 并填充到 notelist 元素 里面
+ *
+ */
+function fillNoteList(orderby, direction)
 {
-    console.log("保存成功");
+    $.get({
+        url : "../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction,
+        success : function (responsedata) {
+
+            let response = JSON.parse(responsedata);
+
+            if(response['code'] == 0)
+            {
+                var noteInfoList = response["data"];
+
+                if(noteInfoList.length > 0) {
+                    $("#no_note_tip").hide();
+
+                    for (var i in noteInfoList) {
+
+                        var noteInfo = noteInfoList[i];
+
+                        var noteInfoContainer = $("<div></div>");
+                        var noteTitle = $("<span></span>");
+                        var noteTime = $("<p></p>")
+
+                        console.log(noteInfo);
+
+                        $(noteTitle).text(noteInfo["title"] == "" ? "无标题" : noteInfo["title"]);
+                        $(noteTitle).addClass("note_info_title");
+
+                        $(noteTime).text(noteInfo["updateTime"]);
+                        $(noteTime).addClass("note_info_time");
+
+                        $(noteInfoContainer).append(noteTitle);
+                        $(noteInfoContainer).append(noteTime);
+
+                        $(noteInfoContainer).data('noteinfo', noteInfo);
+                        $(noteInfoContainer).addClass("note_info_container");
+
+                        $("#note_list").append(noteInfoContainer);
+                    }
+
+                }
+            }
+
+            else
+            {
+                console.error("NOTE列表获取失败：" + responsedata);
+            }
+        },
+        error : function(what) {
+            console.error("NOTE列表获取失败: " + what);
+        }
+    });
 }
 
-function note_save_error()
+/*************************************************************************************/
+/**
+ *
+ * @param orderby
+ * @param direction
+ */
+function updateNoteList(orderby, direction)
 {
-    console.error("保存失败");
+    $('.note_info_container').remove();
+    fillNoteList(orderby, direction);
+}
+/*************************************************************************************/
+
+/**
+ * 将选中的noteInfo设置到编辑区
+ * @param data
+ */
+function setEditArea(data) {
+    console.log('settextarea' + data['noteid'] + data['title'] + data['content']);
+    $("#note_area").data('noteid', data['noteid']);
+    $("#note_edit_title").val(data['title']);
+    $("#my_text_area").html(data['content']);
+
 }
 
+/********************************************************************************/
+/**
+ * 事件定义等初始化工作
+ */
 $(document).ready(function () {
     $("#note_edit_title").change(function () {
         note_submit();
@@ -74,28 +189,10 @@ $(document).ready(function () {
         note_submit();
     };
 
-    // $(".note_info_container").click(function (e) {
-    //     var noteInfo = $(this).data('noteinfo');
-    //
-    //     $.get({
-    //        url : "../server/note_retrive.php?" + noteInfo['noteid'],
-    //        success : function (responsedata) {
-    //            let response = JSON.parse(responsedata);
-    //            if(response['code'] == 0)
-    //            {
-    //                 alert(response["data"]);
-    //            }
-    //            else
-    //            {
-    //                alert("NOTE获取失败");
-    //            }
-    //        },
-    //         error : function () {
-    //             alert("NOTE获取失败");
-    //         }
-    //     });
-    // });
 
+    /**
+     * 动态添加的元素 定义 click 事件的方法
+     */
     $('body').on("click", ".note_info_container", function (e) {
         var noteInfo = $(this).data('noteinfo');
 
@@ -120,70 +217,15 @@ $(document).ready(function () {
         });
 
     });
+    
 
-    getNoteList();
+
+    fillNoteList(orderbyList.updateTime, directionList.desc);
+
+    if($(".note_info_container").size > 0)
+    {
+        $(".note_info_container:first-child").click();
+    }
 });
 
-function getNoteList()
-{
-    $.get({
-        url : "../server/notelist_retrive.php",
-        success : function (responsedata) {
-
-            let response = JSON.parse(responsedata);
-
-            if(response['code'] == 0)
-            {
-                var noteInfoList = response["data"];
-
-                if(noteInfoList.length > 0)
-                {
-                    $("#no_note_tip").hide();
-                }
-
-                for(var i in noteInfoList)
-                {
-
-                    var noteInfo = noteInfoList[i];
-
-                    var noteInfoContainer = $("<div></div>");
-                    var noteTitle = $("<span></span>");
-                    var noteTime = $("<p></p>")
-
-                    console.log(noteInfo);
-
-                    $(noteTitle).text(noteInfo["title"]==""?"无标题":noteInfo["title"]);
-                    $(noteTitle).addClass("note_info_title");
-
-                    $(noteTime).text(noteInfo["updateTime"]);
-                    $(noteTime).addClass("note_info_time");
-
-                    $(noteInfoContainer).append(noteTitle);
-                    $(noteInfoContainer).append(noteTime);
-
-                    $(noteInfoContainer).data('noteinfo', noteInfo);
-                    $(noteInfoContainer).addClass("note_info_container");
-
-
-                    $("#note_list").append(noteInfoContainer);
-                }
-            }
-
-            else
-            {
-                console.error("NOTE列表获取失败");
-            }
-        },
-        error : function () {
-            console.error("NOTE列表获取失败");
-        }
-    });
-}
-
-function setEditArea(data) {
-    console.log('settextarea' + data['noteid'] + data['title'] + data['content']);
-    $("#note_area").data('noteid', data['noteid']);
-    $("#note_edit_title").val(data['title']);
-    $("#my_text_area").html(data['content']);
-
-}
+/******************************************************************************/

@@ -2,8 +2,10 @@
 
 session_start();
 
+//包含权限检测模块 和 回应码 定义文件， 并检测用户是否登录
 require_once './permission_manager.php';
 require_once './response_code.php';
+
 
 if(isLogin())
 {
@@ -14,12 +16,36 @@ else
     die_for_no_login();
 }
 
+
+//检查参数是否正确，若错误则返回 一个错误提示
+
+if(!isset($_GET["orderby"])
+    || !isset($_GET["direction"])
+    || !in_array($_GET["orderby"], ['updateTime', 'createTime', 'remindTime', 'title'])
+    || !in_array($_GET["direction"], ['asc', 'desc']))
+{
+    $msg = json_encode([
+        "code" => NOTELIST_RETRIVE_PARMS_ERROR,
+        "msg" => "参数有误",
+    ]);
+
+    die($msg);
+}
+
+
+//查询条件和登录状态无误，开始查询
 readNoteListFromDB($GLOBALS['userid'], "updateTime", "desc");
 
+
+
+
 /**
+ * 从数据库中读取 NOTE_LIST
+ *
  * @param $userid 用户id
- * @param $orderby 排序字段，为 updateTime, createTime, remindTime,
- * @param $direction
+ * @param $orderby 排序字段，为 updateTime, createTime, remindTime, title
+ * @param $direction 排序方法，asc, desc
+ *
  */
 function readNoteListFromDB($userid, $orderby, $direction)
 {
