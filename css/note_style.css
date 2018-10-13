@@ -3,11 +3,15 @@
     color: #3A3A3A;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: #c0c0c0 solid 1px;
+    border-bottom: #F5F5F5 solid 1px;
 }
 
 .note_info_container:hover {
     background-color: #2DBE60;
+    color: white;
+}
+
+.note_info_container:hover > p {
     color: white;
 }
 
@@ -24,4 +28,9 @@
     font-size: 12px;
     margin: 0px;
     /*background-color: #1e6abc;*/
+}
+
+.note_item_selected {
+    border-top: 2px solid #c0c0c0;
+    border-bottom: 2px solid #c0c0c0;
 }

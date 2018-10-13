@@ -49,10 +49,20 @@ let noteOrderMethod = {
 /***************************************************************************************/
 
 /**
- * 提交笔记
+ * 提交笔记  若传入参数，在成功后作为函数执行
  * @returns {boolean} 成功为 true，失败为 false
+ *
  */
 function note_submit() {
+
+
+    let afterSuccess = null;
+    if(arguments.length == 1)
+    {
+        afterSuccess = arguments[0];
+    }
+
+
     let noteid = $("#note_area").data('noteid') == null ? -1 : $("#note_area").data('noteid');
     let notetitle = $("#note_edit_title").val();
     let notecontent = tinyMCE.activeEditor.getContent();
@@ -71,6 +81,12 @@ function note_submit() {
                console.log("noteid: "+ response["data"]["noteid"]);
                $("#note_area").data("noteid", response["data"]["noteid"]);
                console.log("保存成功");
+
+               if(afterSuccess != null)
+               {
+                   afterSuccess();
+               }
+
            }
            else
            {
@@ -88,13 +104,19 @@ function note_submit() {
 /**********************************************************************************************/
 
 /**
- * 从服务器获取数据列表
+ * 从服务器获取数据列表  若传入参数，在成功后作为函数执行
  * 并填充到 notelist 元素 里面
  *
  */
 function fillNoteList(orderby, direction)
 {
-    console.error("../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction);
+    let afterSuccess = null;
+    if(arguments.length == 1)
+    {
+        afterSuccess = arguments[0];
+    }
+
+    console.log("../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction);
     $.get({
         url : "../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction,
         success : function (responsedata) {
@@ -137,30 +159,24 @@ function fillNoteList(orderby, direction)
                     }
 
                 }
+
+                if(afterSuccess != null)
+                {
+                    afterSuccess();
+                }
             }
 
             else
             {
-                console.error("NOTE列表获取失败：" + responsedata);
+                console.log("NOTE列表获取失败：" + responsedata);
             }
         },
         error : function(what) {
-            console.error("NOTE列表获取失败: " + what);
+            console.log("NOTE列表获取失败: " + what);
         }
     });
 }
 
-/*************************************************************************************/
-/**
- *
- * @param orderby
- * @param direction
- */
-function updateNoteList(orderby, direction)
-{
-    $('.note_info_container').remove();
-    fillNoteList(orderby, direction);
-}
 /*************************************************************************************/
 
 /**
@@ -180,6 +196,8 @@ function setEditArea(data) {
  * 事件定义等初始化工作
  */
 $(document).ready(function () {
+
+    //自动保存
     $("#note_edit_title").change(function () {
         note_submit();
     });
@@ -196,6 +214,7 @@ $(document).ready(function () {
         var noteInfo = $(this).data('noteinfo');
 
         // alert(JSON.stringify(noteInfo));
+        let theInfoContainer = this;
 
         $.get({
             url: "../server/note_retrive.php?noteid=" + noteInfo['noteid'],
@@ -205,31 +224,51 @@ $(document).ready(function () {
                 if (response['code'] == 0) {
                     // alert(response["data"]);
                     setEditArea(response["data"]);
+
+                    $(".note_info_container").removeClass('note_item_selected');
+                    $(theInfoContainer).addClass("note_item_selected");
                 }
                 else {
-                    console.error("NOTE获取失败");
+                    console.log("NOTE获取失败");
                 }
             },
             error: function () {
-                console.error("NOTE获取失败 in err");
+                console.log("NOTE获取失败 in err");
             }
         });
 
     });
 
+    //定义排序功能
     $(".note_order_method").click(function () {
         let methodKey = $(this).data("ordermethod");
-        updateNoteList(noteOrderMethod[methodKey].order, noteOrderMethod[methodKey].direction);
+
+        $('.note_info_container').remove();
+        fillNoteList(noteOrderMethod[methodKey].order, noteOrderMethod[methodKey].direction);
 
     });
 
+    //定义笔记添加功能
+    $(".new_note_button").click(function () {
+        $("#note_area").data('noteid', null);
+        $("#note_edit_title").val(null);
+        $("#my_text_area").html(null);
 
-    updateNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction);
+        note_submit(function () {
+            $('.note_info_container').remove();
+            fillNoteList(noteOrderMethod['u_d'].order, noteOrderMethod['u_d'].direction,
+                function () {
 
-    if($(".note_info_container").size > 0)
-    {
-        $(".note_info_container:first-child").click();
-    }
+                });
+        });
+    });
+
+    fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
+        if($(".note_info_container").size > 0)
+        {
+            $("#no_note_tip + .note_info_container").click();
+        }
+    });
 });
 
 /******************************************************************************/

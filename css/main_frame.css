@@ -159,6 +159,7 @@ body {
     width: 350px;
     height: 100px;
     margin-top: 20px;
+    border-bottom: solid 1px #c0c0c0 ;
 }
 #span5{
     margin-left:20px;
@@ -192,10 +193,7 @@ body {
     position: absolute;
     margin-top: -20px;
 }
-#hr3{
-    background:#a9a9a9;
-    margin-top: 10px;
-}
+
 #photo4{
     margin-left: 130px;
     margin-top: 130px;
