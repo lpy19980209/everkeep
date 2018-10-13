@@ -25,6 +25,7 @@ define("DB_CONNECTION_ERROR", 2);
 define("DB_INSERTION_ERROR", 3);
 define("DB_UPDATE_ERROR", 4);
 define("QUERY_NO_DATA", 5);
+define("DB_DELETE_ERROR", 6);
 
 //
 define("NOTE_SUBMIT_DATA_NOT_COMPLETE", 50);

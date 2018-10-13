@@ -136,6 +136,16 @@ function fillNoteList(orderby, direction)
 
                         var noteInfoContainer = $("<div></div>");
                         var noteTitle = $("<span></span>");
+
+                        //工具栏
+                        var noteItemTool = $("<div></div>")
+                        $(noteItemTool).addClass("note_item_tool");
+                        var noteToolDelete = $("<div></div>");
+                        $(noteToolDelete).addClass("note_tool_delete");
+
+                        $(noteItemTool).append(noteToolDelete);
+
+                        //更新时间
                         var noteTime = $("<p></p>")
 
                         console.log(noteInfo);
@@ -151,6 +161,7 @@ function fillNoteList(orderby, direction)
 
                         $(noteInfoContainer).append(noteTitle);
                         $(noteInfoContainer).append(noteTime);
+                        $(noteInfoContainer).append(noteItemTool);
 
                         $(noteInfoContainer).data('noteinfo', noteInfo);
                         $(noteInfoContainer).addClass("note_info_container");
@@ -258,9 +269,15 @@ $(document).ready(function () {
             $('.note_info_container').remove();
             fillNoteList(noteOrderMethod['u_d'].order, noteOrderMethod['u_d'].direction,
                 function () {
-
+                    //todo
                 });
         });
+    });
+
+
+    $("#note_list").on("click", ".note_tool_delete", function (event) {
+        console.log($(this).parent().parent().data("noteinfo"));
+        event.stopPropagation();
     });
 
     fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
