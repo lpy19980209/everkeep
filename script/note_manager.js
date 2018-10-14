@@ -13,10 +13,10 @@ tinymce.init({
     inline: true,
     menubar: false,
     language: 'zh_CN',
-    plugins: 'fileupload, link, preview, table, hr, textcolor, lists, autolink, save',
+    plugins: 'fileupload, link, preview, table, hr, textcolor, lists, autolink',
     toolbar: 'fontselect | fontsizeselect | forecolor textcolor bold italic underline strikethrough | ' +
         'bullist numlist | link fileupload | table hr | align indent outdent | ' +
-        'subscript superscript removeformat | restoredraft save',
+        'subscript superscript removeformat | restoredraft',
     fixed_toolbar_container: "#mce_toolbar",
     init_instance_callback: function (editor) {
         editor.on("Change", function(e) {
