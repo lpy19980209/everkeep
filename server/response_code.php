@@ -33,3 +33,6 @@ define("NOTE_SUBMIT_DATA_NOT_COMPLETE", 50);
 define("GET_NO_NOTEID", 23);
 
 define("NOTELIST_RETRIVE_PARMS_ERROR", 24);
+
+
+define("GET_PARM_ERROR", 56);

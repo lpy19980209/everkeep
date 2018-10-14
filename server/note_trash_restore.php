@@ -28,14 +28,26 @@ if(!isset($_GET["noteid"]))
     ]);
     die($msg);
 }
-
 $GLOBALS["noteid"] = $_GET['noteid'];
 
-deleteNoteFromDB($GLOBALS['noteid'], $GLOBALS['userid']);
+
+if(!isset($_GET["operation"]) || !in_array($_GET["operation"], [0, 1]))
+{
+    $msg = json_encode([
+        "code" => GET_PARM_ERROR,
+        "msg" => "GET参数错误",
+    ]);
+    die($msg);
+}
+$GLOBALS["operation"] = $_GET["operation"];
 
 
 
-function readNoteFromDB($noteid, $userid)
+alterIsDeleteTo($GLOBALS['noteid'], $GLOBALS['userid'], $GLOBALS["operation"]);
+
+
+
+function alterIsDeleteTo($noteid, $userid, $isDeleteVal)
 {
     $servername = "localhost";
     $username = "everkeep";
@@ -55,7 +67,7 @@ function readNoteFromDB($noteid, $userid)
     }
 
     $sql = <<<EOF
-update $tablename set isDelete = 1
+update $tablename set isDelete = $isDeleteVal
  where noteid = '$noteid' and userid = '$userid'
 EOF;
 

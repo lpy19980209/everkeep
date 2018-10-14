@@ -55,3 +55,19 @@
     height: 24px;
     background: url("../image/note_style/delete_white_24x24.png");
 }
+
+.note_tool_delete:hover {
+    background: url("../image/note_style/delete_solid_white_24x24.png");
+}
+
+.note_tool_shortcut {
+    display: inline-block;
+    position: absolute;
+    right: 44px;
+    width: 24px;
+    height: 24px;
+    background: url("../image/note_style/shortcut_white_24x24.png");
+}
+.note_tool_shortcut:hover, .is_star {
+    background: url("../image/note_style/shortcut_solid_white_24x24.png");
+}
