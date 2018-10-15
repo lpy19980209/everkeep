@@ -1,5 +1,3 @@
-
-
 let note_upload_url = "../server/note_receive.php";
 
 /*****************************************************************************************/
@@ -7,31 +5,61 @@ let note_upload_url = "../server/note_receive.php";
 /**
  * 编辑器配置
  */
-tinymce.init({
-    selector: '#my_text_area',
-    theme: 'modern',
-    inline: true,
-    menubar: false,
-    language: 'zh_CN',
-    plugins: 'fileupload, link, preview, table, hr, textcolor, lists, autolink',
-    toolbar: 'fontselect | fontsizeselect | forecolor textcolor bold italic underline strikethrough | ' +
-        'bullist numlist | link fileupload | table hr | align indent outdent | ' +
-        'subscript superscript removeformat | restoredraft',
-    fixed_toolbar_container: "#mce_toolbar",
-    toolbar_items_size: "small",
-    // init_instance_callback: function (editor) {
-    //     editor.on("Change", function(e) {
-    //         // alert('Editor contents was changed.');
-    //         note_submit();
-    //     });
-    // },
-    setup: function (ed) {
-        ed.on("change", function (event) {
-            note_submit();
-        });
-    }
-});
 
+$(document).ready(function () {
+
+    if (document.body.clientWidth > 1366)
+        tinymce.init({
+            selector: '#my_text_area',
+            theme: 'modern',
+            inline: true,
+            menubar: false,
+            language: 'zh_CN',
+            plugins: 'fileupload, link, preview, table, hr, textcolor, lists, autolink',
+            toolbar: 'fontselect | fontsizeselect | forecolor textcolor bold italic underline strikethrough | ' +
+                'bullist numlist | link fileupload | table hr | align indent outdent | ' +
+                'subscript superscript removeformat | restoredraft',
+            fixed_toolbar_container: "#mce_toolbar",
+            // toolbar_items_size: "small",
+            // init_instance_callback: function (editor) {
+            //     editor.on("Change", function(e) {
+            //         // alert('Editor contents was changed.');
+            //         note_submit();
+            //     });
+            // },
+            setup: function (ed) {
+                ed.on("change", function (event) {
+                    note_submit();
+                });
+            }
+        });
+
+    else
+        tinymce.init({
+            selector: '#my_text_area',
+            theme: 'modern',
+            inline: true,
+            menubar: false,
+            language: 'zh_CN',
+            plugins: 'fileupload, link, preview, table, hr, textcolor, lists, autolink',
+            toolbar: 'fontselect | fontsizeselect | forecolor textcolor bold italic underline strikethrough | ' +
+                'bullist numlist | link fileupload | table hr | align indent outdent | ' +
+                'subscript superscript removeformat | restoredraft',
+            fixed_toolbar_container: "#mce_toolbar",
+            toolbar_items_size: "small",
+            // init_instance_callback: function (editor) {
+            //     editor.on("Change", function(e) {
+            //         // alert('Editor contents was changed.');
+            //         note_submit();
+            //     });
+            // },
+            setup: function (ed) {
+                ed.on("change", function (event) {
+                    note_submit();
+                });
+            }
+        });
+});
 /***************************************************************************************/
 /**
  * 数据定义
@@ -44,12 +72,12 @@ tinymce.init({
 
 
 let noteOrderMethod = {
-    c_a : {order:"createTime", direction:"asc"},
-    c_d : {order:"createTime", direction:"desc"},
-    u_a : {order:"updateTime", direction:"asc"},
-    u_d : {order:"updateTime", direction:"desc"},
-    t_a : {order:"title", direction:"asc"},
-    t_d : {order:"title", direction:"desc"},
+    c_a: {order: "createTime", direction: "asc"},
+    c_d: {order: "createTime", direction: "desc"},
+    u_a: {order: "updateTime", direction: "asc"},
+    u_d: {order: "updateTime", direction: "desc"},
+    t_a: {order: "title", direction: "asc"},
+    t_d: {order: "title", direction: "desc"},
 }
 
 /***************************************************************************************/
@@ -63,8 +91,7 @@ function note_submit() {
 
 
     let afterSuccess = null;
-    if(arguments.length == 1)
-    {
+    if (arguments.length == 1) {
         afterSuccess = arguments[0];
     }
 
@@ -75,33 +102,30 @@ function note_submit() {
     // console.log("local: " + noteid + notetitle + notecontent);
 
     $.ajax({
-       url: note_upload_url,
-       type: 'post',
-       data: {noteid: noteid, title: notetitle, content: notecontent},
-       success: function (response_data) {
-           // alert("保存成功");
-           console.log(response_data);
-           var response = JSON.parse(response_data);
-           if(response['code'] == 0)
-           {
-               console.log("noteid: "+ response["data"]["noteid"]);
-               $("#note_area").data("noteid", response["data"]["noteid"]);
-               console.log("保存成功");
+        url: note_upload_url,
+        type: 'post',
+        data: {noteid: noteid, title: notetitle, content: notecontent},
+        success: function (response_data) {
+            // alert("保存成功");
+            console.log(response_data);
+            var response = JSON.parse(response_data);
+            if (response['code'] == 0) {
+                console.log("noteid: " + response["data"]["noteid"]);
+                $("#note_area").data("noteid", response["data"]["noteid"]);
+                console.log("保存成功");
 
-               if(afterSuccess != null)
-               {
-                   afterSuccess();
-               }
+                if (afterSuccess != null) {
+                    afterSuccess();
+                }
 
-           }
-           else
-           {
-               console.error("保存失败: " + response_data);
-           }
-       },
-       error: function (e) {
-           console.error("保存失败： " + e);
-       },
+            }
+            else {
+                console.error("保存失败: " + response_data);
+            }
+        },
+        error: function (e) {
+            console.error("保存失败： " + e);
+        },
     });
 
     return false;
@@ -114,26 +138,23 @@ function note_submit() {
  * 并填充到 notelist 元素 里面
  *
  */
-function fillNoteList(orderby, direction)
-{
+function fillNoteList(orderby, direction) {
     let afterSuccess = null;
-    if(arguments.length == 3)
-    {
+    if (arguments.length == 3) {
         afterSuccess = arguments[2];
     }
 
     console.log("../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction);
     $.get({
-        url : "../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction,
-        success : function (responsedata) {
+        url: "../server/notelist_retrive.php?orderby=" + orderby + "&direction=" + direction,
+        success: function (responsedata) {
 
             let response = JSON.parse(responsedata);
 
-            if(response['code'] == 0)
-            {
+            if (response['code'] == 0) {
                 var noteInfoList = response["data"];
 
-                if(noteInfoList.length > 0) {
+                if (noteInfoList.length > 0) {
                     $("#no_note_tip").hide();
 
                     for (var i in noteInfoList) {
@@ -150,7 +171,7 @@ function fillNoteList(orderby, direction)
                         var noteToolShortcut = $("<div></div>");
                         $(noteToolShortcut).addClass("note_tool_shortcut");
 
-                        if(noteInfo["isStar"] == 1) {
+                        if (noteInfo["isStar"] == 1) {
                             $(noteToolShortcut).addClass("is_star")
                         }
 
@@ -169,7 +190,7 @@ function fillNoteList(orderby, direction)
                         $(noteTitle).text(noteInfo["title"] == "" ? "无标题" : noteInfo["title"]);
                         $(noteTitle).addClass("note_info_title");
 
-                        if(orderby == "createTime")
+                        if (orderby == "createTime")
                             $(noteTime).text(noteInfo["createTime"]);
                         else
                             $(noteTime).text(noteInfo["updateTime"]);
@@ -187,18 +208,16 @@ function fillNoteList(orderby, direction)
 
                 }
 
-                if(afterSuccess != null)
-                {
+                if (afterSuccess != null) {
                     afterSuccess();
                 }
             }
 
-            else
-            {
+            else {
                 console.log("NOTE列表获取失败：" + responsedata);
             }
         },
-        error : function(what) {
+        error: function (what) {
             console.log("NOTE列表获取失败: " + what);
         }
     });
@@ -303,15 +322,13 @@ $(document).ready(function () {
         let theNoteInfoDiv = $(this).parent().parent();
 
         $.get({
-            url : "../server/note_trash_restore.php?noteid=" + noteInfo["noteid"] + "&operation=1",
+            url: "../server/note_trash_restore.php?noteid=" + noteInfo["noteid"] + "&operation=1",
             success: function (responsedata) {
                 let response = JSON.parse(responsedata);
-                if(response["code"] == 0)
-                {
+                if (response["code"] == 0) {
                     console.log(noteInfo + "deleted");
                     $(theNoteInfoDiv).remove();
-                    if($(".note_info_container").length > 0)
-                    {
+                    if ($(".note_info_container").length > 0) {
                         $("#no_note_tip + .note_info_container").click();
                     }
                 }
@@ -334,14 +351,12 @@ $(document).ready(function () {
         let noteInfo = $(this).parent().parent().data("noteinfo");
         let starDiv = $(this);
 
-        if($(starDiv).hasClass("is_star"))
-        {
+        if ($(starDiv).hasClass("is_star")) {
             $.get({
-                url : "../server/note_star_unstar.php?noteid=" + noteInfo["noteid"] + "&operation=0",
+                url: "../server/note_star_unstar.php?noteid=" + noteInfo["noteid"] + "&operation=0",
                 success: function (responsedata) {
                     let response = JSON.parse(responsedata);
-                    if(response["code"] == 0)
-                    {
+                    if (response["code"] == 0) {
                         console.log(noteInfo + "unstared");
                         $(starDiv).removeClass("is_star");
                     }
@@ -354,14 +369,12 @@ $(document).ready(function () {
                 }
             });
         }
-        else
-        {
+        else {
             $.get({
-                url : "../server/note_star_unstar.php?noteid=" + noteInfo["noteid"] + "&operation=1",
+                url: "../server/note_star_unstar.php?noteid=" + noteInfo["noteid"] + "&operation=1",
                 success: function (responsedata) {
                     let response = JSON.parse(responsedata);
-                    if(response["code"] == 0)
-                    {
+                    if (response["code"] == 0) {
                         console.log(noteInfo + "stared");
                         $(starDiv).addClass("is_star");
                     }
@@ -376,13 +389,11 @@ $(document).ready(function () {
         }
 
 
-
         event.stopPropagation();
     });
 
     fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
-        if($(".note_info_container").length > 0)
-        {
+        if ($(".note_info_container").length > 0) {
             $("#no_note_tip + .note_info_container").click();
         }
     });
