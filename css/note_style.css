@@ -1,4 +1,4 @@
-.note_info_container {
+#note_list .note_info_container {
     position: relative;
     padding-left: 30px;
     color: #3A3A3A;
@@ -7,16 +7,16 @@
     border-bottom: #F5F5F5 solid 1px;
 }
 
-.note_info_container:hover {
+#note_list .note_info_container:hover {
     background-color: #2DBE60;
     color: white;
 }
 
-.note_info_container:hover > p {
+#note_list .note_info_container:hover > p {
     color: white;
 }
 
-.note_info_title {
+#note_list .note_info_title {
     font-style: normal;
     font-weight: lighter;
     font-size: 18px;
@@ -24,19 +24,19 @@
     /*background-color: #8a6d3b;*/
 }
 
-.note_info_time {
+#note_list .note_info_time {
     color: #c0c0c0;
     font-size: 12px;
     margin: 0px;
     /*background-color: #1e6abc;*/
 }
 
-.note_item_selected {
+#note_list .note_item_selected {
     border-top: 2px solid #c0c0c0;
     border-bottom: 2px solid #c0c0c0;
 }
 
-.note_item_tool {
+#note_list .note_item_tool {
     width: 120px;
     height: 40px;
     text-align: right;
@@ -47,7 +47,7 @@
     margin-bottom: 5px;
 }
 
-.note_tool_delete {
+#note_list .note_tool_delete {
     display: inline-block;
     position: absolute;
     right: 10px;
@@ -56,11 +56,11 @@
     background: url("../image/note_style/delete_white_24x24.png");
 }
 
-.note_tool_delete:hover {
+#note_list .note_tool_delete:hover {
     background: url("../image/note_style/delete_solid_white_24x24.png");
 }
 
-.note_tool_shortcut {
+#note_list .note_tool_shortcut {
     display: inline-block;
     position: absolute;
     right: 44px;
@@ -68,6 +68,84 @@
     height: 24px;
     background: url("../image/note_style/shortcut_white_24x24.png");
 }
-.note_tool_shortcut:hover, .is_star {
+#note_list .note_tool_shortcut:hover,#note_list .is_star {
     background: url("../image/note_style/shortcut_solid_white_24x24.png");
+}
+
+
+.force_show_star {
+    background: url("../image/note_style/shortcut_solid_white_24x24.png") !important;
+}
+
+.force_show_unstar {
+    background: url("../image/note_style/shortcut_white_24x24.png") !important;
+}
+
+
+
+
+
+
+
+
+#star_list .note_info_container {
+    position: relative;
+    padding-left: 30px;
+    color: #3A3A3A;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: #F5F5F5 solid 1px;
+}
+
+#star_list .note_info_container:hover {
+    background-color: #2DBE60;
+    color: white;
+}
+
+#star_list .note_info_container:hover > p {
+    color: white;
+}
+
+#star_list .note_info_title {
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 18px;
+    margin: 0px;
+    /*background-color: #8a6d3b;*/
+}
+
+#star_list .note_info_time {
+    color: #c0c0c0;
+    font-size: 12px;
+    margin: 0px;
+    /*background-color: #1e6abc;*/
+}
+
+#star_list .note_item_selected {
+    border-top: 2px solid #c0c0c0;
+    border-bottom: 2px solid #c0c0c0;
+}
+
+#star_list .note_item_tool {
+    width: 120px;
+    height: 40px;
+    text-align: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+#star_list .note_tool_shortcut {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    background: url("../image/note_style/shortcut_solid_white_24x24.png");
+}
+#star_list .note_tool_shortcut:hover,#star_list .is_star {
+    background: url("../image/note_style/shortcut_white_24x24.png");
 }
