@@ -18,9 +18,15 @@ tinymce.init({
         'bullist numlist | link fileupload | table hr | align indent outdent | ' +
         'subscript superscript removeformat | restoredraft',
     fixed_toolbar_container: "#mce_toolbar",
-    init_instance_callback: function (editor) {
-        editor.on("Change", function(e) {
-            // alert('Editor contents was changed.');
+    toolbar_items_size: "small",
+    // init_instance_callback: function (editor) {
+    //     editor.on("Change", function(e) {
+    //         // alert('Editor contents was changed.');
+    //         note_submit();
+    //     });
+    // },
+    setup: function (ed) {
+        ed.on("change", function (event) {
             note_submit();
         });
     }
