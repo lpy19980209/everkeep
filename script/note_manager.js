@@ -688,14 +688,14 @@ $(document).ready(function () {
 
 
     //定义笔记彻底删除事件
-    $("#trash_list").on("click", "note_tool_really_delete", function (event) {
+    $("#trash_list").on("click", ".note_tool_really_delete", function (event) {
 
         let noteInfoDiv = $(this).parent().parent();
         let noteInfo = $(this).parent().parent().data("noteinfo");
         let theNoteInfoDiv = $(this).parent().parent();
 
         $.get({
-            url: "../server/note_really_detele.php?noteid=" + noteInfo["noteid"],
+            url: "../server/note_really_delete.php?noteid=" + noteInfo["noteid"],
             success: function (responsedata) {
                 let response = JSON.parse(responsedata);
                 if (response["code"] == 0) {
