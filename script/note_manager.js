@@ -113,6 +113,7 @@ function note_submit() {
                 console.log("noteid: " + response["data"]["noteid"]);
                 $("#note_area").data("noteid", response["data"]["noteid"]);
                 console.log("保存成功");
+                floatSaveSuccessSign();
 
                 if (afterSuccess != null) {
                     afterSuccess();
@@ -121,10 +122,13 @@ function note_submit() {
             }
             else {
                 console.error("保存失败: " + response_data);
+                sendErrorNotification("保存失败，请稍后再试！");
+
             }
         },
         error: function (e) {
             console.error("保存失败： " + e);
+            sendErrorNotification("保存失败，请检查网络状态！");
         },
     });
 
