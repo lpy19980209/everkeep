@@ -138,14 +138,11 @@
 }
 
 
-#star_list .note_tool_shortcut {
+#star_list .is_star{
     display: inline-block;
     position: absolute;
     right: 10px;
     width: 24px;
     height: 24px;
     background: url("../image/note_style/shortcut_solid_white_24x24.png");
-}
-#star_list .note_tool_shortcut:hover,#star_list .is_star {
-    background: url("../image/note_style/shortcut_white_24x24.png");
 }

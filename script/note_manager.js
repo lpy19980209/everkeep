@@ -179,11 +179,9 @@ function fillNoteList(orderby, direction) {
                         $(noteToolShortcut).hover(
                             function () {
                                 $(this).attr('title', $(this).hasClass("is_star") ? "删除快捷方式" : "添加快捷方式");
-                                $(this).css("background", $(this).hasClass("is_star") ? $(this).addClass("force_show_unstar")
-                                    : $(this).addClass("force_show_star") )
                         },
                             function () {
-                                $(this).removeClass("force_show_star").removeClass("force_show_unstar");
+                                //do nothing
                             });
 
                         if (noteInfo["isStar"] == 1) {
@@ -240,7 +238,11 @@ function fillNoteList(orderby, direction) {
 }
 
 /*************************************************************************************/
-
+/**
+ * 从服务器获取星标列表  若传入参数，在成功后作为函数执行
+ * 并填充到 starlist 元素 里面
+ *
+ */
 function fillStarList(orderby, direction) {
     let afterSuccess = null;
     if (arguments.length == 3) {
@@ -267,6 +269,7 @@ function fillStarList(orderby, direction) {
                         var noteInfo = noteInfoList[i];
 
                         var noteInfoContainer = $("<div></div>");
+
                         var noteTitle = $("<span></span>");
 
                         //工具栏
@@ -278,7 +281,10 @@ function fillStarList(orderby, direction) {
 
                         if (noteInfo["isStar"] == 1) {
                             $(noteToolShortcut).addClass("is_star")
+                            $(noteToolShortcut).attr('title', "删除快捷方式");
                         }
+
+
                         $(noteItemTool).append(noteToolShortcut);
 
                         //更新时间
@@ -313,11 +319,103 @@ function fillStarList(orderby, direction) {
             }
 
             else {
-                console.log("NOTE列表获取失败：" + responsedata);
+                console.log("星标NOTE列表获取失败：" + responsedata);
             }
         },
         error: function (what) {
-            console.log("NOTE列表获取失败: " + what);
+            console.log("星标NOTE列表获取失败: " + what);
+        }
+    });
+}
+
+
+/*************************************************************************************/
+/**
+ * 从服务器获取Trash列表  若传入参数，在成功后作为函数执行
+ * 并填充到 trashlist 元素 里面
+ *
+ */
+function fillTrashList(orderby, direction) {
+    let afterSuccess = null;
+    if (arguments.length == 3) {
+        afterSuccess = arguments[2];
+    }
+
+    console.log("../server/trashlist_retrive.php?orderby=" + orderby + "&direction=" + direction);
+    $.get({
+        url: "../server/trashlist_retrive.php?orderby=" + orderby + "&direction=" + direction,
+        success: function (responsedata) {
+
+            let response = JSON.parse(responsedata);
+
+            if (response['code'] == 0) {
+
+                $("#trash_list .note_info_container").remove();
+
+                var noteInfoList = response["data"];
+
+                if (noteInfoList.length > 0) {
+
+                    for (var i in noteInfoList) {
+
+                        var noteInfo = noteInfoList[i];
+
+                        var noteInfoContainer = $("<div></div>");
+
+                        var noteTitle = $("<span></span>");
+
+                        //工具栏
+                        var noteItemTool = $("<div></div>")
+                        $(noteItemTool).addClass("note_item_tool");
+
+                        var noteToolShortcut = $("<div></div>");
+                        $(noteToolShortcut).addClass("note_tool_shortcut");
+
+                        if (noteInfo["isStar"] == 1) {
+                            $(noteToolShortcut).addClass("is_star")
+                            $(noteToolShortcut).attr('title', "删除快捷方式");
+                        }
+
+
+                        $(noteItemTool).append(noteToolShortcut);
+
+                        //更新时间
+                        var noteTime = $("<p></p>")
+
+                        console.log(noteInfo);
+
+                        $(noteTitle).text(noteInfo["title"] == "" ? "无标题" : noteInfo["title"]);
+                        $(noteTitle).addClass("note_info_title");
+
+                        if (orderby == "createTime")
+                            $(noteTime).text(noteInfo["createTime"]);
+                        else
+                            $(noteTime).text(noteInfo["updateTime"]);
+                        $(noteTime).addClass("note_info_time");
+
+                        $(noteInfoContainer).append(noteTitle);
+                        $(noteInfoContainer).append(noteTime);
+                        $(noteInfoContainer).append(noteItemTool);
+
+                        $(noteInfoContainer).data('noteinfo', noteInfo);
+                        $(noteInfoContainer).addClass("note_info_container");
+
+                        $("#trash_list").append(noteInfoContainer);
+                    }
+
+                }
+
+                if (afterSuccess != null) {
+                    afterSuccess();
+                }
+            }
+
+            else {
+                console.log("Trash NOTE列表获取失败：" + responsedata);
+            }
+        },
+        error: function (what) {
+            console.log("Trash NOTE列表获取失败: " + what);
         }
     });
 }
@@ -530,9 +628,14 @@ $(document).ready(function () {
         event.stopPropagation();
     });
 
-
+    //点击侧边栏星标按钮事件
     $(".left_navigation_star").click(function () {
         fillStarList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction);
+    });
+
+    //点击废纸篓入口事件
+    $(".trash_entry_div").click(function () {
+        fillTrashList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction);
     });
 
     fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {

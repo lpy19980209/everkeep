@@ -8,3 +8,4 @@
 
 session_start();
 $_SESSION['uid'] = 1;
+header("Location: ../index.php");
