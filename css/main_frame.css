@@ -24,7 +24,6 @@ body {
     bottom: 0px;
     top:0px;
     border-right: 1px solid #000000;
-    display: none;
     left:-450px;
 }
 
@@ -38,7 +37,6 @@ body {
     top:0px;
     z-index: 0;
     border-right: 1px solid #000000;
-    display: none;
     left:-450px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -52,7 +50,6 @@ body {
     position: absolute;
     bottom: 0px;
     top:0px;
-    display: none;
     left:-450px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -379,4 +376,9 @@ body {
     background: #FFFFFF;
     float: right;
     border: 1px solid #a9a9a9;
+}
+
+
+.checked_left_menu {
+    background: url("../image/note_style/ring_2dbe60.png");
 }

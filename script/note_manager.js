@@ -368,16 +368,15 @@ function fillTrashList(orderby, direction) {
                         var noteItemTool = $("<div></div>")
                         $(noteItemTool).addClass("note_item_tool");
 
-                        var noteToolShortcut = $("<div></div>");
-                        $(noteToolShortcut).addClass("note_tool_shortcut");
+                        var noteToolRestore = $("<div></div>");
+                        $(noteToolRestore).addClass("note_tool_restore");
+                        $(noteToolRestore).attr('title', "还原")
+                        $(noteItemTool).append(noteToolRestore);
 
-                        if (noteInfo["isStar"] == 1) {
-                            $(noteToolShortcut).addClass("is_star")
-                            $(noteToolShortcut).attr('title', "删除快捷方式");
-                        }
-
-
-                        $(noteItemTool).append(noteToolShortcut);
+                        var noteToolReallyDelete = $("<div></div>");
+                        $(noteToolReallyDelete).addClass("note_tool_really_delete");
+                        $(noteToolReallyDelete).attr('title', "彻底删除")
+                        $(noteItemTool).append(noteToolReallyDelete);
 
                         //更新时间
                         var noteTime = $("<p></p>")
@@ -448,7 +447,7 @@ $(document).ready(function () {
         note_submit();
     };
 
-
+    //定义元素变动事件
     document.getElementById("note_list").addEventListener('DOMSubtreeModified', function () {
         if($("#note_list  .note_info_container").length > 0)
             $("#no_note_tip").hide();
@@ -463,6 +462,16 @@ $(document).ready(function () {
             $("#no_star_tip").hide();
         else
             $("#no_star_tip").show();
+    });
+
+    document.getElementById("trash_list").addEventListener('DOMSubtreeModified', function () {
+        if($("#trash_list  .note_info_container").length > 0)
+            ;
+        else
+            ;
+
+        $(".span_count_of_trash_note").text($("#trash_list  .note_info_container").length + "条笔记");
+        console.log($("#trash_list .note_info_container").length + "条已删除笔记");
     });
 
     /**
@@ -635,14 +644,86 @@ $(document).ready(function () {
 
     //点击废纸篓入口事件
     $(".trash_entry_div").click(function () {
+        if($('#trash_container').css('left') == '-450px')
+        {
+            $("#trash_container").show();
+            $("#trash_container").css('left', '0px');
+        }
+        $("#slide3").animate({left:-450},"slow", function () {
+            $('#slide3').removeClass("slide_out");
+        });
         fillTrashList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction);
     });
+
+
+    //定义笔记还原事件
+    $("#trash_list").on("click", ".note_tool_restore", function (event) {
+
+        let noteInfoDiv = $(this).parent().parent();
+        let noteInfo = $(this).parent().parent().data("noteinfo");
+        let theNoteInfoDiv = $(this).parent().parent();
+
+        $.get({
+            url: "../server/note_trash_restore.php?noteid=" + noteInfo["noteid"] + "&operation=0",
+            success: function (responsedata) {
+                let response = JSON.parse(responsedata);
+                if (response["code"] == 0) {
+                    console.log(noteInfo + "restored");
+                    $(theNoteInfoDiv).remove();
+                    if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
+                        $("#no_note_tip + .note_info_container").click();
+                    }
+                }
+                else {
+                    console.log(noteInfo + "restore failed." + response);
+                }
+            },
+            error: function (msg) {
+                console.log(noteInfo + "restore failed." + msg);
+            }
+        });
+
+        event.stopPropagation();
+    });
+
+
+    //定义笔记彻底删除事件
+    $("#trash_list").on("click", "note_tool_really_delete", function (event) {
+
+        let noteInfoDiv = $(this).parent().parent();
+        let noteInfo = $(this).parent().parent().data("noteinfo");
+        let theNoteInfoDiv = $(this).parent().parent();
+
+        $.get({
+            url: "../server/note_really_detele.php?noteid=" + noteInfo["noteid"],
+            success: function (responsedata) {
+                let response = JSON.parse(responsedata);
+                if (response["code"] == 0) {
+                    console.log(noteInfo + "really deleted");
+                    $(theNoteInfoDiv).remove();
+                    if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
+                        $("#no_note_tip + .note_info_container").click();
+                    }
+                }
+                else {
+                    console.log(noteInfo + "really delete failed." + response);
+                }
+            },
+            error: function (msg) {
+                console.log(noteInfo + "really delete failed." + msg);
+            }
+        });
+
+        event.stopPropagation();
+    });
+
 
     fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
         if ($("#note_list .note_info_container").length > 0) {
             $("#no_note_tip + .note_info_container").click();
         }
     });
+
 
 });
 

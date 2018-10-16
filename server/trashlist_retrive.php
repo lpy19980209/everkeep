@@ -75,7 +75,7 @@ function readNoteListFromDB($userid, $orderby, $direction)
     $sql = <<<EOF
 select noteid, title, createTime, updateTime, remindTime, 
 markid, notebookid, isStar, isShare from $tablename 
-where userid = $userid and isDelete = 0 and isStar = 1
+where userid = $userid and isDelete = 1
 order by $orderby $direction;
 EOF;
 

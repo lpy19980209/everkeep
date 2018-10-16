@@ -1,3 +1,5 @@
+
+/**************************************************************************/
 #note_list .note_info_container {
     position: relative;
     padding-left: 30px;
@@ -81,12 +83,7 @@
     background: url("../image/note_style/shortcut_white_24x24.png") !important;
 }
 
-
-
-
-
-
-
+/********************************************************************************/
 
 #star_list .note_info_container {
     position: relative;
@@ -145,4 +142,117 @@
     width: 24px;
     height: 24px;
     background: url("../image/note_style/shortcut_solid_white_24x24.png");
+}
+
+/************************************************************************************/
+
+.trash_count_container{
+    width: 350px;
+    height: 100px;
+    margin-top: 20px;
+    border-bottom: solid 1px #c0c0c0 ;
+}
+
+#trash_container{
+    width: 350px;
+    height: 100%;
+    margin-left: 64px;
+    position: absolute;
+    bottom: 0px;
+    top:0px;
+    z-index: 0;
+    border-right: 1px solid #000000;
+    display: none;
+    left:-450px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.div6{
+    width: 350px;
+    margin-top: 20px;
+}
+
+#span_count_of_trash_note{
+    margin-left: 20px;
+    font-size: 15px;
+    color: #a9a9a9;
+}
+
+#photo3_2{
+    margin-left: 280px;
+    font-size: 15px;
+    color: #a9a9a9;
+    cursor: pointer;
+    position: absolute;
+    margin-top: -20px;
+}
+
+/*************************************************************************************/
+
+#trash_list .note_info_container {
+    position: relative;
+    padding-left: 30px;
+    color: #3A3A3A;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: #F5F5F5 solid 1px;
+}
+
+#trash_list .note_info_container:hover {
+    background-color: #2DBE60;
+    color: white;
+}
+
+#trash_list .note_info_container:hover > p {
+    color: white;
+}
+
+#trash_list .note_info_title {
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 18px;
+    margin: 0px;
+    /*background-color: #8a6d3b;*/
+}
+
+#trash_list .note_info_time {
+    color: #c0c0c0;
+    font-size: 12px;
+    margin: 0px;
+    /*background-color: #1e6abc;*/
+}
+
+#trash_list .note_item_selected {
+    border-top: 2px solid #c0c0c0;
+    border-bottom: 2px solid #c0c0c0;
+}
+
+#trash_list .note_item_tool {
+    width: 120px;
+    height: 40px;
+    text-align: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#trash_list .note_tool_restore {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    background: url("../image/note_style/restore_white_24x24.png");
+}
+
+#trash_list .note_tool_really_delete {
+    display: inline-block;
+    position: absolute;
+    right: 44px;
+    width: 24px;
+    height: 24px;
+    background: url("../image/note_style/really_delete.png");
 }
