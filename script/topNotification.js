@@ -28,6 +28,7 @@ $(document).ready(function () {
 function sendSuccessNotification(msg)
 {
 
+    $("#top_notification_div").stop(false,false);
     $("#top_notification_div").css({
         'background-color' : '#2DBE60',
         'color' : 'white',
@@ -46,7 +47,7 @@ function sendSuccessNotification(msg)
 
 function sendErrorNotification(msg)
 {
-
+    $("#top_notification_div").stop(false,false);
     $("#top_notification_div").css({
         'background-color' : 'red',
         'color' : 'white',

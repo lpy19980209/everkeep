@@ -555,7 +555,9 @@ $(document).ready(function () {
                 let response = JSON.parse(responsedata);
                 if (response["code"] == 0) {
                     console.log(noteInfo + "deleted");
-                    $(theNoteInfoDiv).remove();
+                    $(theNoteInfoDiv).fadeOut(function () {
+                        $(this).remove();
+                    });
                     if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
                         $("#no_note_tip + .note_info_container").click();
                     }
@@ -642,7 +644,9 @@ $(document).ready(function () {
                     if (response["code"] == 0) {
                         console.log(noteInfo + "unstared");
                         $(starDiv).removeClass("is_star");
-                        $(noteInfoDiv).remove();
+                        $(noteInfoDiv).fadeOut(function () {
+                           $(this).remove();
+                        });
                         sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
                             + (noteInfo["title"].length>10?"...":"") + "  快捷方式删除成功");
                     }
@@ -711,7 +715,9 @@ $(document).ready(function () {
                 let response = JSON.parse(responsedata);
                 if (response["code"] == 0) {
                     console.log(noteInfo + "restored");
-                    $(theNoteInfoDiv).remove();
+                    $(theNoteInfoDiv).fadeOut(function () {
+                       $(this).remove();
+                    });
                     if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
                         $("#no_note_tip + .note_info_container").click();
                     }
