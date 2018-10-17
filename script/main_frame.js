@@ -52,7 +52,9 @@ $(document).ready(function(){
             $('#slide1').addClass("slide_out");
             $("#img8").addClass("checked_left_menu");
             $("#slide1").animate({left:0},"slow", function () {
+                $("#note_area_shadow").show();
             });
+
         }
         else
         {
@@ -89,7 +91,9 @@ $(document).ready(function () {
             $(".checked_left_menu").removeClass("checked_left_menu");
             $("#img3").addClass("checked_left_menu");
             $("#slide3").animate({left:0},"slow", function () {
+                $("#note_area_shadow").show();
             });
+
         }
         else
         {
@@ -112,7 +116,7 @@ $(document).ready(function () {
             $('#slide4').addClass("slide_out");
             $("#img5").addClass("checked_left_menu");
             $("#slide4").animate({left:0},"slow", function () {
-
+                $("#note_area_shadow").show();
             });
         }
         else

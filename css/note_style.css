@@ -178,13 +178,6 @@
 
 /************************************************************************************/
 
-.trash_count_container{
-    width: 350px;
-    height: 100px;
-    margin-top: 20px;
-    border-bottom: solid 1px #c0c0c0 ;
-}
-
 #trash_container{
     width: 350px;
     height: 100%;
@@ -196,13 +189,51 @@
     border-right: 1px solid #000000;
     display: none;
     left:-450px;
+}
+
+#trash_list {
+    width: 350px;
+    height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.div6{
+.trash_logo_div {
+    height: 152px;
+    widow: 100%;
+    background-color: #393d41;
+}
+.trash_logo_div_name {
+    position: relative;
+    top: 28px;
+    color: #fff9f3;
+    text-align: center;
+    height: 44px;
+    font-size: 30px;
+    line-height: 44px;
+    font-weight: lighter;
+}
+
+.clear_trash_div {
+    position: relative;
+    top: 50px;
+    left: 135px;
+    color: #58df84;
+    background-color: #212426;
+    text-align: center;
+    height: 21px;
+    width: 74px;
+    font-size: 13px;
+    line-height: 21px;
+    font-weight: lighter;
+    display: none;
+}
+
+.trash_count_container{
     width: 350px;
-    margin-top: 20px;
+    /*height: 20px;*/
+    line-height: 40px;
+    border-bottom: solid 1px #c0c0c0 ;
 }
 
 #span_count_of_trash_note{

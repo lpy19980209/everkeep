@@ -221,14 +221,14 @@ function fillNoteList(orderby, direction) {
                     }
 
                 }
-
-                if (afterSuccess != null) {
-                    afterSuccess();
-                }
             }
 
             else {
                 console.log("NOTE列表获取失败：" + responsedata);
+            }
+
+            if (afterSuccess != null) {
+                afterSuccess();
             }
         },
         error: function (what) {
@@ -312,14 +312,14 @@ function fillStarList(orderby, direction) {
                     }
 
                 }
-
-                if (afterSuccess != null) {
-                    afterSuccess();
-                }
             }
 
             else {
                 console.log("星标NOTE列表获取失败：" + responsedata);
+            }
+
+            if (afterSuccess != null) {
+                afterSuccess();
             }
         },
         error: function (what) {
@@ -403,15 +403,16 @@ function fillTrashList(orderby, direction) {
                     }
 
                 }
-
-                if (afterSuccess != null) {
-                    afterSuccess();
-                }
             }
 
             else {
                 console.log("Trash NOTE列表获取失败：" + responsedata);
             }
+
+            if (afterSuccess != null) {
+                afterSuccess();
+            }
+
         },
         error: function (what) {
             console.log("Trash NOTE列表获取失败: " + what);
@@ -426,10 +427,21 @@ function fillTrashList(orderby, direction) {
  */
 function setEditArea(data) {
     console.log('settextarea' + data['noteid'] + data['title'] + data['content']);
+    $("#note_area").show();
     $("#note_area").data('noteid', data['noteid']);
     $("#note_edit_title").val(data['title']);
     $("#my_text_area").html(data['content']);
 
+}
+/******************************************************************************/
+/**
+ * 清除editarea数据并且隐藏div
+ */
+function clearAndHideNoteArea() {
+    $("#note_area").removeData('noteid');
+    $("#note_edit_title").val(null);
+    $("#my_text_area").html(null);
+    $("#note_area").hide();
 }
 
 /********************************************************************************/
@@ -466,9 +478,9 @@ $(document).ready(function () {
 
     document.getElementById("trash_list").addEventListener('DOMSubtreeModified', function () {
         if($("#trash_list  .note_info_container").length > 0)
-            ;
+            $(".clear_trash_div").show();
         else
-            ;
+            $(".clear_trash_div").hide();
 
         $(".span_count_of_trash_note").text($("#trash_list  .note_info_container").length + "条笔记");
         console.log($("#trash_list .note_info_container").length + "条已删除笔记");
@@ -652,7 +664,27 @@ $(document).ready(function () {
         $("#slide3").animate({left:-450},"slow", function () {
             $('#slide3').removeClass("slide_out");
         });
-        fillTrashList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction);
+        fillTrashList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
+            if ($("#trash_list .note_info_container").length > 0) {
+                $("#trash_list .note_info_container:first").click();
+                console.log("------------------------------------------");
+            }
+            else {
+                clearAndHideNoteArea();
+            }
+        });
+    });
+
+    //点击笔记菜单入口事件
+    $(".left_navigation_note").click(function () {
+        fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
+            if ($("#note_list .note_info_container").length > 0) {
+                $("#no_note_tip + .note_info_container").click();
+            }
+            else {
+                clearAndHideNoteArea();
+            }
+        });
     });
 
 
@@ -727,4 +759,3 @@ $(document).ready(function () {
 
 });
 
-/******************************************************************************/

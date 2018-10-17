@@ -6,6 +6,19 @@
     left: 420px;
     top: 0px;
     bottom: 0px;
+    display: none;
+    z-index: 1;
+}
+
+#note_area_shadow {
+    position: fixed;
+    background: rgba(255,255,255, .8);
+    right: 0px;
+    left: 420px;
+    top: 0px;
+    bottom: 0px;
+    display: none;
+    z-index: 1;
 }
 
 #note_area #top_toolbar {
