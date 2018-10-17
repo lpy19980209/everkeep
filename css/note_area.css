@@ -79,3 +79,26 @@
     outline: none;
     overflow-y: scroll;
 }
+
+#top_toolbar_up , #top_toolbar_down{
+    padding-top: 13px;
+    height: 52px;
+    padding-bottom: 13px;
+}
+
+#top_tool_delete {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    margin-left: 26px;
+    background: url("../image/note_style/delete_24x24_gray.png");
+}
+
+
+#top_tool_star {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    margin-left: 26px;
+    background: url("../image/note_style/star_24x24_gray.png");
+}

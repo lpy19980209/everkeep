@@ -5,17 +5,13 @@ session_start();
 require_once './permission_manager.php';
 require_once './response_code.php';
 
-if(isLogin())
-{
+if (isLogin()) {
     $GLOBALS['userid'] = $_SESSION['uid'];
-}
-else
-{
+} else {
     die_for_no_login();
 }
 
-if(!isset($_GET["noteid"]))
-{
+if (!isset($_GET["noteid"])) {
     $msg = json_encode([
         "code" => GET_NO_NOTEID,
         "msg" => "NOTE ID无效",
@@ -26,7 +22,6 @@ if(!isset($_GET["noteid"]))
 $GLOBALS["noteid"] = $_GET['noteid'];
 
 readNoteFromDB($GLOBALS['noteid'], $GLOBALS['userid']);
-
 
 
 function readNoteFromDB($noteid, $userid)
@@ -49,7 +44,9 @@ function readNoteFromDB($noteid, $userid)
     }
 
     $sql = <<<EOF
-select title, content, userid from $tablename where noteid = '$noteid';
+select noteid, title, content, createTime, updateTime, remindTime, 
+markid, notebookid, isStar, isShare from $tablename 
+where userid = $userid and isDelete=0 and noteid = '$noteid';
 EOF;
 
     $result = $conn->query($sql);
@@ -57,27 +54,29 @@ EOF;
     if ($result->num_rows > 0) {
 
         // 输出数据
-        while($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) {
 
-            if($row["userid"] != $userid)
-            {
-                die_for_no_permission();
-            }
-            else
-            {
-                $data = [
-                    "noteid" => $noteid,
-                    "title" => $row["title"],
-                    "content" => $row["content"],
-                ];
 
-                $msg = json_encode([
-                    "code" => SUCCESS,
-                    "msg" => "成功",
-                    "data" => $data
-                ]);
-                die($msg);
-            }
+            $data = [
+                "noteid" => $row['noteid'],
+                "title" => $row["title"],
+                "createTime" => $row["createTime"],
+                "updateTime" => $row["updateTime"],
+                "remindTime" => $row["remindTime"],
+                "markid" => $row["markid"],
+                "notebookid" => $row["notebookid"],
+                "isStar" => $row["isStar"],
+                "isShare" => $row["isShare"],
+                "content" => $row["content"],
+            ];
+
+            $msg = json_encode([
+                "code" => SUCCESS,
+                "msg" => "成功",
+                "data" => $data
+            ]);
+            die($msg);
+
         }
     } else {
         $msg = json_encode([

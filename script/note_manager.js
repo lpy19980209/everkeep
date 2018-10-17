@@ -426,9 +426,10 @@ function fillTrashList(orderby, direction) {
  * @param data
  */
 function setEditArea(data) {
-    console.log('settextarea' + data['noteid'] + data['title'] + data['content']);
+    console.log('settextarea--------->');
+    console.log(data);
     $("#note_area").show();
-    $("#note_area").data('noteid', data['noteid']);
+    $("#note_area").data('noteinfo', data);
     $("#note_edit_title").val(data['title']);
     $("#my_text_area").html(data['content']);
 
@@ -558,6 +559,8 @@ $(document).ready(function () {
                     if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
                         $("#no_note_tip + .note_info_container").click();
                     }
+                    sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                        + (noteInfo["title"].length>10?"...":"") + "  移入废纸篓");
                 }
                 else {
                     console.log(noteInfo + "delete failed." + response);
@@ -586,6 +589,8 @@ $(document).ready(function () {
                     if (response["code"] == 0) {
                         console.log(noteInfo + "unstared");
                         $(starDiv).removeClass("is_star");
+                        sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                            + (noteInfo["title"].length>10?"...":"") + "  快捷方式删除成功");
                     }
                     else {
                         console.log(noteInfo + "unstar failed." + response);
@@ -604,6 +609,8 @@ $(document).ready(function () {
                     if (response["code"] == 0) {
                         console.log(noteInfo + "stared");
                         $(starDiv).addClass("is_star");
+                        sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                            + (noteInfo["title"].length>10?"...":"") + "  快捷方式添加成功");
                     }
                     else {
                         console.log(noteInfo + "star failed." + response);
@@ -636,10 +643,13 @@ $(document).ready(function () {
                         console.log(noteInfo + "unstared");
                         $(starDiv).removeClass("is_star");
                         $(noteInfoDiv).remove();
+                        sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                            + (noteInfo["title"].length>10?"...":"") + "  快捷方式删除成功");
                     }
                     else {
                         console.log(noteInfo + "unstar failed." + response);
                     }
+
                 },
                 error: function (msg) {
                     console.log(noteInfo + "unstar failed." + msg);
@@ -705,6 +715,8 @@ $(document).ready(function () {
                     if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
                         $("#no_note_tip + .note_info_container").click();
                     }
+                    sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                        + (noteInfo["title"].length>10?"...":"") + "  还原成功");
                 }
                 else {
                     console.log(noteInfo + "restore failed." + response);
@@ -736,6 +748,8 @@ $(document).ready(function () {
                     if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
                         $("#no_note_tip + .note_info_container").click();
                     }
+                    sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                        + (noteInfo["title"].length>10?"...":"") + "  删除成功");
                 }
                 else {
                     console.log(noteInfo + "really delete failed." + response);
@@ -749,6 +763,31 @@ $(document).ready(function () {
         event.stopPropagation();
     });
 
+    /*********************************************************************************************************/
+    //清空回收站事件
+    $(".clear_trash_div").click(function () {
+        $.get({
+            url: "../server/trash_clear.php",
+            success: function (responsedata) {
+                let response = JSON.parse(responsedata);
+                if (response["code"] == 0) {
+                    console.log("trash cleared");
+                    sendSuccessNotification(response["data"]["deleted_rows"] + "条笔记删除成功");
+                    $("#trash_list .note_info_container").remove();
+                }
+                else {
+                    console.log("trash clear failed 1." + responsedata);
+                    sendErrorNotification("删除失败");
+                }
+            },
+            error: function (msg) {
+                console.log("trash clear failed 2." + msg);
+                sendErrorNotification("删除失败");
+            }
+        });
+    });
+
+    /*******************************************************************************************************/
 
     fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
         if ($("#note_list .note_info_container").length > 0) {

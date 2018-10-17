@@ -227,6 +227,7 @@
     line-height: 21px;
     font-weight: lighter;
     display: none;
+    cursor: pointer;
 }
 
 .trash_count_container{
@@ -332,4 +333,8 @@
     width: 24px;
     height: 24px;
     background: url("../image/note_style/really_delete.png");
+}
+
+.note_tool_delete, .note_tool_shortcut, .note_tool_really_delete, .note_tool_restore, #top_tool_delete, #top_tool_star {
+    cursor: pointer;
 }
