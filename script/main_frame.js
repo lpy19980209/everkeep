@@ -45,6 +45,7 @@ $(document).ready(function(){
     $("#img8").click(function () {
 
         $(".slide_out").stop(false, false);
+        $("#note_area_shadow").stop(false, false);
         if(!$('#slide1').hasClass("slide_out"))
         {
             $(".slide_out").animate({left:-450},"normal").removeClass('slide_out');
@@ -52,8 +53,8 @@ $(document).ready(function(){
             $('#slide1').addClass("slide_out");
             $("#img8").addClass("checked_left_menu");
             $("#slide1").animate({left:0},"slow", function () {
-                $("#note_area_shadow").show();
             });
+            $("#note_area_shadow").fadeIn();
 
         }
         else
@@ -62,7 +63,7 @@ $(document).ready(function(){
             $(".checked_left_menu").removeClass("checked_left_menu");
             $("#img2").addClass("checked_left_menu");
             $("#slide1").animate({left:-450},"slow", function () {
-
+                $("#note_area_shadow").fadeOut();
             });
         }
     });
@@ -71,7 +72,10 @@ $(document).ready(function () {
     $("#img2").click(function () {
 
         $(".slide_out").stop(false, false);
-        $(".slide_out").animate({left:-450},"normal").removeClass('slide_out');
+        $("#note_area_shadow").stop(false, false);
+        $(".slide_out").animate({left:-450},"normal", function () {
+            $("#note_area_shadow").hide();
+        }).removeClass('slide_out');
         $(".checked_left_menu").removeClass("checked_left_menu");
         $("#img2").addClass("checked_left_menu");
 
@@ -84,6 +88,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#img3").click(function () {
         $(".slide_out").stop(false, false);
+        $("#note_area_shadow").stop(false, false);
         if(!$('#slide3').hasClass("slide_out"))
         {
             $(".slide_out").animate({left:-450},"normal").removeClass('slide_out');
@@ -101,7 +106,7 @@ $(document).ready(function () {
             $(".checked_left_menu").removeClass("checked_left_menu");
             $("#img2").addClass("checked_left_menu");
             $("#slide3").animate({left:-450},"slow", function () {
-
+                $("#note_area_shadow").hide();
             });
         }
     });
@@ -109,6 +114,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#img5").click(function () {
         $(".slide_out").stop(false, false);
+        $("#note_area_shadow").stop(false, false);
         if(!$('#slide4').hasClass("slide_out"))
         {
             $(".slide_out").animate({left:-450},"normal").removeClass('slide_out');
@@ -125,7 +131,7 @@ $(document).ready(function () {
             $(".checked_left_menu").removeClass("checked_left_menu");
             $("#img2").addClass("checked_left_menu");
             $("#slide4").animate({left:-450},"slow", function () {
-
+                $("#note_area_shadow").hide();
             });
         }
     });
