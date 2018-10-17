@@ -18,8 +18,21 @@
     color: white;
 }
 
+#note_list .note_info_container:hover > .note_info_title {
+    margin-right: 80px;
+}
+
+
+#note_list .note_info_container:hover > .note_item_tool {
+    display: block;
+}
+
 #note_list .note_info_title {
     font-style: normal;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     font-weight: lighter;
     font-size: 18px;
     margin: 0px;
@@ -39,6 +52,7 @@
 }
 
 #note_list .note_item_tool {
+    display: none;
     width: 80px;
     height: 24px;
     text-align: right;
@@ -107,11 +121,17 @@
 
 #star_list .note_info_title {
     font-style: normal;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     font-weight: lighter;
     font-size: 18px;
     margin: 0px;
     /*background-color: #8a6d3b;*/
 }
+
+
 
 #star_list .note_info_time {
     color: #c0c0c0;
@@ -126,14 +146,24 @@
 }
 
 #star_list .note_item_tool {
-    width: 120px;
-    height: 40px;
+    display: none;
+    width: 40px;
+    height: 24px;
     text-align: right;
     position: absolute;
     right: 0px;
     top: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+#star_list .note_info_container:hover > .note_info_title {
+    margin-right: 40px;
+}
+
+
+#star_list .note_info_container:hover > .note_item_tool {
+    display: block;
 }
 
 
@@ -212,6 +242,10 @@
 
 #trash_list .note_info_title {
     font-style: normal;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     font-weight: lighter;
     font-size: 18px;
     margin: 0px;
@@ -231,14 +265,24 @@
 }
 
 #trash_list .note_item_tool {
-    width: 120px;
-    height: 40px;
+    display: none;
+    width: 80px;
+    height: 24px;
     text-align: right;
     position: absolute;
     right: 0px;
     top: 0px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+#trash_list .note_info_container:hover > .note_info_title {
+    margin-right: 80px;
+}
+
+
+#trash_list .note_info_container:hover > .note_item_tool {
+    display: block;
 }
 
 #trash_list .note_tool_restore {
