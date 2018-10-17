@@ -39,8 +39,8 @@
 }
 
 #note_list .note_item_tool {
-    width: 120px;
-    height: 40px;
+    width: 80px;
+    height: 24px;
     text-align: right;
     position: absolute;
     right: 0px;
@@ -48,6 +48,8 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+
 
 #note_list .note_tool_delete {
     display: inline-block;
