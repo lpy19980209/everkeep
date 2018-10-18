@@ -73,7 +73,8 @@ function readNoteListFromDB($userid, $orderby, $direction)
     }
 
     $sql = <<<EOF
-select noteid, title, createTime, updateTime, remindTime, 
+select noteid, title, unix_timestamp(createTime) as createTime, unix_timestamp(updateTime) as updateTime, 
+unix_timestamp(remindTime) as remindTime,  
 markid, notebookid, isStar, isShare from $tablename 
 where userid = $userid and isDelete = 1
 order by $orderby $direction;

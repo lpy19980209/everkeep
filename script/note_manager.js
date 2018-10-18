@@ -205,9 +205,9 @@ function fillNoteList(orderby, direction) {
                         $(noteTitle).addClass("note_info_title");
 
                         if (orderby == "createTime")
-                            $(noteTime).text(noteInfo["createTime"]);
+                            $(noteTime).text(simplifyTime(noteInfo["createTime"]));
                         else
-                            $(noteTime).text(noteInfo["updateTime"]);
+                            $(noteTime).text(simplifyTime(noteInfo["updateTime"]));
                         $(noteTime).addClass("note_info_time");
 
                         let noteSnippet = $("<div></div>");
@@ -305,9 +305,9 @@ function fillStarList(orderby, direction) {
                         $(noteTitle).addClass("note_info_title");
 
                         if (orderby == "createTime")
-                            $(noteTime).text(noteInfo["createTime"]);
+                            $(noteTime).text(simplifyTime(noteInfo["createTime"]));
                         else
-                            $(noteTime).text(noteInfo["updateTime"]);
+                            $(noteTime).text(simplifyTime(noteInfo["updateTime"]));
                         $(noteTime).addClass("note_info_time");
 
                         $(noteInfoContainer).append(noteTitle);
@@ -397,9 +397,9 @@ function fillTrashList(orderby, direction) {
                         $(noteTitle).addClass("note_info_title");
 
                         if (orderby == "createTime")
-                            $(noteTime).text(noteInfo["createTime"]);
+                            $(noteTime).text(simplifyTime(noteInfo["createTime"]));
                         else
-                            $(noteTime).text(noteInfo["updateTime"]);
+                            $(noteTime).text(simplifyTime(noteInfo["updateTime"]));
                         $(noteTime).addClass("note_info_time");
 
                         $(noteInfoContainer).append(noteTitle);
@@ -926,4 +926,27 @@ $(document).ready(function () {
         });
 
 });
+
+
+/***************************************************************/
+/**
+*时间解析处理
+ * */
+function simplifyTime(seconds) {
+    let interval = parseInt(new Date().getTime()/1000) - seconds;
+    if(interval < 60)
+        return "1分钟内";
+    else if(interval/60 < 60)
+        return parseInt(interval/60) + "分钟前";
+    else if(interval/60/60 < 24)
+        return parseInt(interval/60/60) + "小时前";
+    else if(interval/60/60/24 < 7)
+        return parseInt(interval/60/60/24) + "天前";
+    else if(interval/60/60/24/7 < 4)
+        return parseInt(interval/60/60/24/7) + "周前";
+    else if(interval/60/60/24/30 < 12)
+        return parseInt(interval/60/24/24/30) + "个月前";
+    else if(interval/60/60/24/30/12 > 1 )
+        return parseInt(interval/60/60/24/30/12) + "年前";
+}
 
