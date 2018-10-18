@@ -42,7 +42,7 @@ create table note (
 noteid int auto_increment primary key,
 userid int not null,
 title text default null,
-content text not null,
+content longtext not null,
 createTime timestamp not null default current_timestamp,
 updateTime timestamp not null default current_timestamp on update current_timestamp,
 markid int default null,

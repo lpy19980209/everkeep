@@ -23,7 +23,7 @@
     | noteid       | int(11)    | NO   | PRI | NULL                | auto_increment |
     | userid       | int(11)    | NO   | MUL | NULL                |                            |
     | title        | text       | YES  |     | NULL                |                            |
-    | content      | text       | NO   |     | NULL                |                            |
+    | content      | longtext       | NO   |     | NULL                |                            |
     | createTime   | timestamp  | NO   |     | CURRENT_TIMESTAMP   |                            |
     | updateTime   | timestamp  | NO   |     | CURRENT_TIMESTAMP   | on update CURRENT_TIMESTAMP|
     | markid       | int(11)    | YES  | MUL | NULL                |                            |
