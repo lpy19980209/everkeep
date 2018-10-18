@@ -768,26 +768,28 @@ $(document).ready(function () {
         let noteInfo = $(this).parent().parent().data("noteinfo");
         let theNoteInfoDiv = $(this).parent().parent();
 
-        $.get({
-            url: "../server/note_really_delete.php?noteid=" + noteInfo["noteid"],
-            success: function (responsedata) {
-                let response = JSON.parse(responsedata);
-                if (response["code"] == 0) {
-                    console.log(noteInfo + "really deleted");
-                    $(theNoteInfoDiv).remove();
-                    if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
-                        $("#no_note_tip + .note_info_container").click();
+        sendFullAlert("确定彻底删除" + (noteInfo["title"]==""?'无标题':noteInfo["title"]) + "?", function () {
+            $.get({
+                url: "../server/note_really_delete.php?noteid=" + noteInfo["noteid"],
+                success: function (responsedata) {
+                    let response = JSON.parse(responsedata);
+                    if (response["code"] == 0) {
+                        console.log(noteInfo + "really deleted");
+                        $(theNoteInfoDiv).remove();
+                        if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
+                            $("#no_note_tip + .note_info_container").click();
+                        }
+                        sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                            + (noteInfo["title"].length>10?"...":"") + "  删除成功");
                     }
-                    sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
-                        + (noteInfo["title"].length>10?"...":"") + "  删除成功");
+                    else {
+                        console.log(noteInfo + "really delete failed." + response);
+                    }
+                },
+                error: function (msg) {
+                    console.log(noteInfo + "really delete failed." + msg);
                 }
-                else {
-                    console.log(noteInfo + "really delete failed." + response);
-                }
-            },
-            error: function (msg) {
-                console.log(noteInfo + "really delete failed." + msg);
-            }
+            });
         });
 
         event.stopPropagation();
@@ -796,24 +798,26 @@ $(document).ready(function () {
     /*********************************************************************************************************/
     //清空回收站事件
     $(".clear_trash_div").click(function () {
-        $.get({
-            url: "../server/trash_clear.php",
-            success: function (responsedata) {
-                let response = JSON.parse(responsedata);
-                if (response["code"] == 0) {
-                    console.log("trash cleared");
-                    sendSuccessNotification(response["data"]["deleted_rows"] + "条笔记删除成功");
-                    $("#trash_list .note_info_container").remove();
-                }
-                else {
-                    console.log("trash clear failed 1." + responsedata);
+        sendFullAlert("确定清空废纸篓?", function () {
+            $.get({
+                url: "../server/trash_clear.php",
+                success: function (responsedata) {
+                    let response = JSON.parse(responsedata);
+                    if (response["code"] == 0) {
+                        console.log("trash cleared");
+                        sendSuccessNotification(response["data"]["deleted_rows"] + "条笔记删除成功");
+                        $("#trash_list .note_info_container").remove();
+                    }
+                    else {
+                        console.log("trash clear failed 1." + responsedata);
+                        sendErrorNotification("删除失败");
+                    }
+                },
+                error: function (msg) {
+                    console.log("trash clear failed 2." + msg);
                     sendErrorNotification("删除失败");
                 }
-            },
-            error: function (msg) {
-                console.log("trash clear failed 2." + msg);
-                sendErrorNotification("删除失败");
-            }
+            });
         });
     });
 
