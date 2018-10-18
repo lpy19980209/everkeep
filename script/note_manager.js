@@ -96,7 +96,7 @@ function note_submit() {
     }
 
 
-    let noteid = $("#note_area").data('noteid') == null ? -1 : $("#note_area").data('noteid');
+    let noteid = $("#note_area").data('noteinfo') == null ? -1 : $("#note_area").data('noteinfo')["noteid"];
     let notetitle = $("#note_edit_title").val();
     let notecontent = tinyMCE.activeEditor.getContent();
     // console.log("local: " + noteid + notetitle + notecontent);
@@ -216,6 +216,7 @@ function fillNoteList(orderby, direction) {
 
                         $(noteInfoContainer).data('noteinfo', noteInfo);
                         $(noteInfoContainer).addClass("note_info_container");
+                        $(noteInfoContainer).attr("id", "notelist_item_" + noteInfo["noteid"]);
 
                         $("#note_list").append(noteInfoContainer);
                     }
@@ -439,7 +440,7 @@ function setEditArea(data) {
  * 清除editarea数据并且隐藏div
  */
 function clearAndHideNoteArea() {
-    $("#note_area").removeData('noteid');
+    $("#note_area").removeData('noteinfo');
     $("#note_edit_title").val(null);
     $("#my_text_area").html(null);
     $("#note_area").hide();
@@ -529,7 +530,7 @@ $(document).ready(function () {
 
     //定义笔记添加功能
     $(".new_note_button").click(function () {
-        $("#note_area").data('noteid', null);
+        $("#note_area").data('noteinfo', null);
         $("#note_edit_title").val(null);
         $("#my_text_area").html(null);
 
@@ -542,10 +543,9 @@ $(document).ready(function () {
     });
 
 
-    //定义笔记删除事件
+    //定义notelist笔记删除事件
     $("#note_list").on("click", ".note_tool_delete", function (event) {
 
-        let noteInfoDiv = $(this).parent().parent();
         let noteInfo = $(this).parent().parent().data("noteinfo");
         let theNoteInfoDiv = $(this).parent().parent();
 
@@ -555,12 +555,17 @@ $(document).ready(function () {
                 let response = JSON.parse(responsedata);
                 if (response["code"] == 0) {
                     console.log(noteInfo + "deleted");
+
+                    let nextNote = $(theNoteInfoDiv).next().length <= 0 ?$(theNoteInfoDiv).prev(): $(theNoteInfoDiv).next();
+
                     $(theNoteInfoDiv).fadeOut(function () {
-                        $(this).remove();
+                        $(theNoteInfoDiv).remove();
                     });
-                    if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
-                        $("#no_note_tip + .note_info_container").click();
+                    if ($("#note_area").data("noteinfo")["noteid"] == noteInfo["noteid"]) {
+                        clearAndHideNoteArea();
+                        nextNote.click();
                     }
+
                     sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
                         + (noteInfo["title"].length>10?"...":"") + "  移入废纸篓");
                 }
@@ -573,6 +578,23 @@ $(document).ready(function () {
             }
         });
 
+        event.stopPropagation();
+    });
+
+
+    //定义notearea笔记删除事件
+    $("#top_tool_delete").click(function (event) {
+
+        let noteInfo = $("#note_area").data("noteinfo");
+        $("#notelist_item_" + noteInfo["noteid"] + " .note_tool_delete").click();
+        event.stopPropagation();
+    });
+
+    //定义notearea笔记星标事件
+    $("#top_tool_star").click(function (event) {
+
+        let noteInfo = $("#note_area").data("noteinfo");
+        $("#notelist_item_" + noteInfo["noteid"] + " .note_tool_shortcut").click();
         event.stopPropagation();
     });
 
@@ -591,8 +613,8 @@ $(document).ready(function () {
                     if (response["code"] == 0) {
                         console.log(noteInfo + "unstared");
                         $(starDiv).removeClass("is_star");
-                        sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
-                            + (noteInfo["title"].length>10?"...":"") + "  快捷方式删除成功");
+                        // sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                        //     + (noteInfo["title"].length>10?"...":"") + "  快捷方式删除成功");
                     }
                     else {
                         console.log(noteInfo + "unstar failed." + response);
@@ -611,8 +633,8 @@ $(document).ready(function () {
                     if (response["code"] == 0) {
                         console.log(noteInfo + "stared");
                         $(starDiv).addClass("is_star");
-                        sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
-                            + (noteInfo["title"].length>10?"...":"") + "  快捷方式添加成功");
+                        // sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                        //     + (noteInfo["title"].length>10?"...":"") + "  快捷方式添加成功");
                     }
                     else {
                         console.log(noteInfo + "star failed." + response);
@@ -647,8 +669,8 @@ $(document).ready(function () {
                         $(noteInfoDiv).fadeOut(function () {
                            $(this).remove();
                         });
-                        sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
-                            + (noteInfo["title"].length>10?"...":"") + "  快捷方式删除成功");
+                        // sendSuccessNotification( (noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0,10))
+                        //     + (noteInfo["title"].length>10?"...":"") + "  快捷方式删除成功");
                     }
                     else {
                         console.log(noteInfo + "unstar failed." + response);
