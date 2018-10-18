@@ -675,9 +675,11 @@ $(document).ready(function () {
             $("#trash_container").show();
             $("#trash_container").css('left', '0px');
         }
+
+        $('#slide3').removeClass("slide_out");
         $("#slide3").animate({left:-450},"slow", function () {
-            $('#slide3').removeClass("slide_out");
         });
+        $("#note_area_shadow").fadeOut();
         fillTrashList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
             if ($("#trash_list .note_info_container").length > 0) {
                 $("#trash_list .note_info_container:first").click();
