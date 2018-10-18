@@ -28,7 +28,7 @@ $(document).ready(function () {
             //     });
             // },
             setup: function (ed) {
-                ed.on("change", function (event) {
+                ed.on("input", function (event) {
                     note_submit();
                 });
             }
@@ -453,8 +453,10 @@ function clearAndHideNoteArea() {
 $(document).ready(function () {
 
     //自动保存
-    $("#note_edit_title").change(function () {
-        note_submit();
+    document.getElementById("note_edit_title").addEventListener( "input", function () {
+        note_submit(function () {
+            $("#notelist_item_" + $("#note_area").data('noteinfo')["noteid"] + " .note_info_title").text($("#note_edit_title").val());
+        });
     });
 
     window.onunload = function () {
