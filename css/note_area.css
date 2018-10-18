@@ -91,14 +91,23 @@
     width: 26px;
     height: 26px;
     margin-left: 26px;
-    background: url("../image/note_style/delete_24x24_gray.png");
+    background: url("../image/note_style/top_delete_gray_24x24.png");
 }
 
+#top_tool_delete:hover {
+    background: url("../image/note_style/top_delete_green_24x24.png");
+}
 
 #top_tool_star {
     display: inline-block;
     width: 26px;
     height: 26px;
     margin-left: 26px;
-    background: url("../image/note_style/star_24x24_gray.png");
+    background: url("../image/note_style/top_star_gray_24x24.png");
+}
+#top_tool_star:hover {
+    background: url("../image/note_style/top_star_green_24x24.png");
+}
+.top_is_star {
+    background: url("../image/note_style/top_star_green_24x24.png") !important;
 }

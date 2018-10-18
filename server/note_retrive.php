@@ -46,7 +46,7 @@ function readNoteFromDB($noteid, $userid)
     $sql = <<<EOF
 select noteid, title, content, createTime, updateTime, remindTime, 
 markid, notebookid, isStar, isShare from $tablename 
-where userid = $userid and isDelete=0 and noteid = '$noteid';
+where userid = $userid and noteid = '$noteid';
 EOF;
 
     $result = $conn->query($sql);
