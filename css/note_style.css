@@ -14,10 +14,6 @@
     color: white;
 }
 
-#note_list .note_info_container:hover > p {
-    color: white;
-}
-
 #note_list .note_info_container:hover > .note_info_title {
     margin-right: 80px;
 }
@@ -34,16 +30,28 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: lighter;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0px;
+    color: #000;
     /*background-color: #8a6d3b;*/
+}
+#note_list .note_info_container:hover > * {
+    color: white;
 }
 
 #note_list .note_info_time {
-    color: #c0c0c0;
+    color: gray;
     font-size: 12px;
     margin: 0px;
     /*background-color: #1e6abc;*/
+}
+
+#note_list .note_snippet {
+    margin-top: 5px;
+    color: gray;
+    font-size: 12px;
+    padding-right: 15px;
+    height: 40px;
 }
 
 #note_list .note_item_selected {
@@ -115,7 +123,7 @@
     color: white;
 }
 
-#star_list .note_info_container:hover > p {
+#star_list .note_info_container:hover > * {
     color: white;
 }
 
@@ -126,8 +134,9 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: lighter;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0px;
+    color: black;
     /*background-color: #8a6d3b;*/
 }
 
@@ -136,7 +145,7 @@
 #star_list .note_info_time {
     color: #c0c0c0;
     font-size: 12px;
-    margin: 0px;
+    margin-top: 5px;
     /*background-color: #1e6abc;*/
 }
 
@@ -268,7 +277,7 @@
     color: white;
 }
 
-#trash_list .note_info_container:hover > p {
+#trash_list .note_info_container:hover > * {
     color: white;
 }
 
@@ -279,7 +288,8 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: lighter;
-    font-size: 18px;
+    font-size: 16px;
+    color: #000;
     margin: 0px;
     /*background-color: #8a6d3b;*/
 }

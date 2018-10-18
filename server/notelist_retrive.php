@@ -67,7 +67,7 @@ function readNoteListFromDB($userid, $orderby, $direction)
     }
 
     $sql = <<<EOF
-select noteid, title, createTime, updateTime, remindTime, 
+select noteid, title, content, createTime, updateTime, remindTime, 
 markid, notebookid, isStar, isShare from $tablename 
 where userid = $userid and isDelete = 0
 order by $orderby $direction;
@@ -80,6 +80,11 @@ EOF;
         $data = [];
         while($row = $result->fetch_assoc()) {
 
+            $filter = Array("&nbsp;", " ", "\r", "\n");
+            $content = strip_tags($row["content"]);
+            foreach($filter as $m)
+                $content = mbereg_replace( $m, "" , $content);
+
             $data[] = [
                 "noteid" => $row['noteid'],
                 "title" => $row["title"],
@@ -90,6 +95,7 @@ EOF;
                 "notebookid" => $row["notebookid"],
                 "isStar" => $row["isStar"],
                 "isShare" => $row["isShare"],
+                "snippet" => mb_substr($content, 0, 48),
             ];
         }
 

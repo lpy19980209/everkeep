@@ -210,13 +210,21 @@ function fillNoteList(orderby, direction) {
                             $(noteTime).text(noteInfo["updateTime"]);
                         $(noteTime).addClass("note_info_time");
 
+                        let noteSnippet = $("<div></div>");
+                        noteSnippet.addClass("note_snippet");
+                        noteSnippet.text(noteInfo['snippet']);
+
                         $(noteInfoContainer).append(noteTitle);
                         $(noteInfoContainer).append(noteTime);
                         $(noteInfoContainer).append(noteItemTool);
+                        $(noteInfoContainer).append(noteSnippet);
 
                         $(noteInfoContainer).data('noteinfo', noteInfo);
                         $(noteInfoContainer).addClass("note_info_container");
                         $(noteInfoContainer).attr("id", "notelist_item_" + noteInfo["noteid"]);
+
+
+
 
                         $("#note_list").append(noteInfoContainer);
                     }
@@ -455,7 +463,9 @@ $(document).ready(function () {
     //自动保存
     document.getElementById("note_edit_title").addEventListener( "input", function () {
         note_submit(function () {
-            $("#notelist_item_" + $("#note_area").data('noteinfo')["noteid"] + " .note_info_title").text($("#note_edit_title").val());
+            let title = $("#note_edit_title").val();
+            if(title == "") title = "无标题";
+            $("#notelist_item_" + $("#note_area").data('noteinfo')["noteid"] + " .note_info_title").text(title);
         });
     });
 
@@ -502,8 +512,9 @@ $(document).ready(function () {
         $.get({
             url: "../server/note_retrive.php?noteid=" + noteInfo['noteid'],
             success: function (responsedata) {
-                let response = JSON.parse(responsedata);
+                console.log('noteretrive------------responsedata------------------->');
                 console.log(responsedata);
+                let response = JSON.parse(responsedata);
                 if (response['code'] == 0) {
                     // alert(response["data"]);
                     setEditArea(response["data"]);

@@ -15,7 +15,7 @@ $(document).ready(function () {
         'color' : 'white',
         'text-align' : 'center',
         'line-height' : '50px',
-        'font-size' : '20px',
+        'font-size' : '16px',
     });
     $("body").append(notificationDiv);
     $(notificationDiv).hide();
