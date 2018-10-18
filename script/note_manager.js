@@ -110,8 +110,8 @@ function note_submit() {
             console.log(response_data);
             var response = JSON.parse(response_data);
             if (response['code'] == 0) {
-                console.log("noteid: " + response["data"]["noteid"]);
-                $("#note_area").data("noteid", response["data"]["noteid"]);
+                // console.log("noteid: " + response["data"]["noteinfo"]);
+                // $("#note_area").data("noteinfo", response["data"]["noteinfo"]);
                 console.log("保存成功");
                 floatSaveSuccessSign();
 
@@ -537,7 +537,7 @@ $(document).ready(function () {
         note_submit(function () {
             fillNoteList(noteOrderMethod['u_d'].order, noteOrderMethod['u_d'].direction,
                 function () {
-                    //todo
+                    $("#note_list .note_info_container:first").click();
                 });
         });
     });
