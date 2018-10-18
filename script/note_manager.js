@@ -835,11 +835,26 @@ $(document).ready(function () {
     });
 
     /*******************************************************************************************************/
-
+    /***
+     * 排序
+     */
     fillNoteList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, function () {
         if ($("#note_list .note_info_container").length > 0) {
             $("#no_note_tip + .note_info_container").click();
         }
+    });
+
+    /************************************************************/
+    /*****
+     * 点击其他地方隐藏排序面板
+     */
+
+    $(document).on("click", function (e) {
+        $("#list1").hide();
+    })
+
+    $("#list, #photo3").click(function (e) {
+        e.stopPropagation();
     });
 
 
