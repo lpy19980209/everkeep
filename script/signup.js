@@ -3,14 +3,24 @@ $(document).ready(function () {
 
         closeTip();
 
+        let emailPattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
+        let passwordPattern = /^[a-zA-Z0-9_]{8,20}$/;
+
         let form = new FormData();
         let email = $("#email").val();
         let password = $("#password").val();
         let password_sha1 = SHA1(password);
 
-        if(false) {
-
+        if(!email.match(emailPattern) || !password.match(passwordPattern)) {
+            if(!email.match(emailPattern)) {
+                sendEmailTip("邮箱格式错误");
+            }
+            if(!password.match(passwordPattern)) {
+                sendPasswordTip("密码应为8-20位的字母、数字、下划线");
+            }
+            return;
         }
+
 
         form.append("email", email);
         form.append("password", password_sha1);

@@ -8,8 +8,14 @@ $(document).ready(function () {
         let password = $("#password").val();
         let password_sha1 = SHA1(password);
 
-        if(false) {
-
+        if(!email.match(emailPattern) || !password.match(passwordPattern)) {
+            if(!email.match(emailPattern)) {
+                sendEmailTip("邮箱格式错误");
+            }
+            if(!password.match(passwordPattern)) {
+                sendPasswordTip("密码有误");
+            }
+            return;
         }
 
         form.append("email", email);
