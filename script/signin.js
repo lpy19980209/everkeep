@@ -27,8 +27,9 @@ $(document).ready(function () {
                 if (response['code'] == 0) {
 
                     console.log("登录成功");
-                    alert("登录成功");
-                    window.location.href="../index.php";
+                    sendSuccessNotification("登录成功！", 1 , function () {
+                        window.location.href="../index.php";
+                    });
                 }
                 else if (response['code'] == 76) {
                     console.error("登录失败: " + response_data);
@@ -59,7 +60,7 @@ $(document).ready(function () {
             },
             error: function (e) {
                 console.error("登录失败： " + e);
-                // sendErrorNotification("注册失败，请检查网络状态！");
+                sendErrorNotification("注册失败，请检查网络状态！");
             },
         });
     });

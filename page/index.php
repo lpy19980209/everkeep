@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../server/response_code.php';
 
 if(!isLogin())
 {
-    $out = file_get_contents( dirname(__FILE__) . "/../page/indexpage.html" );
+    $out = file_get_contents( dirname(__FILE__) . "/../page/signup.html" );
     echo $out;
 }
 

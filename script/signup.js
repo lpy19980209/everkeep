@@ -27,7 +27,9 @@ $(document).ready(function () {
                 if (response['code'] == 0) {
 
                     console.log("注册成功");
-                    alert("注册成功");
+                    sendSuccessNotification("注册成功！", 1 , function () {
+                        window.location.href="../page/signin.html";
+                    });
                 }
                 else if (response['code'] == 71) {
                     console.error("注册失败: " + response_data);
@@ -53,7 +55,7 @@ $(document).ready(function () {
             },
             error: function (e) {
                 console.error("注册失败： " + e);
-                // sendErrorNotification("注册失败，请检查网络状态！");
+                sendErrorNotification("注册失败，请检查网络状态！");
             },
         });
     });
