@@ -11,9 +11,9 @@
     | Field      | Type      | Null | Key | Default           | Extra          |
     |------------|:---------:|:----:|:---:|:-----------------:|----------------|
     | userid     | int(11)   | NO   | PRI | NULL              | auto_increment |
-    | username   | text      | YES  |     | NULL              |                |
+    | username   | text      | YES  |     | NULL              | unique         |
     | password   | text      | NO   |     | NULL              |                |
-    | email      | text      | NO   |     | NULL              |                |
+    | email      | text      | NO   |     | NULL              | unique         |
     | createTime | timestamp | NO   |     | CURRENT_TIMESTAMP |                |
 
   + `everkeep.note`

@@ -36,3 +36,11 @@ define("NOTELIST_RETRIVE_PARMS_ERROR", 24);
 
 
 define("GET_PARM_ERROR", 56);
+
+define("EMAIL_FORMAT_ERROR", 70);
+define("EMAIL_EXIST", 71);
+define("USERNAME_EXIST", 72);
+define("PASSWORD_ERROR", 73);
+define("CONFIRM_CODE_ERROR", 74);
+define("PASSWORD_FORMAT_ERROR", 75);
+define("USER_NOT_EXIST", 76);
