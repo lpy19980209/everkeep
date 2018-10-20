@@ -48,3 +48,7 @@ define("USER_NOT_CONFIRM", 77);
 define("USER_CONFIRM_ERROR", 78);
 define("CONFIRM_CODE_EXPIRE", 79);
 define("ACCOUNT_CONFIRM_ERROR", 80);
+
+//邮件
+define("EMAIL_SEND_ERROR", 91);
+

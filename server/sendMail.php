@@ -13,7 +13,7 @@ require '../lib/php/PHPMailer/PHPMailer.php';
 require '../lib/php/PHPMailer/SMTP.php';
 
 
-function sendAccountConfirm($to, $userid, $code) {
+function sendAccountConfirm($userid, $to, $code) {
     $mail = new PHPMailer(true);
     try {
         //Server settings

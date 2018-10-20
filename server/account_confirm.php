@@ -45,7 +45,7 @@ EOF;
 
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
-
+        alterIsConfirm($userid);
     }
 
     else {
@@ -78,7 +78,7 @@ function alterIsConfirm($userid)
     $username = "everkeep";
     $password = "everkeep_team10";
     $dbname = "everkeep";
-    $tablename = "confirm";
+    $tablename = "user";
 
 // 创建连接
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -106,7 +106,7 @@ EOF;
     } else {
         $msg = json_encode([
             "code" => ACCOUNT_CONFIRM_ERROR,
-            "msg" => "数据更新失败: " . $conn->error,
+            "msg" => "数据更新失败,用户确认失败: " . $conn->error,
         ]);
         die($msg);
     }
