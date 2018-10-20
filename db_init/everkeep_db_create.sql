@@ -86,7 +86,10 @@ constraint fk_fileid_userid foreign key(userid) references `user`(userid)
 
 create table `confirm` (
 userid int not null,
-confirm_code int(6) not null,
+confirmCode int(6) not null,
+applyTime timestamp not null default current_timestamp,
+usage tinyint not null default 0;
+
 constraint confirmuid_userid foreign key (userid) references  `user`(userid)
 );
 

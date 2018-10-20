@@ -44,3 +44,5 @@ define("PASSWORD_ERROR", 73);
 define("CONFIRM_CODE_ERROR", 74);
 define("PASSWORD_FORMAT_ERROR", 75);
 define("USER_NOT_EXIST", 76);
+define("USER_NOT_CONFIRM", 77);
+define("USER_CONFIRM_ERROR", 78);

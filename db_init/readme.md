@@ -89,4 +89,6 @@
     | Field        | Type    | Null | Key | Default | Extra |
     |--------------|:-------:|:----:|:---:|:-------:|-------|
     | userid       | int(11) | NO   | MUL | NULL    |       |
-    | confirm_code | int(6)  | NO   |     | NULL    |       |
+    | confirmCode | int(6)  | NO   |     | NULL    |       |
+    | usage        | tinyint(4) | NO   |     | 0                 |       |
+    | applyTime    | timestamp  | NO   |     | CURRENT_TIMESTAMP |       |
