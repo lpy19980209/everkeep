@@ -28,7 +28,7 @@ $(document).ready(function () {
 function sendSuccessNotification(msg)
 {
     let callBack = null;
-    let interval = 2;
+    let interval = 2000;
     if(arguments.length == 2)
         callBack = arguments[1];
     if(arguments.length == 3)

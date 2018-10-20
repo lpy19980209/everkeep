@@ -5,7 +5,7 @@ $(document).ready(function () {
 
         let emailPattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
         let passwordPattern = /^[a-zA-Z0-9_]{8,20}$/;
-        
+
         let form = new FormData();
         let email = $("#email").val();
         let password = $("#password").val();
@@ -36,7 +36,7 @@ $(document).ready(function () {
                 if (response['code'] == 0) {
 
                     console.log("登录成功");
-                    sendSuccessNotification("登录成功！", 1 , function () {
+                    sendSuccessNotification("登录成功！", 1000 , function () {
                         window.location.href="../index.php";
                     });
                 }

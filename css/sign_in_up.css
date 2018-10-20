@@ -42,6 +42,10 @@ body {
     background-color: #faffbd;
     font-weight: bold;
 }
+.sign_input::-webkit-input-placeholder {
+    font-weight: lighter;
+    font-family: "微软雅黑 Light";
+}
 
 .sign_input:focus {
     border: 2px #28a956 solid;

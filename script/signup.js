@@ -37,7 +37,7 @@ $(document).ready(function () {
                 if (response['code'] == 0) {
 
                     console.log("注册成功");
-                    sendSuccessNotification("注册成功！", 1 , function () {
+                    sendSuccessNotification("注册成功，请登录！", 1000 , function () {
                         window.location.href="../page/signin.html";
                     });
                 }
