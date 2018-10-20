@@ -6,6 +6,7 @@ userid int auto_increment primary key,
 username text default null unique,
 `password` text not null,
 email text not null unique,
+isConfirm tinyint default 0,
 createTime timestamp not null default current_timestamp
 );
 
@@ -83,5 +84,10 @@ link int default 1,
 constraint fk_fileid_userid foreign key(userid) references `user`(userid)
 );
 
+create table `confirm` (
+userid int not null,
+confirm_code int(6) not null,
+constraint confirmuid_userid foreign key (userid) references  `user`(userid)
+);
 
 
