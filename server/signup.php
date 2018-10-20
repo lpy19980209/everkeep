@@ -7,7 +7,7 @@
  */
 
 require_once __DIR__ . "/response_code.php";
-require_once __DIR__ . "/send_account_confirm_mall.php";
+require_once __DIR__ . "/generateConfirmCodeAndSendMail.php";
 
 //验证数据完整性
 if(!isset($_POST['email']) || !isset($_POST['password']))
@@ -62,16 +62,28 @@ function addUser($email, $user_password_sha1)
     }
 
     $sql = <<<EOF
-select userid, username, password, email, createTime from $tablename where email = '$email'
+select userid, username, password, email, createTime, isConfirm from $tablename where email = '$email'
 EOF;
 
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
-        $msg = json_encode([
-            "code" => EMAIL_EXIST,
-            "msg" => "用户已存在",
-        ]);
-        die($msg);
+
+        if(($result->fetch_assoc())["isConfirm"] == 1)
+        {
+            $msg = json_encode([
+                "code" => EMAIL_EXIST,
+                "msg" => "用户已存在",
+            ]);
+            die($msg);
+        }
+        else {
+            $msg = json_encode([
+                "code" => EMAIL_EXIST_BUT_NOT_CONFIRM,
+                "msg" => "用户已存在但未确认注册",
+            ]);
+            die($msg);
+        }
+
     }
 
     else {
@@ -82,26 +94,21 @@ VALUES ( '$email', null ,'$user_password_sha1')
 EOF;
         if ($conn->query($sql) === TRUE) {
 
-            $msg = json_encode([
-                    "code" => SUCCESS,
-                    "msg" => "莫名其妙的成功",
+            $innerSql = <<<EOF
+select userid from $tablename where email = '$email'
+EOF;
+            $innerResult = $conn->query($innerSql);
+            if($innerResult->num_rows > 0) {
+                $innerRow = $innerResult->fetch_assoc();
+                generateConfirmCodeAndSendMail($innerRow["userid"], $email);
+            }
+            else {
+                $msg = json_encode([
+                    "code" => QUERY_NO_DATA,
+                    "msg" => "未知错误",
                 ]);
                 die($msg);
-//            $innerSql = <<<EOF
-//select userid from $tablename where email = '$email'
-//EOF;
-//            $innerResult = $conn->query($innerSql);
-//            if($innerResult->num_rows > 0) {
-//                $innerRow = $innerResult->fetch_assoc();
-//                generateConfirmCodeAndSendMail($innerRow["userid"], $email);
-//            }
-//            else {
-//                $msg = json_encode([
-//                    "code" => QUERY_NO_DATA,
-//                    "msg" => "未知错误",
-//                ]);
-//                die($msg);
-//            }
+            }
         } else {
             $msg = json_encode([
                 "code" => DB_INSERTION_ERROR,

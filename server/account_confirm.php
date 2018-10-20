@@ -55,11 +55,26 @@ EOF;
 
         $result = $conn->query($sql);
         if($result->num_rows > 0) {
-            $msg = json_encode([
-                "code" => CONFIRM_CODE_EXPIRE,
-                "msg" => "信息已过期",
-            ]);
-            die($msg);
+//            $msg = json_encode([
+//                "code" => CONFIRM_CODE_EXPIRE,
+//                "msg" => "信息已过期",
+//            ]);
+//            die($msg);
+            $response = <<<EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小小笔记</title>
+    <meta http-equiv="refresh" content="2;url=../page/signin.html"> 
+</head>
+<body>
+    激活链接已过期,请在登录界面重新获取,2秒后进入...
+</body>
+</html>
+EOF;
+            echo $response;
+            exit;
         }
         else {
             $msg = json_encode([
@@ -98,11 +113,27 @@ EOF;
 
     if ($conn->query($sql) === TRUE) {
 
-        $msg = json_encode([
-            "code" => SUCCESS,
-            "msg" => "success",
-        ]);
-        die($msg);
+//        $msg = json_encode([
+//            "code" => SUCCESS,
+//            "msg" => "success",
+//        ]);
+//        die($msg);
+        $response = <<<EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小小笔记</title>
+    <meta http-equiv="refresh" content="2;url=../page/signin.html"> 
+</head>
+<body>
+    激活成功，2秒后登录...
+</body>
+</html>
+EOF;
+        echo $response;
+        exit;
+
     } else {
         $msg = json_encode([
             "code" => ACCOUNT_CONFIRM_ERROR,

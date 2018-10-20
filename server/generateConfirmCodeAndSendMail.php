@@ -67,5 +67,3 @@ EOF;
 
     $conn->close();
 }
-
-generateConfirmCodeAndSendMail(1, '1315649917@qq.com');

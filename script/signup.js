@@ -46,6 +46,12 @@ $(document).ready(function () {
                     // sendErrorNotification("注册失败");
                     sendEmailTip("用户已存在，请选择忘记密码或使用其它电子邮箱地址。");
                 }
+                else if (response['code'] == 93) {
+                    console.error("注册失败: " + response_data);
+                    // sendErrorNotification("注册失败");
+                    sendEmailTip("用户已注册但未激活，请检查邮箱以激活或者使用其他邮箱地址," +
+                        "如未收到邮件请点击<a style='cursor: pointer;color: #2d8ac7' onclick='sendConfirmMail()'>重新发送</a>");
+                }
                 else if (response['code'] == 70) {
                     console.error("注册失败: " + response_data);
                     // sendErrorNotification("注册失败");
@@ -70,23 +76,3 @@ $(document).ready(function () {
         });
     });
 });
-
-function sendEmailTip(msg) {
-    $(".email_tip").text(msg).slideDown();
-}
-
-function sendPasswordTip(msg) {
-    $(".password_tip").text(msg).slideDown();
-}
-
-function closeTip() {
-    $(".password_tip, .email_tip").hide();
-}
-
-function closeEmailTip() {
-    $(".email_tip").hide();
-}
-
-function closePasswordTip() {
-    $(".password_tip").hide();
-}

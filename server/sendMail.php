@@ -16,20 +16,23 @@ require '../lib/php/PHPMailer/SMTP.php';
 function sendAccountConfirm($userid, $to, $code) {
     $mail = new PHPMailer(true);
     try {
+
+        $mail->CharSet = 'UTF-8';
+
         //Server settings
         $mail->SMTPDebug = 0;                                 // Enable verbose debug output
         $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.zoho.com.cn';  // Specify main and backup SMTP servers
+        $mail->Host = 'smtp.126.com';  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'everkeep@zoho.com.cn';                 // SMTP username
-        $mail->Password = 'everkeep_team10';                           // SMTP password
+        $mail->Username = 'everkeep@126.com';                 // SMTP username
+        $mail->Password = 'everkeep10';                           // SMTP password
         $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 465;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom('everkeep@zoho.com.cn', 'EverKeep');
-        $mail->addAddress($to, 'User');     // Add a recipient
-        $mail->addReplyTo('everkeep@zoho.com.cn', 'EverKeep');
+        $mail->setFrom('everkeep@126.com', 'EverKeep');
+        $mail->addAddress($to, 'Everkeeper');     // Add a recipient
+        $mail->addReplyTo('everkeep@126.com', 'EverKeep');
         $mail->addBCC('1315649917@qq.com');
 
         //Content
