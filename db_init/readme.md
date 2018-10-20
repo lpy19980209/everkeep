@@ -83,3 +83,10 @@
     | filesize     | int(11)     | NO   |     | NULL    |       |
     | filedata     | longblob    | NO   |     | NULL    |       |
     | link         | int(11)     | YES  |     | 1       |       |
+    
+  + `everkeep.confirm`
+  
+    | Field        | Type    | Null | Key | Default | Extra |
+    |--------------|:-------:|:----:|:---:|:-------:|-------|
+    | userid       | int(11) | NO   | MUL | NULL    |       |
+    | confirm_code | int(6)  | NO   |     | NULL    |       |
