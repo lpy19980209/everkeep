@@ -7,6 +7,7 @@
  */
 
 require_once __DIR__ . "/response_code.php";
+require_once __DIR__ . "/send_account_confirm_mall.php";
 
 //验证数据完整性
 if(!isset($_POST['email']) || !isset($_POST['password']))
@@ -82,10 +83,25 @@ EOF;
         if ($conn->query($sql) === TRUE) {
 
             $msg = json_encode([
-                "code" => SUCCESS,
-                "msg" => "success",
-            ]);
-            die($msg);
+                    "code" => SUCCESS,
+                    "msg" => "莫名其妙的成功",
+                ]);
+                die($msg);
+//            $innerSql = <<<EOF
+//select userid from $tablename where email = '$email'
+//EOF;
+//            $innerResult = $conn->query($innerSql);
+//            if($innerResult->num_rows > 0) {
+//                $innerRow = $innerResult->fetch_assoc();
+//                generateConfirmCodeAndSendMail($innerRow["userid"], $email);
+//            }
+//            else {
+//                $msg = json_encode([
+//                    "code" => QUERY_NO_DATA,
+//                    "msg" => "未知错误",
+//                ]);
+//                die($msg);
+//            }
         } else {
             $msg = json_encode([
                 "code" => DB_INSERTION_ERROR,
