@@ -3,9 +3,9 @@ use everkeep;
 
 create table `user` (
 userid int auto_increment primary key,
-username text default null unique,
+username varchar(100) default null unique,
 `password` text not null,
-email text not null unique,
+email varchar(100) not null unique,
 isConfirm tinyint default 0,
 createTime timestamp not null default current_timestamp
 );
