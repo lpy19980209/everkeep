@@ -31,6 +31,9 @@ $(document).ready(function () {
                 ed.on("input", function (event) {
                     note_submit();
                 });
+                ed.on("change", function (event) {
+                    note_submit();
+                });
             }
         });
 
