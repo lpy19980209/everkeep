@@ -58,6 +58,10 @@ function sendSuccessNotification(msg)
         interval);
 }
 
+function clearSuccessNotification() {
+    $("#top_notification_div").stop(false,false).hide();
+}
+
 function sendErrorNotification(msg)
 {
     $("#top_notification_div").stop(false,false);

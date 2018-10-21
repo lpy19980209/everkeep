@@ -25,6 +25,9 @@ $(document).ready(function () {
         form.append("email", email);
         form.append("password", password_sha1);
 
+        sendSuccessNotification("连接服务器中......", 3000 , function () {
+        });
+
         $.ajax({
             url: "../server/signup.php",
             type: 'post',
@@ -32,6 +35,9 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response_data) {
+
+                clearSuccessNotification();
+
                 console.log(response_data);
                 let response = JSON.parse(response_data);
                 if (response['code'] == 0) {
@@ -44,7 +50,7 @@ $(document).ready(function () {
                 else if (response['code'] == 71) {
                     console.error("注册失败: " + response_data);
                     // sendErrorNotification("注册失败");
-                    sendEmailTip("用户已存在，请选择忘记密码或使用其它电子邮箱地址。");
+                    sendEmailTip("用户已存在，请直接登录或使用其它电子邮箱地址。");
                 }
                 else if (response['code'] == 93) {
                     console.error("注册失败: " + response_data);
@@ -65,11 +71,14 @@ $(document).ready(function () {
                 else {
                     console.error("注册失败: " + response_data);
                     // sendErrorNotification("注册失败");
-                    sendEmailTip("未知错误");
+                    sendEmailTip("验证邮件发送失败，请确认邮箱地址是否真实有效！");
                 }
 
             },
             error: function (e) {
+
+                $("#top_notification_div").stop(false,false);
+
                 console.error("注册失败： " + e);
                 sendErrorNotification("注册失败，请检查网络状态！");
             },

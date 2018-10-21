@@ -33,6 +33,9 @@ function sendConfirmMail() {
 
     form.append("email", email);
 
+    sendSuccessNotification("连接服务器中......", 3000 , function () {
+    });
+
     $.ajax({
         url: "../server/resendConfirmMail.php",
         type: 'post',
@@ -40,6 +43,9 @@ function sendConfirmMail() {
         processData: false,
         contentType: false,
         success: function (response_data) {
+
+            clearSuccessNotification();
+
             console.log(response_data);
             let response = JSON.parse(response_data);
             if (response['code'] == 0) {
@@ -59,6 +65,11 @@ function sendConfirmMail() {
                 // sendErrorNotification("注册失败");
                 sendSuccessNotification("用户不存在！", 3000 , function () {
                 });
+            }
+            else {
+                console.error("注册失败: " + response_data);
+                // sendErrorNotification("注册失败");
+                sendEmailTip("发送失败，请确认邮箱地址是否真实有效！");
             }
         },
         error: function (e) {

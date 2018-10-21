@@ -24,6 +24,9 @@ $(document).ready(function () {
         form.append("email", email);
         form.append("password", password_sha1);
 
+        sendSuccessNotification("连接服务器中......", 3000 , function () {
+        });
+
         $.ajax({
             url: "../server/signin.php",
             type: 'post',
@@ -31,6 +34,9 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response_data) {
+
+                clearSuccessNotification();
+
                 console.log(response_data);
                 let response = JSON.parse(response_data);
                 if (response['code'] == 0) {

@@ -16,6 +16,9 @@ $(document).ready(function () {
 
         form.append("password", password_sha1);
 
+        sendSuccessNotification("连接服务器中......", 3000 , function () {
+        });
+
         $.ajax({
             url: "../server/password_update.php",
             type: 'post',
@@ -23,6 +26,9 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response_data) {
+
+                clearSuccessNotification();
+
                 console.log(response_data);
                 let response = JSON.parse(response_data);
                 if (response['code'] == 0) {
@@ -60,7 +66,8 @@ $(document).ready(function () {
                 else {
                     console.error("登录失败: " + response_data);
                     // sendErrorNotification("注册失败");
-                    sendEmailTip("未知错误");
+                    // sendEmailTip("未知错误");
+                    sendEmailTip("发送失败，请确认邮箱地址是否真实有效！");
                 }
 
             },
