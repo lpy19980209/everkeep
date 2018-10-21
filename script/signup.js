@@ -25,7 +25,7 @@ $(document).ready(function () {
         form.append("email", email);
         form.append("password", password_sha1);
 
-        sendSuccessNotification("连接服务器中......", 3000 , function () {
+        sendSuccessNotification("连接服务器中......", 10000 , function () {
         });
 
         $.ajax({

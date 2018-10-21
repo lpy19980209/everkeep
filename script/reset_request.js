@@ -15,6 +15,9 @@ $(document).ready(function () {
 
         form.append("email", email);
 
+        sendSuccessNotification("连接服务器中......", 10000 , function () {
+        });
+
         $.ajax({
             url: "../server/sendPasswordResetMail.php",
             type: 'post',
@@ -22,6 +25,9 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response_data) {
+
+                clearSuccessNotification();
+
                 console.log(response_data);
                 let response = JSON.parse(response_data);
                 if (response['code'] == 0) {

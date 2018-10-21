@@ -22,17 +22,17 @@ function sendConfirmMail($userid, $to, $code) {
         //Server settings
         $mail->SMTPDebug = 0;                                 // Enable verbose debug output
         $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.126.com';  // Specify main and backup SMTP servers
+        $mail->Host = 'smtp.zoho.com.cn';  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'everkeep@126.com';                 // SMTP username
-        $mail->Password = 'everkeep10';                           // SMTP password
+        $mail->Username = 'everkeep@zoho.com.cn';                 // SMTP username
+        $mail->Password = 'everkeep_team10';                           // SMTP password
         $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 465;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom('everkeep@126.com', 'EverKeep');
+        $mail->setFrom('everkeep@zoho.com.cn', 'EverKeep');
         $mail->addAddress($to, 'Everkeeper');     // Add a recipient
-        $mail->addReplyTo('everkeep@126.com', 'EverKeep');
+        $mail->addReplyTo('everkeep@zoho.com.cn', 'EverKeep');
         $mail->addBCC('1315649917@qq.com');
 
         //Content
@@ -57,17 +57,17 @@ function sendResetMail($userid, $to, $code) {
         //Server settings
         $mail->SMTPDebug = 0;                                 // Enable verbose debug output
         $mail->isSMTP();                                      // Set mailer to use SMTP
-        $mail->Host = 'smtp.126.com';  // Specify main and backup SMTP servers
+        $mail->Host = 'smtp.zoho.com.cn';  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'everkeep@126.com';                 // SMTP username
-        $mail->Password = 'everkeep10';                           // SMTP password
+        $mail->Username = 'everkeep@zoho.com.cn';                 // SMTP username
+        $mail->Password = 'everkeep_team10';                           // SMTP password
         $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 465;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom('everkeep@126.com', 'EverKeep');
+        $mail->setFrom('everkeep@zoho.com.cn', 'EverKeep');
         $mail->addAddress($to, 'Everkeeper');     // Add a recipient
-        $mail->addReplyTo('everkeep@126.com', 'EverKeep');
+        $mail->addReplyTo('everkeep@zoho.com.cn', 'EverKeep');
         $mail->addBCC('1315649917@qq.com');
 
         //Content
