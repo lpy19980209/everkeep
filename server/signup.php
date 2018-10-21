@@ -7,7 +7,7 @@
  */
 
 require_once __DIR__ . "/response_code.php";
-require_once __DIR__ . "/generateConfirmCodeAndSendMail.php";
+require_once __DIR__ . "/generateAndSend.php";
 
 //验证数据完整性
 if(!isset($_POST['email']) || !isset($_POST['password']))

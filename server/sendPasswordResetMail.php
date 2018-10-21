@@ -30,9 +30,9 @@ if(!preg_match($emailPattern, $_POST['email'])) {
     die($msg);
 }
 
-resendConfirmMail($_POST['email']);
+sendPasswordResetMail($_POST['email']);
 
-function resendConfirmMail($email)
+function sendPasswordResetMail($email)
 {
     $servername = "localhost";
     $username = "everkeep";
@@ -67,14 +67,14 @@ EOF;
     else {
         $row = $result->fetch_assoc();
 
-        if($row["isConfirm"] == 1) {
+        if($row["isConfirm"] != 1) {
             $msg = json_encode([
-                "code" => EMAIL_CONFIRM,
-                "msg" => "您的账号已激活！",
+                "code" => EMAIL_EXIST_BUT_NOT_CONFIRM,
+                "msg" => "您的账号未激活，请先激活再重置密码！",
             ]);
             die($msg);
         }
-        generateConfirmCodeAndSendMail($row["userid"], $email);
+        generateResetCodeAndSendMail($row["userid"], $email);
 
     }
 

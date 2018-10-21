@@ -26,7 +26,6 @@ function accountConfirm($userid, $code)
     $username = "everkeep";
     $password = "everkeep_team10";
     $dbname = "everkeep";
-    $tablename = "confirm";
 
 // 创建连接
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -40,7 +39,7 @@ function accountConfirm($userid, $code)
     }
 
     $sql = <<<EOF
-select * from $tablename where userid = '$userid' and confirmCode = '$code'
+select * from confirm where userid = '$userid' and confirmCode = '$code' and `usage` = 1
 EOF;
 
     $result = $conn->query($sql);
@@ -50,7 +49,7 @@ EOF;
 
     else {
         $sql = <<<EOF
-select userid from $tablename where userid = '$userid'
+select userid from user where userid = '$userid'
 EOF;
 
         $result = $conn->query($sql);

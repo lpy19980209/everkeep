@@ -48,6 +48,7 @@ define("USER_NOT_CONFIRM", 77);
 define("USER_CONFIRM_ERROR", 78);
 define("CONFIRM_CODE_EXPIRE", 79);
 define("ACCOUNT_CONFIRM_ERROR", 80);
+define("PASSWORD_RESET_ERROR", 81);
 
 
 //邮件
