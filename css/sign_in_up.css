@@ -1,0 +1,110 @@
+body {
+    background-color: #f3f3f3;
+}
+
+.sign_logo {
+    margin-top: 70px;
+    height: 68px;
+    width: 100%;
+    background: url("../image/everkeep.png") no-repeat center;
+}
+.sign_title {
+    height: 36px;
+    font-size: 32px;
+    text-align: center;
+    margin: 30px 0px;
+    color: #6a6a6a;
+    font-family: 宋体;
+}
+.sign_form_container {
+    text-align: center;
+    width: 100%;
+}
+.signup_form_container {
+    width: 330px;
+    background: white;
+    padding: 30px;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px #dedede solid;
+    border-radius: 2px;
+}
+
+.sign_input {
+    outline: none;
+    border: 1px #dedede solid;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 15px;
+    padding: 0px 10px;
+    font-size: 18px;
+    background-color: #faffbd;
+    font-weight: bold;
+}
+.sign_input::-webkit-input-placeholder {
+    font-weight: lighter;
+    font-family: "微软雅黑 Light";
+}
+
+.sign_input:focus {
+    border: 2px #28a956 solid;
+}
+
+.email_tip {
+    width: 300px;
+    background-color: #ffd1d1;
+    border-color: #e4a197;
+    color: #b92219;
+    font-size: 13px;
+    margin: 0px auto;
+    padding: 7px 10px;
+    text-align: left;
+    display: none;
+}
+
+.password_tip {
+    width: 300px;
+    background-color: #ffd1d1;
+    border-color: #e4a197;
+    color: #b92219;
+    font-size: 13px;
+    margin: 0px auto;
+    padding: 7px 10px;
+    text-align: left;
+    display: none;
+}
+
+.sign_submit {
+    height: 46px;
+    width: 320px;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #2dbe60;
+    border: 1px #28a956;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+    font-size: 16px;
+
+}
+.sign_submit:hover {
+    background-color: #28a956;
+}
+
+.go_sign_tip {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.no_sign {
+    color: #747474;
+    text-align: center;
+}
+.go_sign {
+    text-align: center;
+}
+.go_sign a{
+    color: #2dbe60;
+    text-decoration: none;
+}

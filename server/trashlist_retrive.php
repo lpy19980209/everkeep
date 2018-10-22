@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Liupy
+ * Date: 2018/10/15
+ * Time: 23:19
+ */
 
 session_start();
 
@@ -67,10 +73,10 @@ function readNoteListFromDB($userid, $orderby, $direction)
     }
 
     $sql = <<<EOF
-select noteid, title, content, unix_timestamp(createTime) as createTime, unix_timestamp(updateTime) as updateTime, 
-unix_timestamp(remindTime) as remindTime, 
+select noteid, title, unix_timestamp(createTime) as createTime, unix_timestamp(updateTime) as updateTime, 
+unix_timestamp(remindTime) as remindTime,  
 markid, notebookid, isStar, isShare from $tablename 
-where userid = $userid and isDelete = 0
+where userid = $userid and isDelete = 1 and current_timestamp-updateTime<=00000030000000
 order by $orderby $direction;
 EOF;
 
@@ -80,11 +86,6 @@ EOF;
 
         $data = [];
         while($row = $result->fetch_assoc()) {
-
-            $filter = Array("&nbsp;", " ", "\r", "\n");
-            $content = strip_tags($row["content"]);
-            foreach($filter as $m)
-                $content = mbereg_replace( $m, "" , $content);
 
             $data[] = [
                 "noteid" => $row['noteid'],
@@ -96,7 +97,6 @@ EOF;
                 "notebookid" => $row["notebookid"],
                 "isStar" => $row["isStar"],
                 "isShare" => $row["isShare"],
-                "snippet" => mb_substr($content, 0, 48),
             ];
         }
 

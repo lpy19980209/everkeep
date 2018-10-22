@@ -1,30 +1,59 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Liupy
+ * Date: 2018/10/15
+ * Time: 23:19
+ */
 
 session_start();
 
+//包含权限检测模块 和 回应码 定义文件， 并检测用户是否登录
 require_once './permission_manager.php';
 require_once './response_code.php';
 
-if (isLogin()) {
+
+if(isLogin())
+{
     $GLOBALS['userid'] = $_SESSION['uid'];
-} else {
+}
+else
+{
     die_for_no_login();
 }
 
-if (!isset($_GET["noteid"])) {
+
+//检查参数是否正确，若错误则返回 一个错误提示
+
+if(!isset($_GET["orderby"])
+    || !isset($_GET["direction"])
+    || !in_array($_GET["orderby"], ['updateTime', 'createTime', 'remindTime', 'title'])
+    || !in_array($_GET["direction"], ['asc', 'desc']))
+{
     $msg = json_encode([
-        "code" => GET_NO_NOTEID,
-        "msg" => "NOTE ID无效",
+        "code" => NOTELIST_RETRIVE_PARMS_ERROR,
+        "msg" => "参数有误",
     ]);
+
     die($msg);
 }
 
-$GLOBALS["noteid"] = $_GET['noteid'];
 
-readNoteFromDB($GLOBALS['noteid'], $GLOBALS['userid']);
+//查询条件和登录状态无误，开始查询
+readNoteListFromDB($GLOBALS['userid'], $_GET["orderby"], $_GET["direction"]);
 
 
-function readNoteFromDB($noteid, $userid)
+
+
+/**
+ * 从数据库中读取 NOTE_LIST
+ *
+ * @param $userid 用户id
+ * @param $orderby 排序字段，为 updateTime, createTime, remindTime, title
+ * @param $direction 排序方法，asc, desc
+ *
+ */
+function readNoteListFromDB($userid, $orderby, $direction)
 {
     $servername = "localhost";
     $username = "everkeep";
@@ -44,20 +73,21 @@ function readNoteFromDB($noteid, $userid)
     }
 
     $sql = <<<EOF
-select noteid, title, content, createTime, updateTime, remindTime, 
+select noteid, title, unix_timestamp(createTime) as createTime, unix_timestamp(updateTime) as updateTime, 
+unix_timestamp(remindTime) as remindTime,  
 markid, notebookid, isStar, isShare from $tablename 
-where userid = $userid and noteid = '$noteid';
+where userid = $userid and isDelete = 0 and isStar = 1
+order by $orderby $direction;
 EOF;
 
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
 
-        // 输出数据
-        while ($row = $result->fetch_assoc()) {
+        $data = [];
+        while($row = $result->fetch_assoc()) {
 
-
-            $data = [
+            $data[] = [
                 "noteid" => $row['noteid'],
                 "title" => $row["title"],
                 "createTime" => $row["createTime"],
@@ -67,17 +97,16 @@ EOF;
                 "notebookid" => $row["notebookid"],
                 "isStar" => $row["isStar"],
                 "isShare" => $row["isShare"],
-                "content" => $row["content"],
             ];
-
-            $msg = json_encode([
-                "code" => SUCCESS,
-                "msg" => "成功",
-                "data" => $data
-            ]);
-            die($msg);
-
         }
+
+        $msg = json_encode([
+            "code" => SUCCESS,
+            "msg" => "成功",
+            "data" => $data
+        ]);
+
+        die($msg);
     } else {
         $msg = json_encode([
             "code" => QUERY_NO_DATA,

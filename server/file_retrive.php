@@ -77,42 +77,26 @@ EOF;
     $conn->close();
 }
 
-//function returnfiledownload($fname, $fsize, $fdata) {
-//    header("Content-Type: application/octet-stream");
-//    header("Content-Disposition: attachment; filename='$fname'");
-//    header("Content-Length: $fsize");
-//
-//    echo $fdata;
-//    exit;
-//}
-//
-//function returnimage($fname, $fsize, $fdata)
-//{
-//    header("Content-Type:image/jpeg;text/html;charset=utf-8");
-//    echo $fdata;
-//    exit;
-//}
+function returnfiledownload($fname, $fsize, $fdata) {
+    header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename='$fname'");
+    header("Content-Length: $fsize");
 
-function returnfile($fname, $fsize, $fdata) {
-    $ftype = mime_content_type($fname);
-//    header("Content-Type: $ftype");
-//
-//    if(preg_match("\image\i", $ftype) ||
-//        preg_match("\audio\i", $ftype) ||
-//        preg_match("\\video\i", $ftype) ||
-//        preg_match("\xml\i", $ftype) ||
-//        preg_match("\xhtml\i", $ftype) ||
-//        preg_match("\\rtf\i", $ftype) ||
-//        preg_match("\pdf\i", $ftype) ||
-//        preg_match("\\text\i", $ftype))
-//    {
-//        header("Content-Type:$ftype;text/html;charset:utf-8;");
-//    }
-//    else {
-        header("Content-Type: $ftype");
-//        header("Content-Disposition: attachment; filename='$fname'");
-        header("Content-Length: $fsize");
-//    }
     echo $fdata;
     exit;
+}
+//
+function returnimage($fname, $fsize, $fdata)
+{
+    header("Content-Type:image/jpeg;text/html;charset=utf-8");
+    echo $fdata;
+    exit;
+}
+
+function returnfile($fname, $fsize, $fdata) {
+
+    if(preg_match("/.*\.png/i", $fname))
+        returnimage($fname, $fsize, $fdata);
+    else
+        returnfiledownload($fname, $fsize, $fdata);
 }

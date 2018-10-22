@@ -3,8 +3,7 @@
  * Created by PhpStorm.
  * User: Liupy
  * Date: 2018/10/11
- * Time: 23:44
+ * Time: 23:49
  */
 
-session_start();
-$_SESSION['uid'] = 1;
+header("Location: ./page/everkeep.php");

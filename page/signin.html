@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小小笔记</title>
+    <link type="text/css" rel="stylesheet" href="../css/sign_in_up.css">
+    <script src="../lib/js/jquery-3.3.1.min.js"></script>
+    <script src="../lib/js/sha1_encode.js"></script>
+    <script src="../script/signin.js"></script>
+    <script src="../script/sign_common.js"></script>
+    <script src="../script/topNotification.js"></script>
+</head>
+<body>
+<div>
+    <div class="sign_logo"></div>
+    <div class="sign_title">登录</div>
+    <div class="sign_form_container">
+        <div class="signup_form_container">
+
+            <input type="email" id="email" placeholder="电子邮箱地址" class="sign_input">
+            <div class="email_tip">未找到该邮件地址，请注册后再登录</div>
+            <input type="password" id="password" class="sign_input" placeholder="密码">
+            <div class="password_tip"  >密码不正确</div>
+            <button id="signin_submit" class="sign_submit">登录</button>
+            <div class="go_sign" style="margin-top: 10px">
+                <a href="../page/reset_request.html">忘记密码</a>
+            </div>
+        </div>
+    </div>
+    <div class="go_sign_tip">
+        <div class="no_sign">没有账号?</div>
+        <div class="go_sign">
+            <a href="../page/signup.html">创建账号</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -3,9 +3,10 @@ use everkeep;
 
 create table `user` (
 userid int auto_increment primary key,
-username text default null,
+username varchar(100) default null unique,
 `password` text not null,
-email text not null,
+email varchar(100) not null unique,
+isConfirm tinyint default 0,
 createTime timestamp not null default current_timestamp
 );
 
@@ -42,7 +43,7 @@ create table note (
 noteid int auto_increment primary key,
 userid int not null,
 title text default null,
-content text not null,
+content longtext not null,
 createTime timestamp not null default current_timestamp,
 updateTime timestamp not null default current_timestamp on update current_timestamp,
 markid int default null,
@@ -83,5 +84,13 @@ link int default 1,
 constraint fk_fileid_userid foreign key(userid) references `user`(userid)
 );
 
+create table `confirm` (
+userid int not null,
+confirmCode int(6) not null,
+applyTime timestamp not null default current_timestamp,
+`usage` tinyint not null default 0,
+
+constraint confirmuid_userid foreign key (userid) references  `user`(userid)
+);
 
 

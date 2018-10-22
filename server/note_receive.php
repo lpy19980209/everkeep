@@ -36,8 +36,14 @@ $notecontent = $_POST['content'];
 savenotetodb($noteid, $_GLOBALS["userid"], $notetitle, $notecontent);
 
 
-//echo $noteid . "\n" . $notetitle . "\n" . $notecontent;
 
+/**
+ * 将笔记保存到数据库
+ * @param $noteid
+ * @param $userid
+ * @param $notetitle
+ * @param $notecontent
+ */
 function savenotetodb($noteid, $userid, $notetitle, $notecontent)
 {
     $servername = "localhost";
@@ -108,6 +114,7 @@ EOF;
             $data = [
                 "noteid" => $noteid,
             ];
+
 
             $msg = json_encode([
                 "code" => SUCCESS,
