@@ -5,12 +5,12 @@
   + 权&emsp;限 ：  `all on everkeep.*`
 + 事务说明
   `everkeep_event.sql` 里面定义了一些事务，用来清除过期的数据，包括：
-    + 超过*30分钟*的重置密码验证信息
-    + 超过*24小时*(实际为`23:59:59`)的账号激活验证信息
-    + 超过*24小时*未激活的用户信息
-    + 超过*30天*的已删除笔记
+    + 超过**30分钟**的重置密码验证信息
+    + 超过**24小时**(实际为`23:59:59`)的账号激活验证信息
+    + 超过**24小时**未激活的用户信息
+    + 超过**30天**的已删除笔记
   
-  ***需要注意的是，`MySQL` 默认关闭事务功能，需要开启事务功能，`event` 才能正常执行***
+  **需要注意的是，`MySQL` 默认关闭事务功能，需要开启事务功能，`event` 才能正常执行**
   
 + 数据库结构
   +  **所有的 `tablenameid` 均设置了外键，下表中没有指明**
@@ -19,9 +19,9 @@
     | Field      | Type      | Null | Key | Default           | Extra          |
     |------------|:---------:|:----:|:---:|:-----------------:|----------------|
     | userid     | int(11)   | NO   | PRI | NULL              | auto_increment |
-    | username   | text      | YES  |     | NULL              | unique         |
+    | username   | varchar(100)  | YES  |     | NULL              | unique         |
     | password   | text      | NO   |     | NULL              |                |
-    | email      | text      | NO   |     | NULL              | unique         |
+    | email      | varchar(100)   | NO   |     | NULL              | unique         |
     | createTime | timestamp | NO   |     | CURRENT_TIMESTAMP |                |
 
   + `everkeep.note`
