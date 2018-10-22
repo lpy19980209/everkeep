@@ -38,8 +38,8 @@ function sendConfirmMail($userid, $to, $code) {
         //Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'EverKeep';
-        $mail->Body    = "点击以下链接确认注册<br> <a href='http://localhost/team10/server/account_confirm.php?userid={$userid}&code={$code}'>EverKeep</a>";
-        $mail->AltBody = "在浏览器打开以下链接确认注册\n http://localhost/team10/server/account_confirm.php?userid={$userid}&code={$code}";
+        $mail->Body    = "点击以下链接确认注册,如果24小时内未激活，则需要重新注册<br> <a href='http://localhost/team10/server/account_confirm.php?userid={$userid}&code={$code}'>EverKeep</a>";
+        $mail->AltBody = "点击以下链接确认注册,如果24小时内未激活，则需要重新注册\n http://localhost/team10/server/account_confirm.php?userid={$userid}&code={$code}";
 
         $mail->send();
         return true;

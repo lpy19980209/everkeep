@@ -76,7 +76,7 @@ function readNoteListFromDB($userid, $orderby, $direction)
 select noteid, title, unix_timestamp(createTime) as createTime, unix_timestamp(updateTime) as updateTime, 
 unix_timestamp(remindTime) as remindTime,  
 markid, notebookid, isStar, isShare from $tablename 
-where userid = $userid and isDelete = 1
+where userid = $userid and isDelete = 1 and current_timestamp-updateTime<=00000030000000
 order by $orderby $direction;
 EOF;
 

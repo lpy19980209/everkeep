@@ -39,7 +39,7 @@ function accountConfirm($userid, $code)
     }
 
     $sql = <<<EOF
-select * from confirm where userid = '$userid' and confirmCode = '$code' and `usage` = 1
+select * from confirm where userid = '$userid' and confirmCode = '$code' and `usage` = 1 and current_timestamp-applyTime<=00000000235959
 EOF;
 
     $result = $conn->query($sql);
