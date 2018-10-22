@@ -47,7 +47,7 @@ EOF;
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
         $_SESSION['uid_for_psd_reset'] = $_GET['userid'];
-        header("Location: ../page/password_reset.html");
+        header("Location: ../page/password_reset.php");
     }
 
     else {
