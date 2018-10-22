@@ -1,20 +1,8 @@
 <?php
 session_start();
 if(!isset($_SESSION['uid_for_psd_reset'])) {
-    $response = <<<EOF
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>小小笔记</title>
-    <meta http-equiv="refresh" content="2;url=../page/signin.html"> 
-</head>
-<body>
-    密码重置链接已过期,请在登录界面重新获取,2秒后进入...
-</body>
-</html>
-EOF;
-    die($response);
+    header("Location: ../page/reset_request.html" );
+    die;
 }
 ?>
 

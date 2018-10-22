@@ -1,3 +1,15 @@
+<?php
+session_start();
+require_once '../server/permission_manager.php';
+require_once '../server/response_code.php';
+
+if(!isLogin())
+{
+    header("Location: ../page/signin.html" );
+    die;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
