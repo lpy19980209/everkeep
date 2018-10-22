@@ -33,7 +33,7 @@ function sendConfirmMail() {
 
     form.append("email", email);
 
-    sendSuccessNotification("连接服务器中......", 3000 , function () {
+    sendSuccessNotification("连接服务器中......", 10000 , function () {
     });
 
     $.ajax({
