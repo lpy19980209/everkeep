@@ -88,7 +88,7 @@ create table `confirm` (
 userid int not null,
 confirmCode int(6) not null,
 applyTime timestamp not null default current_timestamp,
-usage tinyint not null default 0;
+`usage` tinyint not null default 0,
 
 constraint confirmuid_userid foreign key (userid) references  `user`(userid)
 );
