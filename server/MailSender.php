@@ -13,8 +13,13 @@ require '../lib/php/PHPMailer/PHPMailer.php';
 require '../lib/php/PHPMailer/SMTP.php';
 
 
+
 function sendConfirmMail($userid, $to, $code) {
+
     $mail = new PHPMailer(true);
+
+    $base_dir = "http://localhost/team10/";
+
     try {
 
         $mail->CharSet = 'UTF-8';
@@ -38,8 +43,8 @@ function sendConfirmMail($userid, $to, $code) {
         //Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'EverKeep';
-        $mail->Body    = "点击以下链接确认注册,如果24小时内未激活，则需要重新注册<br> <a href='http://localhost/team10/server/account_confirm.php?userid={$userid}&code={$code}'>EverKeep</a>";
-        $mail->AltBody = "点击以下链接确认注册,如果24小时内未激活，则需要重新注册\n http://localhost/team10/server/account_confirm.php?userid={$userid}&code={$code}";
+        $mail->Body    = "点击以下链接确认注册,如果24小时内未激活，则需要重新注册<br> <a href='{$base_dir}server/account_confirm.php?userid={$userid}&code={$code}'>EverKeep</a>";
+        $mail->AltBody = "点击以下链接确认注册,如果24小时内未激活，则需要重新注册\n {$base_dir}server/account_confirm.php?userid={$userid}&code={$code}";
 
         $mail->send();
         return true;
@@ -54,6 +59,8 @@ function sendResetMail($userid, $to, $code) {
 
         $mail->CharSet = 'UTF-8';
 
+        $base_dir = "http://localhost/team10/";
+
         //Server settings
         $mail->SMTPDebug = 0;                                 // Enable verbose debug output
         $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -73,8 +80,8 @@ function sendResetMail($userid, $to, $code) {
         //Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'EverKeep';
-        $mail->Body    = "点击以下链接重置密码,30分钟内有效，<br> <a href='http://localhost/team10/server/password_reset.php?userid={$userid}&code={$code}'>EverKeep</a>";
-        $mail->AltBody = "在浏览器打开以下链接重置密码，,30分钟内有效，\n http://localhost/team10/server/password_reset.php?userid={$userid}&code={$code}";
+        $mail->Body    = "点击以下链接重置密码,30分钟内有效，<br> <a href='{$base_dir}server/password_reset.php?userid={$userid}&code={$code}'>EverKeep</a>";
+        $mail->AltBody = "在浏览器打开以下链接重置密码，,30分钟内有效，\n {$base_dir}server/password_reset.php?userid={$userid}&code={$code}";
 
         $mail->send();
         return true;
