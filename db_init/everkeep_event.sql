@@ -1,3 +1,5 @@
+use everkeep;
+
 create event everkeep_clear_password_reset_code_outdate
 on schedule
 every 1 second
