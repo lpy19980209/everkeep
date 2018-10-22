@@ -41,7 +41,7 @@ function grantSessionForPasswordReset($userid, $code)
     }
 
     $sql = <<<EOF
-select * from confirm where userid = '$userid' and confirmCode = '$code' and `usage` = 2
+select * from confirm where userid = '$userid' and confirmCode = '$code' and `usage` = 2 and current_timestamp()-applyTime<00000000003000
 EOF;
 
     $result = $conn->query($sql);

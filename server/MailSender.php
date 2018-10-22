@@ -73,8 +73,8 @@ function sendResetMail($userid, $to, $code) {
         //Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'EverKeep';
-        $mail->Body    = "点击以下链接重置密码<br> <a href='http://localhost/team10/server/password_reset.php?userid={$userid}&code={$code}'>EverKeep</a>";
-        $mail->AltBody = "在浏览器打开以下链接重置密码\n http://localhost/team10/server/password_reset.php?userid={$userid}&code={$code}";
+        $mail->Body    = "点击以下链接重置密码,30分钟内有效，<br> <a href='http://localhost/team10/server/password_reset.php?userid={$userid}&code={$code}'>EverKeep</a>";
+        $mail->AltBody = "在浏览器打开以下链接重置密码，,30分钟内有效，\n http://localhost/team10/server/password_reset.php?userid={$userid}&code={$code}";
 
         $mail->send();
         return true;

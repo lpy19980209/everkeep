@@ -70,6 +70,9 @@ EOF;
             "code" => SUCCESS,
             "msg" => "success",
         ]);
+
+        unset($_SESSION['uid_for_psd_reset']);
+
         die($msg);
 
     } else {
