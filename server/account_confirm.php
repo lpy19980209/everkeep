@@ -112,11 +112,6 @@ EOF;
 
     if ($conn->query($sql) === TRUE) {
 
-//        $msg = json_encode([
-//            "code" => SUCCESS,
-//            "msg" => "success",
-//        ]);
-//        die($msg);
         $response = <<<EOF
 <!DOCTYPE html>
 <html lang="en">
@@ -130,8 +125,21 @@ EOF;
 </body>
 </html>
 EOF;
+        ob_start();
+        header("Connection: close\r\n");
+        header("Content-Encoding: none\r\n");
+
         echo $response;
-        exit;
+
+        $size = ob_get_length();
+        header("Content-Length: ". $size . "\r\n");
+        ob_end_flush();
+        //断开连接
+
+        $sql = <<<EOF
+delete from confirm where userid = '$userid' and `usage` = 1;
+EOF;
+        $conn->query($sql);
 
     } else {
         $msg = json_encode([
