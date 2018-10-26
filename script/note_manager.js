@@ -931,6 +931,7 @@ $(document).ready(function () {
     $(".search_input_div").on("").bind("keypress", function (event) {
         if(event.keyCode == 13) {
             $(".begin_search_div").click();
+            $(".search_input_div").blur();
         }
     })
 
