@@ -709,6 +709,9 @@ $(document).ready(function () {
 
     //定义笔记添加功能
     $(".new_note_button").click(function () {
+
+        $(".sub_note_list_container").css('left', '-450px');
+
         $("#note_area").data('noteinfo', null);
         $("#note_edit_title").val(null);
         $("#my_text_area").html(null);
