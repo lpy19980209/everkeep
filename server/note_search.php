@@ -18,8 +18,11 @@ else
 
 
 //检查参数是否正确，若错误则返回 一个错误提示
-
-if(!isset($_GET["keyword"]))
+if(!isset($_GET["orderby"])
+    || !isset($_GET["direction"])
+    || !in_array($_GET["orderby"], ['updateTime', 'createTime', 'remindTime', 'title'])
+    || !in_array($_GET["direction"], ['asc', 'desc'])
+    || !isset($_GET["keyword"]))
 {
     $msg = json_encode([
         "code" => NOTELIST_RETRIVE_PARMS_ERROR,
@@ -68,7 +71,7 @@ select noteid, title, content, unix_timestamp(createTime) as createTime, unix_ti
 unix_timestamp(remindTime) as remindTime, 
 markid, notebookid, isStar, isShare from $tablename 
 where userid = $userid and isDelete = 0
-order by updateTime desc;
+order by $orderby $direction;
 EOF;
 
     $result = $conn->query($sql);
@@ -76,18 +79,16 @@ EOF;
     if ($result->num_rows > 0) {
 
         $data = [];
-        $incontent = [];
-        $intitle = [];
 
         while($row = $result->fetch_assoc()) {
 
-            $filter = Array("&nbsp;", " ");
+            $filter = Array("&nbsp;", " ", "\r", "\n");
             $content = strip_tags($row["content"]);
             foreach($filter as $m)
                 $content = mbereg_replace( $m, "" , $content);
 
-            if(substr_count($content, $_GET["keyword"]) > 0)
-            $incontent[] = [
+            if(substr_count($content, $_GET["keyword"]) > 0 || substr_count($row["title"], $_GET["keyword"]) > 0)
+            $data[] = [
                 "noteid" => $row['noteid'],
                 "title" => $row["title"],
                 "createTime" => $row["createTime"],
@@ -100,24 +101,7 @@ EOF;
                 "snippet" => mb_substr($content, 0, 48),
             ];
 
-            if(substr_count($row['title'], $_GET["keyword"]) > 0)
-                $intitle[] = [
-                    "noteid" => $row['noteid'],
-                    "title" => $row["title"],
-                    "createTime" => $row["createTime"],
-                    "updateTime" => $row["updateTime"],
-                    "remindTime" => $row["remindTime"],
-                    "markid" => $row["markid"],
-                    "notebookid" => $row["notebookid"],
-                    "isStar" => $row["isStar"],
-                    "isShare" => $row["isShare"],
-                    "snippet" => mb_substr($content, 0, 48),
-                ];
-
         }
-
-        $data['intitle'] = $intitle;
-        $data['incontent'] = $incontent;
 
         $msg = json_encode([
             "code" => SUCCESS,

@@ -79,10 +79,8 @@ $(document).ready(function () {
         $(".checked_left_menu").removeClass("checked_left_menu");
         $("#img2").addClass("checked_left_menu");
 
-        if($('#trash_container').css('left') == '0px')
-        {
-            $("#trash_container").css('left', '-450px');
-        }
+        //将废纸篓、搜索结果等隐藏
+        $(".sub_note_list_container").css('left', '-450px');
     })
 });
 $(document).ready(function () {

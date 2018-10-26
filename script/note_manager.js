@@ -435,6 +435,117 @@ function fillTrashList(orderby, direction) {
 
 /*************************************************************************************/
 /**
+ * 从服务器获取SEARCH列表  若传入参数，在成功后作为函数执行
+ * 并填充到 search_list 元素 里面
+ *
+ */
+function fillSearchList(orderby, direction, keyword) {
+    let afterSuccess = null;
+    if (arguments.length == 4) {
+        afterSuccess = arguments[3];
+    }
+
+    console.log("../server/note_search.php?orderby=" + orderby + "&direction=" + direction + "&keyword=" + keyword);
+    $.get({
+        url: "../server/note_search.php?orderby=" + orderby + "&direction=" + direction + "&keyword=" + keyword,
+        success: function (responsedata) {
+
+            let response = JSON.parse(responsedata);
+
+            if (response['code'] == 0) {
+
+                $("#search_list .note_info_container").remove();
+
+                var noteInfoList = response["data"];
+
+                if (noteInfoList.length > 0) {
+
+                    for (var i in noteInfoList) {
+
+                        var noteInfo = noteInfoList[i];
+
+                        var noteInfoContainer = $("<div></div>");
+                        var noteTitle = $("<span></span>");
+
+                        //工具栏
+                        var noteItemTool = $("<div></div>")
+                        $(noteItemTool).addClass("note_item_tool");
+
+                        var noteToolShortcut = $("<div></div>");
+                        $(noteToolShortcut).addClass("note_tool_shortcut");
+                        $(noteToolShortcut).hover(
+                            function () {
+                                $(this).attr('title', $(this).hasClass("is_star") ? "删除快捷方式" : "添加快捷方式");
+                            },
+                            function () {
+                                //do nothing
+                            });
+
+                        if (noteInfo["isStar"] == 1) {
+                            $(noteToolShortcut).addClass("is_star")
+                        }
+
+                        var noteToolDelete = $("<div></div>");
+                        $(noteToolDelete).addClass("note_tool_delete");
+                        $(noteToolDelete).attr('title',"删除笔记");
+
+
+                        $(noteItemTool).append(noteToolShortcut);
+                        $(noteItemTool).append(noteToolDelete);
+
+                        //更新时间
+                        var noteTime = $("<p></p>")
+
+                        console.log(noteInfo);
+
+                        $(noteTitle).text(noteInfo["title"] == "" ? "无标题" : noteInfo["title"]);
+                        $(noteTitle).addClass("note_info_title");
+
+                        if (orderby == "createTime")
+                            $(noteTime).text(simplifyTime(noteInfo["createTime"]));
+                        else
+                            $(noteTime).text(simplifyTime(noteInfo["updateTime"]));
+                        $(noteTime).addClass("note_info_time");
+
+                        let noteSnippet = $("<div></div>");
+                        noteSnippet.addClass("note_snippet");
+                        noteSnippet.text(noteInfo['snippet']);
+
+                        $(noteInfoContainer).append(noteTitle);
+                        $(noteInfoContainer).append(noteTime);
+                        $(noteInfoContainer).append(noteItemTool);
+                        $(noteInfoContainer).append(noteSnippet);
+
+                        $(noteInfoContainer).data('noteinfo', noteInfo);
+                        $(noteInfoContainer).addClass("note_info_container");
+                        $(noteInfoContainer).attr("id", "notelist_item_" + noteInfo["noteid"]);
+
+
+
+
+                        $("#search_list").append(noteInfoContainer);
+                    }
+
+                }
+            }
+
+            else {
+                console.log("SEARCH NOTE列表获取失败：" + responsedata);
+            }
+
+            if (afterSuccess != null) {
+                afterSuccess();
+            }
+
+        },
+        error: function (what) {
+            console.log("SEARCH NOTE列表获取失败: " + what);
+        }
+    });
+}
+
+/*************************************************************************************/
+/**
  * 将选中的noteInfo设置到编辑区
  * @param data
  */
@@ -499,6 +610,17 @@ $(document).ready(function () {
             $("#no_star_tip").show();
     });
 
+    document.getElementById("search_list").addEventListener('DOMSubtreeModified', function () {
+        if ($("#star_list  .note_info_container").length > 0)
+            ;
+        else
+            ;
+
+        $(".span_count_of_search_note").text($("#search_list  .note_info_container").length + "条笔记");
+        console.log($("#search_list .note_info_container").length + "条笔记");
+    });
+
+
     document.getElementById("trash_list").addEventListener('DOMSubtreeModified', function () {
         if ($("#trash_list  .note_info_container").length > 0)
             $(".clear_trash_div").show();
@@ -512,7 +634,7 @@ $(document).ready(function () {
     /**
      * 动态添加的元素 定义 click 事件的方法
      */
-    $('#note_list, #trash_list').on("click", ".note_info_container", function (e) {
+    $('#note_list, #trash_list, #search_list').on("click", ".note_info_container", function (e) {
         var noteInfo = $(this).data('noteinfo');
 
         // alert(JSON.stringify(noteInfo));
@@ -601,7 +723,7 @@ $(document).ready(function () {
 
 
     //定义notelist笔记删除事件
-    $("#note_list").on("click", ".note_tool_delete", function (event) {
+    $("#note_list, #search_list").on("click", ".note_tool_delete", function (event) {
 
         let noteInfo = $(this).parent().parent().data("noteinfo");
         let theNoteInfoDiv = $(this).parent().parent();
@@ -657,7 +779,7 @@ $(document).ready(function () {
 
     //
     //定义笔记星标事件
-    $("#note_list").on("click", ".note_tool_shortcut", function (event) {
+    $("#note_list, #search_list").on("click", ".note_tool_shortcut", function (event) {
 
         let noteInfo = $(this).parent().parent().data("noteinfo");
         let starDiv = $(this);
@@ -753,10 +875,11 @@ $(document).ready(function () {
 
     //点击废纸篓入口事件
     $(".trash_entry_div").click(function () {
-        if ($('#trash_container').css('left') == '-450px') {
-            $("#trash_container").show();
-            $("#trash_container").css('left', '0px');
-        }
+
+        $(".sub_note_list_container").css('left', '-450px');
+
+        $("#trash_container").css('left', '0px');
+
 
         $('#slide3').removeClass("slide_out");
         $("#slide3").animate({left: -450}, "slow", function () {
@@ -772,6 +895,41 @@ $(document).ready(function () {
             }
         });
     });
+    //点击搜索事件
+    $(".left_navigation_search").click(function () {
+
+        $("#note_list .note_info_container").remove();
+
+        $("#search_container").css('left', '0px');
+        if ($("#search_list .note_info_container").length > 0) {
+            $("#search_list .note_info_container:first").click();
+            console.log("-------------------FROM SEARCh-------------------");
+        }
+        else {
+            clearAndHideNoteArea();
+        }
+    });
+
+    //开始搜索
+    $(".begin_search_div").click(function () {
+        let keyword = $(".search_input_div").val();
+        fillSearchList(noteOrderMethod["u_d"].order, noteOrderMethod["u_d"].direction, keyword, function () {
+            if ($("#search_list .note_info_container").length > 0) {
+                $("#search_list .note_info_container:first").click();
+                console.log("-------------------FROM SEARCh-------------------");
+            }
+            else {
+                clearAndHideNoteArea();
+            }
+        });
+    });
+
+    //回车开始搜索
+    $(".search_input_div").on("").bind("keypress", function (event) {
+        if(event.keyCode == 13) {
+            $(".begin_search_div").click();
+        }
+    })
 
     //点击笔记菜单入口事件
     $(".left_navigation_note").click(function () {

@@ -6,7 +6,7 @@
     color: #3A3A3A;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: #F5F5F5 solid 1px;
+    border-bottom: #c0c0c0 solid 1px;
 }
 
 #note_list .note_info_container:hover {
@@ -115,7 +115,7 @@
     color: #3A3A3A;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: #F5F5F5 solid 1px;
+    border-bottom: #c0c0c0 solid 1px;
 }
 
 #star_list .note_info_container:hover {
@@ -196,7 +196,6 @@
     top:0px;
     z-index: 0;
     border-right: 1px solid #000000;
-    display: none;
     left:-450px;
 }
 
@@ -269,7 +268,7 @@
     color: #3A3A3A;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: #F5F5F5 solid 1px;
+    border-bottom: #c0c0c0 solid 1px;
 }
 
 #trash_list .note_info_container:hover {
@@ -347,4 +346,171 @@
 
 .note_tool_delete, .note_tool_shortcut, .note_tool_really_delete, .note_tool_restore, #top_tool_delete, #top_tool_star {
     cursor: pointer;
+}
+
+/************************************************************************************/
+
+#search_container{
+    width: 350px;
+    height: 100%;
+    margin-left: 64px;
+    position: absolute;
+    bottom: 0px;
+    top:0px;
+    z-index: 0;
+    border-right: 1px solid #000000;
+    left:-450px;
+}
+
+#search_list {
+    width: 350px;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.search_input_container {
+    height: 152px;
+    widow: 100%;
+    background-color: #393d41;
+}
+.search_input_div {
+    display: block;
+    width: 300px;
+    position: relative;
+    top: 28px;
+    left: 25px;
+    height: 30px;
+    color: #58df84;
+    text-align: center;
+    font-size: 30px;
+    line-height: 44px;
+    font-weight: lighter;
+}
+
+.begin_search_div {
+    position: relative;
+    top: 50px;
+    left: 135px;
+    color: #58df84;
+    background-color: #212426;
+    text-align: center;
+    height: 21px;
+    width: 74px;
+    font-size: 13px;
+    line-height: 21px;
+    font-weight: lighter;
+    cursor: pointer;
+}
+
+.search_count_container{
+    width: 350px;
+    /*height: 20px;*/
+    line-height: 40px;
+    border-bottom: solid 1px #c0c0c0 ;
+}
+
+#span_count_of_search_note{
+    margin-left: 20px;
+    font-size: 15px;
+    color: #a9a9a9;
+}
+
+/*******************************************************************/
+#search_list .note_info_container {
+    position: relative;
+    padding-left: 30px;
+    color: #3A3A3A;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: #c0c0c0 solid 1px;
+}
+
+#search_list .note_info_container:hover {
+    background-color: #2DBE60;
+    color: white;
+}
+
+#search_list .note_info_container:hover > .note_info_title {
+    margin-right: 80px;
+}
+
+
+#search_list .note_info_container:hover > .note_item_tool {
+    display: block;
+}
+
+#search_list .note_info_title {
+    font-style: normal;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: lighter;
+    font-size: 16px;
+    margin: 0px;
+    color: #000;
+    /*background-color: #8a6d3b;*/
+}
+#search_list .note_info_container:hover > * {
+    color: white;
+}
+
+#search_list .note_info_time {
+    color: gray;
+    font-size: 12px;
+    margin: 0px;
+    /*background-color: #1e6abc;*/
+}
+
+#search_list .note_snippet {
+    margin-top: 5px;
+    color: gray;
+    font-size: 12px;
+    padding-right: 15px;
+    height: 40px;
+}
+
+#search_list .note_item_selected {
+    border-top: 2px solid #c0c0c0;
+    border-bottom: 2px solid #c0c0c0;
+}
+
+#search_list .note_item_tool {
+    display: none;
+    width: 80px;
+    height: 24px;
+    text-align: right;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+
+#search_list .note_tool_delete {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    background: url("../image/note_style/delete_white_24x24.png");
+}
+
+#search_list .note_tool_delete:hover {
+    background: url("../image/note_style/delete_solid_white_24x24.png");
+}
+
+#search_list .note_tool_shortcut {
+    display: inline-block;
+    position: absolute;
+    right: 44px;
+    width: 24px;
+    height: 24px;
+    background: url("../image/note_style/shortcut_white_24x24.png");
+}
+#search_list .note_tool_shortcut:hover,#search_list .is_star {
+    background: url("../image/note_style/shortcut_solid_white_24x24.png");
 }
