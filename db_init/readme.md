@@ -19,7 +19,7 @@
     | Field      | Type      | Null | Key | Default           | Extra          |
     |------------|:---------:|:----:|:---:|:-----------------:|----------------|
     | userid     | int(11)   | NO   | PRI | NULL              | auto_increment |
-    | username   | varchar(100)  | YES  |     | NULL              | unique         |
+    | username   | varchar(100)  | YES  |     | NULL              |         |
     | password   | text      | NO   |     | NULL              |                |
     | email      | varchar(100)   | NO   |     | NULL              | unique         |
     | createTime | timestamp | NO   |     | CURRENT_TIMESTAMP |                |

@@ -68,7 +68,7 @@ if(!isLogin())
 
     </div>
 
-    <div id="trash_container" class="sidebar">
+    <div id="trash_container" class="sidebar sub_note_list_container">
         <div class="trash_logo_div">
             <div class="trash_logo_div_name">废纸篓</div>
             <div class="clear_trash_div">清空废纸篓</div>
@@ -78,6 +78,22 @@ if(!isLogin())
         </div>
 
         <div id="trash_list">
+
+        </div>
+
+
+    </div>
+
+    <div id="search_container" class="sidebar sub_note_list_container">
+        <div class="search_input_container">
+            <input class="search_input_div" placeholder="请输入关键词"/>
+            <div class="begin_search_div">搜索</div>
+        </div>
+        <div class="search_count_container">
+            <span id="span_count_of_search_note" class="span_count_of_search_note">0条笔记</span>
+        </div>
+
+        <div id="search_list">
 
         </div>
 
@@ -139,7 +155,7 @@ if(!isLogin())
     <div class="div1">
         <img src="../image/main_frame/index0.png" alt="" id="img0">
         <img src="../image/main_frame/index1.png" alt="" id="img1" class="new_note_button" title="新建笔记">
-        <img src="../image/main_frame/index4.png" alt="" id="img4" title="搜索">
+        <img src="../image/main_frame/index4.png" alt="" id="img4" class="left_navigation_search" title="搜索">
         <img src="../image/main_frame/index8.png" alt="" id="img8" class="left_navigation_star" title="快捷方式">
         <img src="../image/main_frame/index2.png" alt="" id="img2" class="left_navigation_note" title="笔记">
         <img src="../image/main_frame/index3.png" alt="" id="img3" title="笔记本">

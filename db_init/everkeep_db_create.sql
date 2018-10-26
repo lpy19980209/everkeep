@@ -3,7 +3,7 @@ use everkeep;
 
 create table `user` (
 userid int auto_increment primary key,
-username varchar(100) default null unique,
+username varchar(100) default null,
 `password` text not null,
 email varchar(100) not null unique,
 isConfirm tinyint default 0,

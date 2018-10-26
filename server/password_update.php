@@ -71,9 +71,22 @@ EOF;
             "msg" => "success",
         ]);
 
-        unset($_SESSION['uid_for_psd_reset']);
+        ob_start();
+        header("Connection: close\r\n");
+        header("Content-Encoding: none\r\n");
 
-        die($msg);
+        echo $msg;
+
+        $size = ob_get_length();
+        header("Content-Length: ". $size . "\r\n");
+        ob_end_flush();
+        //断开连接
+
+        unset($_SESSION['uid_for_psd_reset']);
+        $sql = <<<EOF
+delete from confirm where userid = '$userid' and `usage` = 2;
+EOF;
+        $conn->query($sql);
 
     } else {
         $msg = json_encode([

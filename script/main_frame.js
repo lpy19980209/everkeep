@@ -79,10 +79,8 @@ $(document).ready(function () {
         $(".checked_left_menu").removeClass("checked_left_menu");
         $("#img2").addClass("checked_left_menu");
 
-        if($('#trash_container').css('left') == '0px')
-        {
-            $("#trash_container").css('left', '-450px');
-        }
+        //将废纸篓、搜索结果等隐藏
+        $(".sub_note_list_container").css('left', '-450px');
     })
 });
 $(document).ready(function () {
@@ -134,7 +132,26 @@ $(document).ready(function () {
             $("#note_area_shadow").fadeOut();
         }
     });
+
+    $("#img1").click(function () {
+        $(".slide_out").stop(false, false);
+        $("#note_area_shadow").stop(false, false);
+        $(".slide_out").animate({left:-450},"normal").removeClass('slide_out');
+        $(".checked_left_menu").removeClass("checked_left_menu");
+        $("#img2").addClass("checked_left_menu");
+        $("#note_area_shadow").hide();
+    });
+
+    $("#img4").click(function () {
+        $(".slide_out").stop(false, false);
+        $("#note_area_shadow").stop(false, false);
+        $(".slide_out").animate({left:-450},"normal").removeClass('slide_out');
+        $(".checked_left_menu").removeClass("checked_left_menu");
+        $("#img4").addClass("checked_left_menu");
+        $("#note_area_shadow").hide();
+    });
 });
+
 $(document).ready(function () {
     $("#photo3").click(function () {
         $("#list1").toggle()
@@ -153,4 +170,6 @@ $(document).ready(function () {
         $("#slide2").show();
         $("#slide2").css('left', '0px');
     }
+
+    $("img2").addClass(".checked_left_menu");
 });
