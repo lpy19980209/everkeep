@@ -56,7 +56,6 @@ isDelete tinyint default 0,
 sharedPeople text default null,
 
 constraint fk_noteid_notebookid foreign key(notebookid) references notebook(notebookid),
-constraint fk_noteid_markid foreign key (markid) references mark(markid),
 constraint fk_noteid_userid foreign key (userid) references  `user`(userid)
 );
 

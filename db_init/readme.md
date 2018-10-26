@@ -34,7 +34,7 @@
     | content      | longtext       | NO   |     | NULL                |                            |
     | createTime   | timestamp  | NO   |     | CURRENT_TIMESTAMP   |                            |
     | updateTime   | timestamp  | NO   |     | CURRENT_TIMESTAMP   | on update CURRENT_TIMESTAMP|
-    | markid       | int(11)    | YES  | MUL | NULL                |                            |
+    | markid       | int(11)    | YES  |     | NULL                |                            |
     | notebookid   | int(11)    | YES  | MUL | NULL                |                            |
     | remindTime   | timestamp  | NO   |     | 0000-00-00 00:00:00 |                            |
     | isStar      | tinyint(4) | NO   |     | 0                |                            |
