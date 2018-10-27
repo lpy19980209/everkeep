@@ -961,12 +961,24 @@ $(document).ready(function () {
                 let response = JSON.parse(responsedata);
                 if (response["code"] == 0) {
                     console.log(noteInfo + "restored");
+
+                    let nextNote = $(theNoteInfoDiv).next().length <= 0 ? $(theNoteInfoDiv).prev() : $(theNoteInfoDiv).next();
+
                     $(theNoteInfoDiv).fadeOut(function () {
-                        $(this).remove();
+                        $(theNoteInfoDiv).remove();
                     });
-                    if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
-                        $("#no_note_tip + .note_info_container").click();
+
+                    if ($("#note_area").data("noteinfo") == null || $("#note_area").data("noteinfo")["noteid"] == noteInfo["noteid"]) {
+                        clearAndHideNoteArea();
+                        nextNote.click();
                     }
+
+                    // $(theNoteInfoDiv).fadeOut(function () {
+                    //     $(this).remove();
+                    // });
+                    // if ($("#note_area").data("noteid") == noteInfo["noteid"] && $("#note_list .note_info_container").length > 0) {
+                    //     $("#no_note_tip + .note_info_container").click();
+                    // }
                     sendSuccessNotification((noteInfo["title"] == "" ? "无标题" : noteInfo["title"].substr(0, 10))
                         + (noteInfo["title"].length > 10 ? "..." : "") + "  还原成功");
                 }
